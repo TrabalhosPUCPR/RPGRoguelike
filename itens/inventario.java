@@ -11,6 +11,25 @@ public class inventario {
  private ArrayList<consumiveis> itenConsumivel;
  private Double dinheiro;
 
+
+ public void listarItens(int itenOfensivo, int itenDefensivo, int itenMisc, ArrayList<consumiveis> itenConsumivel, Double dinheiro){
+    this.itenOfensivo = itenOfensivo;
+    this.itenDefensivo = itenDefensivo;
+    this.itenMisc =  itenMisc;
+    this.itenConsumivel = new ArrayList<consumiveis>();
+    this.dinheiro = dinheiro;
+
+    
+    for(int i = 0; i < this.itenConsumivel.size(); i++){
+        System.out.println("_________");
+        System.out.println(itenConsumivel.get(i).getNome());
+        System.out.println(itenConsumivel.get(i).getAcao());
+        System.out.println(itenConsumivel.get(i).getValor());
+        System.out.println("_________");
+    }
+
+ }
+
  
  
  public int getItenOfensivo() {

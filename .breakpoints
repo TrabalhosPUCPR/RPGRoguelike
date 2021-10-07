@@ -4,8 +4,16 @@
       {
         "id": "4769be02-fd05-4b3b-8c01-0b6e2f0e29a9",
         "line": 1,
-        "version": 45,
+        "version": 47,
         "index": 0
+      }
+    ],
+    "entidades/NPC_c.java": [
+      {
+        "id": "73eb3885-9173-4446-8044-a810d5ba49ae",
+        "line": 19,
+        "version": 493,
+        "index": 1029
       }
     ]
   }
