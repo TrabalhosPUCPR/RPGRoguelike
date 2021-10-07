@@ -28,6 +28,7 @@ public class handler {
     public static void iniciarJogo(){
         extras.print("[Jogo]: Carregando...");
         iniFases();
+        iniNpcs();
         iniMonstros();
         iniClasses();
         iniItens();
@@ -43,7 +44,7 @@ public class handler {
         handler.npcs.add(new NPC("Vendedor ambulante","Pessoa misteriosa que comercializa itens", 0, 5, 1, 1, 1, 5)); // 0
         handler.npcs.add(new NPC("Prisioneiro/Player","Outro jogador, mas aparenta estar mentalmente instavel, pode acabar lhe dando uma dica ou item", 0, 5, 1, 1, 1, 5)); // 1
         handler.npcs.add(new NPC("Mendigo","Encostado na parede e coberto por um pano surrado um velho senhor, um pouco sus, lhe pede um pouco de dinheiro", 1, 30, 8, 6, 5, 16)); // 2
-        handler.npcs.add(new NPC("D-Dog","literalmente um doguinho, com uma espada...", 8, 20, 10, 4, 7, 10)); // 3
+        handler.npcs.add(new NPC("D-Dog","literalmente um doguinho, com uma espada...", 8, 20, 10, 4, 7, -5)); // 3
         extras.println("[NPC]: NPCs criados com sucesso");
     }
 

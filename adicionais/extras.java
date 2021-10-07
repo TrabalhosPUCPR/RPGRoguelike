@@ -29,9 +29,9 @@ public class extras {
         return aleatorio;
     }
 
-    public static double rng_double(double max){
+    public static double rng_double(double min, double max){
         double aleatorio = new Random().nextDouble();
-        aleatorio = aleatorio*max;
+        aleatorio = min + (max - min) * aleatorio;
         return aleatorio;
     }
 

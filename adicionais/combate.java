@@ -5,146 +5,73 @@ import entidades.inimigos;
 
 public class combate extends entidade{
 
+    public static int n_turno = 0;
+
     public combate(){}
 
-    public static void lutaini(){
-        double rand = extras.rng_double(1);
+    public static void lutaini(int tipo){
         handler.jogador.luta_prep();
-
-        if(rand > 0.05){ // todo andar que for do tipo monstro tem 5% chance de ser um monstro incomun
-            luta_monstrinho();
-        }else{
-            luta_boss_rand();
+        switch(tipo){
+            case 0:
+                if(extras.rng_double(0, 1) > 0.02){ // todo andar que for do tipo monstro tem 2% chance de ser um monstro incomum
+                    luta(inimigos.selec_monstro(0), 0);
+                }else{
+                    luta(inimigos.selec_monstro(1), 1);
+                }
+                break;
+            case 1:
+            case 2:
+            case 3:
+                luta(inimigos.selec_monstro(tipo), tipo);
+                break;
         }
     }
 
-    public static void luta_monstrinho(){
-        int indexm = inimigos.selec_monstro(0); // tipo do monstro, pra monstro comum e 0
-        extras.print("");
-        extras.println_bonito("Cuidado!", 600, 500);
-        extras.print("");
-        extras.println_bonito("Um " + handler.monstros.get(indexm).getNome() + " se aproxima!", 700, 500);
+    public static void lutaini(int tipo, int indexm){
+        handler.jogador.luta_prep();
+        luta(indexm, tipo);
+    }
 
-        while(handler.jogador.getVida() > 0 && handler.monstros.get(indexm).getVida() > 0){
+    public static void luta(int indexm, int tipo){
+        extras.print("");
+        extras.println_bonito("Cuidado!", 300, 500);
+        extras.print("");
+        extras.println_bonito("Um " + inimigos.getInimigo(indexm, tipo).getNome() + " se aproxima!", 700, 500);
 
-            if(handler.jogador.getDestreza() >= handler.monstros.get(indexm).getDestreza()){ // caso a destreza do jogador for maior que a do monstro, ele ataca primeiro
-                handler.jogador.turno(indexm, 0);
-                if (handler.monstros.get(indexm).getVida() > 0){
-                    if(handler.jogador.getDestreza()*0.33 > handler.monstros.get(indexm).getDestreza()){ //caso 33% da destreza do jogador for maior que da destreza total do monstro, o jogador ataca primeiro duas vezes
+        while(handler.jogador.getVida() > 0 && inimigos.getInimigo(indexm, tipo).getVida() > 0){
+
+            if(handler.jogador.getDestreza() >= inimigos.getInimigo(indexm, tipo).getDestreza()){ // caso a destreza do jogador for maior que a do monstro, ele ataca primeiro
+                handler.jogador.P_turno(indexm, tipo);
+                if (inimigos.getInimigo(indexm, tipo).getVida() > 0){
+                    if(handler.jogador.getDestreza()*0.33 > inimigos.getInimigo(indexm, tipo).getDestreza()){ //caso 33% da destreza do jogador for maior que da destreza total do monstro, o jogador ataca primeiro duas vezes
                         extras.print("");
                         extras.println_bonito("Sua destreza e muito alta!", 500, 800);
-                        handler.jogador.turno(indexm, 0);
+                        handler.jogador.P_turno(indexm, tipo);
                     }
-                    if (handler.monstros.get(indexm).getVida() > 0){
-                        handler.monstros.get(indexm).turno_mons();
+                    if (inimigos.getInimigo(indexm, tipo).getVida() > 0){
+                        inimigos.getInimigo(indexm, tipo).Iturno();
                     }
                 }
 
             }else{ // caso a destreza do jogador for apenas menor que a do monstro, o monstro ataca primeiro
-                handler.monstros.get(indexm).turno_mons();
+                inimigos.getInimigo(indexm, tipo).Iturno();
                 if (handler.jogador.getVida() > 0){
-                    if(handler.jogador.getDestreza() < handler.monstros.get(indexm).getDestreza()*0.33){ // caso a destreza do jogador for menor que 33% da destreza total do monstro, o monstro ataca primeiro duas vezes
+                    if(handler.jogador.getDestreza() < inimigos.getInimigo(indexm, tipo).getDestreza()*0.33){ // caso a destreza do jogador for menor que 33% da destreza total do monstro, o monstro ataca primeiro duas vezes
                         extras.print("");
-                        extras.println_bonito("Essa nao! O " + handler.monstros.get(indexm).getNome() + " tem muita destreza!", 1500, 800);
-                        handler.monstros.get(indexm).turno_mons();
+                        extras.println_bonito("Essa nao! O " + inimigos.getInimigo(indexm, tipo).getNome() + " tem muita destreza!", 1500, 800);
+                        inimigos.getInimigo(indexm, tipo).Iturno();
                     }
                     if (handler.jogador.getVida() > 0){
-                        handler.jogador.turno(indexm, 0);
+                        handler.jogador.P_turno(indexm, tipo);
                     }
                 }
             } 
         }
         if(handler.jogador.getVida() <= 0){
-            handler.jogador.morrer(indexm, 0);
+            handler.jogador.morrer(indexm, tipo);
         }
-        handler.monstros.get(indexm).morrer();
-        handler.jogador.fimLuta(handler.monstros.get(indexm).getExp());
+        inimigos.getInimigo(indexm, tipo).morrer();
+        handler.jogador.fimLuta(inimigos.getInimigo(indexm, tipo).getExp(), tipo);
     }
 
-    public static void luta_boss_rand(){
-        int indexm = inimigos.selec_monstro(1);
-        extras.print("");
-        extras.println_bonito("Cuidado!", 600, 500);
-        extras.print("");
-        extras.println_bonito("O " + handler.bossesrand.get(indexm).getNome() + " se aproxima!", 700, 500);
-
-        while(handler.jogador.getVida() > 0 && handler.bossesrand.get(indexm).getVida() > 0){
-
-            if(handler.jogador.getDestreza() >= handler.bossesrand.get(indexm).getDestreza()){ // caso a destreza do jogador for maior que a do monstro, ele ataca primeiro~
-                handler.jogador.turno(indexm, 1);
-                if (handler.bossesrand.get(indexm).getVida() > 0){
-                    if(handler.jogador.getDestreza()*0.33 > handler.bossesrand.get(indexm).getDestreza()){ //caso 33% da destreza do jogador for maior que da destreza total do monstro, o jogador ataca primeiro duas vezes
-                        extras.print("");
-                        extras.println_bonito("Sua destreza e muito alta!", 600, 800);
-                        handler.jogador.turno(indexm, 1);
-                    }
-                    if (handler.monstros.get(indexm).getVida() > 0){
-                        handler.bossesrand.get(indexm).turno_mons();
-                    }
-                }
-
-            }else{ // caso a destreza do jogador for apenas menor que a do monstro, o monstro ataca primeiro
-                handler.bossesrand.get(indexm).turno_mons();
-                if (handler.jogador.getVida() > 0){
-                    if(handler.jogador.getDestreza() < handler.bossesrand.get(indexm).getDestreza()*0.33){ // caso a destreza do jogador for menor que 33% da destreza total do monstro, o monstro ataca primeiro duas vezes
-                        extras.print("");
-                        extras.println_bonito("Essa nao! O " + handler.bossesrand.get(indexm).getNome() + " tem muita destreza!", 1500, 800);
-                        handler.bossesrand.get(indexm).turno_mons();
-                    }
-                    if (handler.jogador.getVida() > 0){
-                        handler.jogador.turno(indexm, 1);
-                    }
-                }
-            } 
-        }
-        if(handler.jogador.getVida() <= 0){
-            handler.jogador.morrer(indexm, 1);
-        }
-        handler.bossesrand.get(indexm).morrer();
-        handler.jogador.fimLuta(handler.bossesrand.get(indexm).getExp());
-    }
-
-    public static void luta_boss(int indexm){
-        handler.jogador.luta_prep();
-        extras.print("");
-        extras.println_bonito("Cuidado!", 600, 500);
-        extras.print("");
-        extras.println_bonito("O " + handler.bosses.get(indexm).getNome() + " se aproxima!", 700, 500);
-
-        while(handler.jogador.getVida() > 0 && handler.bosses.get(indexm).getVida() > 0){
-
-            if(handler.jogador.getDestreza() >= handler.bosses.get(indexm).getDestreza()){ // caso a destreza do jogador for maior que a do monstro, ele ataca primeiro~
-                handler.jogador.turno(indexm, 2);
-                if (handler.bosses.get(indexm).getVida() > 0){
-                    if(handler.jogador.getDestreza()*0.33 > handler.bosses.get(indexm).getDestreza()){ //caso 33% da destreza do jogador for maior que da destreza total do monstro, o jogador ataca primeiro duas vezes
-                        extras.print("");
-                        extras.println_bonito("Sua destreza e muito alta!", 600, 800);
-                        handler.jogador.turno(indexm, 2);
-                    }
-                    if (handler.bosses.get(indexm).getVida() > 0){
-                        handler.bosses.get(indexm).turno_mons();
-                    }
-                }
-
-            }else{ // caso a destreza do jogador for apenas menor que a do monstro, o monstro ataca primeiro
-                handler.bosses.get(indexm).turno_mons();
-                if (handler.jogador.getVida() > 0){
-                    if(handler.jogador.getDestreza() < handler.bosses.get(indexm).getDestreza()*0.33){ // caso a destreza do jogador for menor que 33% da destreza total do monstro, o monstro ataca primeiro duas vezes
-                        extras.print("");
-                        extras.println_bonito("Essa nao! O " + handler.bosses.get(indexm).getNome() + " tem muita destreza!", 1500, 800);
-                        extras.print("");
-                        handler.bosses.get(indexm).turno_mons();
-                    }
-                    if (handler.jogador.getVida() > 0){
-                        handler.jogador.turno(indexm, 2);
-                    }
-                }
-            } 
-        }
-        if(handler.jogador.getVida() <= 0){
-            handler.jogador.morrer(indexm, 2);
-        }
-        handler.bosses.get(indexm).morrer();
-        handler.jogador.fimLuta(handler.bosses.get(indexm).getExp());
-    }
 }

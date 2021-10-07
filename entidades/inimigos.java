@@ -6,29 +6,21 @@ import fases.fases;
 
 public class inimigos extends entidade{
 
-
-
     void falar() {}
     void dropar() {}
 
-    public void morrer(){
-        extras.print("");
-        extras.println_bonito("O " + this.nome + " foi derrotado!", 300, 400);
-        extras.delay(300);
-    }
-
-    public void turno_mons(){
-        double dano;
-        extras.print("");
-        extras.println_bonito("Cuidado! o " + this.nome + " vai atacar!", 700, 300);
-        extras.print("");
-        dano = atacar();
-        dano = handler.jogador.levar_dano(dano, this.destreza); 
-        if(dano < 0){
-            extras.println_bonito("AIAIAI!", 100, 300);
+    public static entidade getInimigo(int indexm, int tipo){
+        switch(tipo){
+            case 0:
+                return handler.monstros.get(indexm);
+            case 1:
+                return handler.bossesrand.get(indexm);
+            case 2:
+                return handler.bosses.get(indexm);
+            case 3:
+                return handler.npcs.get(indexm);
         }
-        extras.print("");
-        extras.println_bonito("Voce levou " + dano + " de dano do " + this.nome + "!", 700, 500);
+        return null;
     }
 
     public static int selec_monstro(int monstipo){ // seleciona o monstro baseado na fase que deve aparecer
@@ -82,5 +74,4 @@ public class inimigos extends entidade{
         return list_monst[index];
     }
 
-    public int getExp(){return this.exp;}
 }

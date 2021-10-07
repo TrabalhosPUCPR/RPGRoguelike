@@ -1,7 +1,6 @@
 package entidades;
 
 import adicionais.extras;
-import adicionais.handler;
 
 public class monstros_b extends inimigos{
 
@@ -15,21 +14,6 @@ public class monstros_b extends inimigos{
         this.forca = forca;
         this.destreza = destreza;
         this.exp = exp;
-    }
-
-    @Override
-    public void turno_mons(){
-        double dano;
-        extras.print("");
-        extras.println_bonito("Cuidado! o " + this.nome + " vai atacar!", 700, 300);
-        extras.print("");
-        dano = atacar();
-        dano = handler.jogador.levar_dano(dano, this.destreza); 
-        if(dano < 0){
-            extras.println_bonito("AIAIAI!", 100, 300);
-        }
-        extras.print("");
-        extras.println_bonito("Voce levou " + dano + " de dano do " + this.nome + "!", 700, 500);
     }
 
     @Override

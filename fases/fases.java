@@ -42,7 +42,6 @@ public class fases {
         while(andar_atual < this.qntd_andares - 1){
             andar_atual++;
             proxAndar();
-            extras.delay(500);
             extras.print("");
             extras.println_bonito("Voce terminou o andar " + andar_atual + " da " + this.nome, 1000, 1000);
             if(handler.jogador.getVida() != handler.jogador.getVidamax()){
@@ -53,7 +52,6 @@ public class fases {
             extras.print("");
             extras.println_bonito("Voce segue para o proximo andar da " + this.nome, 500, 500);
             handler.resetMonstros();
-            extras.delay(500);
         }
         andares.boss();
         fimFase();

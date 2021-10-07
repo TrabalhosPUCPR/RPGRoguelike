@@ -24,7 +24,7 @@ public class andares extends fases{
     }
 
     int selec_index(){
-        int valores[] = {1,1,1,1,0}; // isso e para deixar um andar mais provavel de aparecer, toda vez que criar uma sala diferente tenq colocar o numero dele aqui
+        int valores[] = {1,1,1,1,0,0,0,0}; // isso e para deixar um andar mais provavel de aparecer, toda vez que criar uma sala diferente tenq colocar o numero dele aqui
         int rand = extras.rng_int(0, valores.length);
         return valores[rand];
     }
@@ -47,6 +47,14 @@ public class andares extends fases{
                 extras.println_bonito("Ele esta feliz", 500, 500);
                 handler.jogador.receberXp(15);
                 break;
+            case "chutar":
+                extras.print("");
+                extras.println_bonito("Seu desgracado!", 500, 500);
+                extras.print("");
+                extras.println_bonito("O cachorro ficou bravo, ele pegou uma espada no canto da sala!", 500, 500);
+                combate.lutaini(3, 3);
+                
+                break;
             case "sair":
                 extras.print("");
                 extras.println_bonito("Voce ignora o cachorro e sai", 500, 500);
@@ -64,13 +72,13 @@ public class andares extends fases{
     public static void monstro(){
         extras.print("");
         extras.println_bonito("Voce chega na porta da proxima sala, e sente perigo dentro dela, mas sem opcoes, voce entra nela para enfrentar o que tiver", 1500, 500);
-        combate.lutaini();
+        combate.lutaini(0);
     }
 
     public static void boss(){
         extras.print("");
-        extras.println("Voce finalmente chegou no fim da fase " + fase_atual + "!");
-        extras.delay(1000);
+        extras.println_bonito("Voce finalmente chegou no fim da fase " + fase_atual + "!", 700, 500);
+        extras.delay(500);
         for(int i = 0; i < 3; i++){
             extras.print("");
             extras.println_bonito("tum", 400, 100);
@@ -84,6 +92,6 @@ public class andares extends fases{
         extras.println_bonito("Essa nao! O " + handler.bosses.get(indexm).getNome() + " apareceu!", 2000, 500);
         extras.print("");
         extras.println_bonito("Este é o chefe desta fase! Se prepare para uma luta dificil!", 1500, 500);
-        combate.luta_boss(indexm);
+        combate.lutaini(2, indexm);
     }
 }

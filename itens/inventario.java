@@ -1,72 +1,39 @@
 package itens;
 
-import java.util.*;
+import adicionais.extras;
+import adicionais.handler;
 
 public class inventario {
  private int itenOfensivo;
  private int itenDefensivo;
  private int itenMisc;
- private ArrayList<consumiveis> itenConsumivel;
+ private int itenConsumivel[];
  private Double dinheiro;
 
 
- public void listarItens(int itenOfensivo, int itenDefensivo, int itenMisc, ArrayList<consumiveis> itenConsumivel, Double dinheiro){
-    this.itenOfensivo = itenOfensivo;
-    this.itenDefensivo = itenDefensivo;
-    this.itenMisc =  itenMisc;
-    this.itenConsumivel = new ArrayList<consumiveis>();
-    this.dinheiro = dinheiro;
-
+ public void listarItens(){
     
-    for(int i = 0; i < this.itenConsumivel.size(); i++){
-        System.out.println("_________");
-        System.out.println(itenConsumivel.get(i).getNome());
-        System.out.println(itenConsumivel.get(i).getAcao());
-        System.out.println(itenConsumivel.get(i).getValor());
-        System.out.println("_________");
+    for(int i = 0; i < this.itenConsumivel.length; i++){
+        extras.println("_________");
+        extras.println("Nome: " + handler.consu.get(this.itenConsumivel[i]).getNome());
+        extras.println("Acao: " + handler.consu.get(this.itenConsumivel[i]).getAcao() + " por " + handler.consu.get(this.itenConsumivel[i]).getValor());
+        extras.println("_________");
     }
 
  }
 
  
- 
- public int getItenOfensivo() {
-        return itenOfensivo;
-    }
+ //setters
+    public void setItenOfensivo(int itenOfensivo) {this.itenOfensivo = itenOfensivo;}
+    public void setItenDefensivo(int itenDefensivo) {this.itenDefensivo = itenDefensivo;}
+    public void setItenMisc(int itenMisc) {this.itenMisc = itenMisc;}
+    public void addItenConsumivel(int itenConsumivel) {this.itenConsumivel[this.itenConsumivel.length] = itenConsumivel;}
+    public void setDinheiro(Double dinheiro) {this.dinheiro = dinheiro;}
 
-    public void setItenOfensivo(int itenOfensivo) {
-        this.itenOfensivo = itenOfensivo;
-    }
-
-    public int getItenDefensivo() {
-        return itenDefensivo;
-    }
-
-    public void setItenDefensivo(int itenDefensivo) {
-        this.itenDefensivo = itenDefensivo;
-    }
-
-    public int getItenMisc() {
-        return itenMisc;
-    }
-
-    public void setItenMisc(int itenMisc) {
-        this.itenMisc = itenMisc;
-    }
-
-    public ArrayList<consumiveis> getItenConsumivel() {
-        return itenConsumivel;
-    }
-
-    public void setItenConsumivel(ArrayList<consumiveis> itenConsumivel) {
-        this.itenConsumivel = itenConsumivel;
-    }
-
-    public Double getDinheiro() {
-        return dinheiro;
-    }
-
-    public void setDinheiro(Double dinheiro) {
-        this.dinheiro = dinheiro;
-    }
+    //getters
+    public int getItenOfensivo() {return itenOfensivo;}
+    public int getItenDefensivo() {return itenDefensivo;}
+    public int getItenMisc() {return itenMisc;}
+    public int[] getItenConsumivel() {return itenConsumivel;}
+    public Double getDinheiro() {return dinheiro;}
 }

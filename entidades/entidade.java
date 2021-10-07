@@ -23,9 +23,23 @@ public class entidade {
     double buff_defesa = 1; //modificacoes externas para a defesa da pessoa, sem mudar nada e 1, ou seja, nao muda nada
     double buff_evasion = 1; //modificacoes externas para a chance de desviar da pessoa, sem mudar nada e 1, ou seja, nao muda nada
 
+    public void Iturno(){
+        double dano;
+        extras.print("");
+        extras.println_bonito("Cuidado! o " + this.nome + " vai atacar!", 700, 300);
+        extras.print("");
+        dano = atacar();
+        dano = handler.jogador.levar_dano(dano, this.destreza); 
+        if(dano > 0){
+            player.dor();
+            extras.print("");
+        }
+        extras.println_bonito("Voce levou " + String.format("%.02f", dano) + " de dano do " + this.nome + "!", 700, 500);
+    }
+
     public double atacar(){
         double dano = ((this.forca + handler.arma.get(this.arma_equip).getAtaque()) * this.buff_forca);
-        return dano;
+        return extras.rng_double(dano-(dano*0.2), dano+(dano*0.2));
     }
 
     public void defender(){
@@ -36,7 +50,7 @@ public class entidade {
         double chance;
         chance = (this.destreza+(0.5*this.destreza)*buff_evasion) - 0.7*des_atacante;
 
-        if(extras.rng_double(100) < chance){
+        if(extras.rng_double(0, 100) < chance){
             d = 0;
             extras.println_bonito("O ataque errou!", 500, 500);
             extras.print("");
@@ -57,6 +71,14 @@ public class entidade {
             this.vida = this.vidamax;
         }
     }
+
+    public void morrer(){
+        extras.print("");
+        extras.println_bonito("O " + this.nome + " foi derrotado!", 300, 400);
+        extras.delay(300);
+    }
+
+    public int getExp(){return this.exp;}
 
     //getters
     public String getNome(){return nome;}

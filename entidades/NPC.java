@@ -1,8 +1,5 @@
 package entidades;
 
-import adicionais.extras;
-import adicionais.handler;
-
 public class NPC extends entidade{
 
   public NPC(String nome, String desc, int arma_equip, int vidamax, int forca, int defesa, int destreza, int exp){
@@ -20,6 +17,12 @@ public class NPC extends entidade{
 
   public static void agir(int id){
     switch(id){ 
+        case 0:
+            break;
+        case 1:
+            break;
+        case 2:
+            break;
     }
   }
 
@@ -65,23 +68,4 @@ public class NPC extends entidade{
     }
     void dropar() {}
 
-    public void morrer(){
-        extras.print("");
-        extras.println_bonito("O " + this.nome + " foi derrotado!", 300, 400);
-        extras.delay(300);
-    }
-
-    public void turno_npc(){
-        double dano;
-        extras.print("");
-        extras.println_bonito("Cuidado! o " + this.nome + " vai atacar!", 700, 300);
-        extras.print("");
-        dano = atacar();
-        dano = handler.jogador.levar_dano(dano, this.destreza); 
-        if(dano < 0){
-            extras.println_bonito("AIAIAI!", 100, 300);
-        }
-        extras.print("");
-        extras.println_bonito("Voce levou " + dano + " de dano do " + this.nome + "!", 700, 500);
-    }
 }
