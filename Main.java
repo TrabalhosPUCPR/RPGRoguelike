@@ -5,7 +5,6 @@ public class Main {
         while(true){
             handler.iniciarJogo();
 
-            //teste 2
         }
     }
 }

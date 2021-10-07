@@ -13,17 +13,21 @@ public class consumiveis extends itens{
         this.valor = valor;
     }
 
+    public void listarItens(){
+    }
+
     public void usarItem(int id){
         switch(id){
             case 0:
                 handler.jogador.curar(this.valor*handler.jogador.getVidaMax());
-                extras.println("fraca pocao de vida");
+                extras.println("pocao de vida");
                 break;
             case 1:
-                extras.println("fraca pocao de forca");
+                handler.jogador.usarItem();
+                extras.println("pocao de forca");
                 break;
             case 2:
-                extras.println("fraca pocao de destreza");
+                extras.println("pocao de destreza");
                 break;
         }
     }
