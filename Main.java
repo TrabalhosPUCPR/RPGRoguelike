@@ -4,6 +4,8 @@ public class Main {
     public static void main(String[] args) throws Exception {
         while(true){
             handler.iniciarJogo();
+
+            // super teste legal aaaaaa
         }
     }
 }

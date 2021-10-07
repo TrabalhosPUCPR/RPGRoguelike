@@ -37,10 +37,10 @@ public class inimigos extends entidade{
             case 0: // caso for npc normal
                 switch(fases.fase_atual){
                     case 1: //aqui e o numero da fase que a pessoa esta
-                        list_NPC = new int[] {0,0,0,0,0,1,1,1,1,1,2,2,2,3,4,4,4,6,6,5,6,6,6,6,6}; // lista com os ids de cada monstro que e para aparecer na fase, pode colocar o mesmo id mais de uma vez pra aumenta a chance dele aparecer
+                        list_NPC = new int[] {0,0,0,1,2,3,3,4,4}; // lista com os ids de cada npc que e para aparecer na fase, pode colocar o mesmo id mais de uma vez pra aumenta a chance dele aparecer
                         break;
                     case 2:
-                        list_NPC = new int[] {0,0,0,0,0,1,1,1,1,1,2,2,2,3,4,4,4,6,6,5,6,6,6,6,6};
+                        list_NPC = new int[] {0,0,0,1,2,3,4,4};
                         break;
                     case 3:
                         list_NPC = new int[] {1,1,1};
