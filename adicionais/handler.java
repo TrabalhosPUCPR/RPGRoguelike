@@ -2,6 +2,7 @@ package adicionais;
 
 import java.util.ArrayList;
 
+import entidades.NPC;
 import entidades.classes;
 import entidades.monstros_b;
 import entidades.monstros_f;
@@ -22,6 +23,7 @@ public class handler {
     public static ArrayList<armas> arma = new ArrayList<armas>(); // todas as armas presentes no jogo, de todos os tipos
     public static ArrayList<armaduras> armor = new ArrayList<armaduras>(); // todas as armas presentes no jogo, de todos os tipos
     public static ArrayList<consumiveis> consu = new ArrayList<consumiveis>(); // todas as armas presentes no jogo, de todos os tipos
+    public static ArrayList<NPC> npcs = new ArrayList<NPC>();
 
     public static void iniciarJogo(){
         extras.print("[Jogo]: Carregando...");
@@ -36,16 +38,23 @@ public class handler {
         NovoJogo();
     }
 
+    static void iniNpcs(){
+        extras.println("[NPC]: Criando NPCs...");
+        handler.npcs.add(new NPC("Vendedor ambulante","Pessoa misteriosa que comercializa itens", 0, 5, 1, 1, 1, 5)); // 0
+        handler.npcs.add(new NPC("Prisioneiro/Player","Outro jogador, mas aparenta estar mentalmente instavel, pode acabar lhe dando uma dica ou item", 0, 5, 1, 1, 1, 5)); // 1
+        handler.npcs.add(new NPC("Mendigo","Encostado na parede e coberto por um pano surrado um velho senhor, um pouco sus, lhe pede um pouco de dinheiro", 1, 30, 8, 6, 5, 16)); // 2
+        handler.npcs.add(new NPC("D-Dog","literalmente um doguinho, com uma espada...", 8, 20, 10, 4, 7, 10)); // 3
+        extras.println("[NPC]: NPCs criados com sucesso");
+    }
+
     static void iniMonstros(){
         /*monstros_f para monstros ou comuns
           monstros_b para boss ou incomuns
         */
         extras.print("[Monstro]: Criando Monstros...");
-        extras.delay(200);
         iniMonstrosF();
         iniMonstrosB();
         extras.print("[Monstro]: Monstros criados com sucesso");
-        extras.delay(100);
     }
 
     public static void resetMonstros(){

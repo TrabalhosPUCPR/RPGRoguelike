@@ -1,4 +1,4 @@
-xpackage entidades;
+package entidades;
 
 import adicionais.extras;
 import adicionais.handler;

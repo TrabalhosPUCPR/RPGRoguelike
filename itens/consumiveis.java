@@ -1,9 +1,6 @@
 package itens;
 
-import java.util.ArrayList;
-
 import adicionais.extras;
-import itens.inventario;
 
 public class consumiveis extends itens{
     String acao;
