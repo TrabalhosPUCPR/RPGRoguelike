@@ -1,12 +1,14 @@
 package adicionais;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import entidades.NPC;
 import entidades.classes;
 import entidades.monstros_b;
 import entidades.monstros_f;
 import entidades.player;
+import fases.andares;
 import fases.fases;
 import itens.armaduras;
 import itens.armas;
@@ -24,10 +26,12 @@ public class handler {
     public static ArrayList<armaduras> armor = new ArrayList<armaduras>(); // todas as armas presentes no jogo, de todos os tipos
     public static ArrayList<consumiveis> consu = new ArrayList<consumiveis>(); // todas as armas presentes no jogo, de todos os tipos
     public static ArrayList<NPC> npcs = new ArrayList<NPC>();
+    public static List<Runnable> andar = new ArrayList<>();
 
     public static void iniciarJogo(){
         extras.print("[Jogo]: Carregando...");
         iniFases();
+        iniAndares();
         iniNpcs();
         iniMonstros();
         iniClasses();
@@ -37,6 +41,13 @@ public class handler {
         extras.print("[Jogo]: Precione enter para comecar o jogo...");
         extras.inputS();
         NovoJogo();
+    }
+
+    static void iniAndares(){
+        // essa e na minha opiniao a forma mais facil de escolher uma funcao de um andar aleatoriamente 
+        handler.andar.add(andares::cachorro); // 0, numero de cada sala para fazer com que a chance de cada sala aparecer seja diferente
+        handler.andar.add(andares::monstro); // 1
+        handler.andar.add(andares::mercador); // 2
     }
 
     static void iniNpcs(){
@@ -55,25 +66,31 @@ public class handler {
         extras.print("[Monstro]: Criando Monstros...");
         iniMonstrosF();
         iniMonstrosB();
+        iniMonstrosBR();
         extras.print("[Monstro]: Monstros criados com sucesso");
     }
 
     public static void resetMonstros(){
         handler.monstros.clear();
+        handler.bosses.clear();
+        handler.bossesrand.clear();
         iniMonstrosF();
         iniMonstrosB();
+        iniMonstrosBR();
     }
 
     public static void iniMonstrosB() {
         handler.bosses.add(new monstros_b("King Slime", "Rei dos Slimes! Dizem que isto e o resultado da fusao de 8 slimes!", 0, 100, 20, 10, 4, 60)); // 0
-        handler.bossesrand.add(new monstros_b("Ceifador", "Ele esta atras de voce, a sua hora chegou...", 4, 600, 25, 20, 22, 240)); // 1
         handler.bosses.add(new monstros_b("Ogro", "Voce invadiu o pantano dele!", 8, 70, 15, 10, 2, 76)); // 2
-        handler.bossesrand.add(new monstros_b("Slime de ferro", "O rarissimo slime de ferro! Dizem que se voce derrotar ele, voce podera ficar rico!", 0, 5, 3, 99999, 100, 500)); // 3
+    }
+
+    public static void iniMonstrosBR(){
+        handler.bossesrand.add(new monstros_b("Ceifador", "Ele esta atras de voce, a sua hora chegou...", 4, 600, 25, 20, 22, 240)); // 0
+        handler.bossesrand.add(new monstros_b("Slime de ferro", "O rarissimo slime de ferro! Dizem que se voce derrotar ele, voce podera ficar rico!", 0, 5, 3, 99999, 50, 500)); // 1
     }
 
     public static void iniMonstrosF(){
         switch(fases.fase_atual){
-            case 0:
             case 1: // cada fase vai ter a propria lista de monstros, esse vai ser pra fase 1
                 handler.monstros.add(new monstros_f("Slime azul", "Parece uma gelatina.", 0, 10, 6, 2, 3, 6)); // 0
                 handler.monstros.add(new monstros_f("Goblin guerreiro", "Goblin equipado com uma espada e escudo!", 2, 16, 7, 4, 5, 10)); // 1

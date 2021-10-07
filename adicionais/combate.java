@@ -10,6 +10,7 @@ public class combate extends entidade{
     public combate(){}
 
     public static void lutaini(int tipo){
+        n_turno = 0;
         handler.jogador.luta_prep();
         switch(tipo){
             case 0:
@@ -28,6 +29,7 @@ public class combate extends entidade{
     }
 
     public static void lutaini(int tipo, int indexm){
+        n_turno = 0;
         handler.jogador.luta_prep();
         luta(indexm, tipo);
     }
@@ -65,7 +67,8 @@ public class combate extends entidade{
                         handler.jogador.P_turno(indexm, tipo);
                     }
                 }
-            } 
+            }
+            n_turno++; 
         }
         if(handler.jogador.getVida() <= 0){
             handler.jogador.morrer(indexm, tipo);

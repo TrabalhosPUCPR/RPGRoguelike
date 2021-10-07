@@ -52,7 +52,7 @@ public class inimigos extends entidade{
             case 2: // caso for monstros boss
                 switch(fases.fase_atual){
                     case 1: //aqui e o numero da fase que a pessoa esta
-                        list_monst = new int[] {1,0,0,0,0,2,2,2,2}; 
+                        list_monst = new int[] {1,0}; 
                         break;
                     case 2:
                         list_monst = new int[] {1,1,1};

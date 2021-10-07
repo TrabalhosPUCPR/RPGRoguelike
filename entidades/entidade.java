@@ -2,6 +2,7 @@ package entidades;
 
 import adicionais.extras;
 import adicionais.handler;
+import fases.fases;
 
 public class entidade {
     
@@ -23,6 +24,8 @@ public class entidade {
     double buff_defesa = 1; //modificacoes externas para a defesa da pessoa, sem mudar nada e 1, ou seja, nao muda nada
     double buff_evasion = 1; //modificacoes externas para a chance de desviar da pessoa, sem mudar nada e 1, ou seja, nao muda nada
 
+    int defende = 0;
+
     public void Iturno(){
         double dano;
         extras.print("");
@@ -34,16 +37,37 @@ public class entidade {
             player.dor();
             extras.print("");
         }
-        extras.println_bonito("Voce levou " + String.format("%.02f", dano) + " de dano do " + this.nome + "!", 700, 500);
+        extras.println_bonito("Voce levou " + String.format("%.00f", dano) + " de dano do " + this.nome + "!", 700, 500);
+    }
+
+    boolean fugir(int des_atacante){
+        double chance = (((this.destreza*2)*buff_evasion) - 0.3*des_atacante) * 1.5;
+        extras.println("chance"+chance+" coisa "+ extras.rng_double(0, 100));
+        if(extras.rng_double(0, 100) < chance){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public void tentarFugir(int des_atacante, int tipo){
+        extras.println("");
+        extras.println_bonito(this.nome + " tenta fugir!", 400, 400);
+        if(fugir(des_atacante)){
+            extras.println("");
+            extras.println_bonito(this.nome + " conseguiu fugir!", 400, 400);
+            handler.jogador.fimLuta(this.exp*0.3, tipo);
+            handler.fase.get(fases.fase_atual-1).fimAndar();
+
+        }else{
+            extras.println("");
+            extras.println_bonito(this.nome + " falhou na tentativa de fugir!", 400, 400);
+        }
     }
 
     public double atacar(){
         double dano = ((this.forca + handler.arma.get(this.arma_equip).getAtaque()) * this.buff_forca);
-        return extras.rng_double(dano-(dano*0.2), dano+(dano*0.2));
-    }
-
-    public void defender(){
-        this.defesa = this.defesa*1.5;
+        return extras.rng_double(dano-(dano*0.1), dano+(dano*0.1));
     }
 
     public double levar_dano(double d, int des_atacante){

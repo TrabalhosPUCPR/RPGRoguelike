@@ -9,29 +9,23 @@ import adicionais.combate;
 
 public class andares extends fases{
 
+    public static andares andar;
+
     public andares(List<Runnable> metodos2, String nome, String desc) {
         super(nome, desc, andar_atual);
-
-        // essa e na minha opiniao a forma mais facil de escolher uma funcao de um andar aleatoriamente 
-
-        this.metodos.add(andares::cachorro); // 0, numero de cada sala para fazer com que a chance de cada sala aparecer seja diferente
-        this.metodos.add(andares::monstro); // 1
-        this.metodos.add(andares::mercador); // 2
     }
 
-    public void iniAndares(){
-        this.metodos.get(selec_index()).run();
+    public static void proxAndar(){
+        handler.andar.get(selec_index()).run();
     }
 
-    int selec_index(){
-        int valores[] = {1,1,1,1,0,0,0,0}; // isso e para deixar um andar mais provavel de aparecer, toda vez que criar uma sala diferente tenq colocar o numero dele aqui
+    static int selec_index(){
+        int valores[] = {1,1,1,1,0}; // isso e para deixar um andar mais provavel de aparecer, toda vez que criar uma sala diferente tenq colocar o numero dele aqui
         int rand = extras.rng_int(0, valores.length);
         return valores[rand];
     }
 
-    public static void mercador(){
-
-    }
+    public static void mercador(){}
 
     public static void cachorro(){
         extras.print("");
@@ -79,19 +73,19 @@ public class andares extends fases{
         extras.print("");
         extras.println_bonito("Voce finalmente chegou no fim da fase " + fase_atual + "!", 700, 500);
         extras.delay(500);
+        extras.print("");
         for(int i = 0; i < 3; i++){
-            extras.print("");
-            extras.println_bonito("tum", 400, 100);
+            extras.println_bonito("tum", 200, 100);
         }
         int indexm = inimigos.selec_monstro(2);
         extras.delay(500);
         extras.print("");
-        extras.println_bonito("Este barulho nao e um bom sinal...", 1000, 500);
+        extras.println_bonito("Este barulho nao e um bom sinal...", 700, 500);
         extras.delay(500);
         extras.print("");
-        extras.println_bonito("Essa nao! O " + handler.bosses.get(indexm).getNome() + " apareceu!", 2000, 500);
+        extras.println_bonito("Essa nao! O " + handler.bosses.get(indexm).getNome() + " apareceu!", 1000, 700);
         extras.print("");
-        extras.println_bonito("Este é o chefe desta fase! Se prepare para uma luta dificil!", 1500, 500);
+        extras.println_bonito("Este é o chefe desta fase! Se prepare para uma luta dificil!", 1000, 700);
         combate.lutaini(2, indexm);
     }
 }

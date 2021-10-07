@@ -41,14 +41,17 @@ public class extras {
         }
     }
 
-    public static void println(String msg){ //so pq e mais facil de digita
+    public static void println(Object ms){ //so pq e mais facil de digita
+        String msg = ms.toString();
         System.out.print(msg);
         System.out.println("");
     }
-    public static void print(String msg){
+    public static void print(Object ms){
+        String msg = ms.toString();
         System.out.println(msg);
     }
-    public static void println_bonito(String msg, int tempo, int fim){
+    public static void println_bonito(Object ms, int tempo, int fim){
+        String msg = ms.toString();
         int n = 0;
         for(int i = 0; i < msg.length();i++){
             n++; // primeiro ele ve quantos digitos existem na mensagem pra dividi o tempo por isso

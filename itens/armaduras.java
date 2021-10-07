@@ -17,7 +17,7 @@ public class armaduras extends itens{
         extras.println("____________________________________________________________________");
         extras.println("|       Nome       |   Defesa   |   BonusEvasao   |      Peso      |");
         extras.println("|__________________|____________|_________________|________________|");
-        extras.println("|"+ extras.verTamMax_table(this.nome, 18) + "|" + extras.verTamMax_table(this.defesa, 12) + "|" + extras.verTamMax_table(this.evasion_bonus, 17) + "|" + extras.verTamMax_table(this.peso, 16) + "|");
+        extras.println("|"+ extras.verTamMax_table(this.nome, 18) + "|" + extras.verTamMax_table(String.format("%.00f", this.defesa), 12) + "|" + extras.verTamMax_table(this.evasion_bonus, 17) + "|" + extras.verTamMax_table(this.peso, 16) + "|");
         extras.println("|__________________|____________|_________________|________________|");
     }
     

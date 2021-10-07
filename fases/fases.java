@@ -1,8 +1,5 @@
 package fases;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import adicionais.extras;
 import adicionais.handler;
 
@@ -16,12 +13,33 @@ public class fases {
     public static int andar_atual = 0;
     public int qntd_andares;
 
-    List<Runnable> metodos = new ArrayList<>();
-
     public fases(String nome, String desc, int qntd){
         this.nome = nome;
         this.desc = desc;
         this.qntd_andares = qntd;
+    }
+
+    public void loopAndares(){
+        while(andar_atual < this.qntd_andares - 1){
+            handler.resetMonstros();
+            andar_atual++;
+            andares.proxAndar();
+            fimAndar();
+        }
+    }
+
+    public void fimAndar(){
+        extras.print("");
+        extras.println_bonito("Voce terminou o andar " + andar_atual + " da " + this.nome, 1000, 1000);
+        if(handler.jogador.getVida() != handler.jogador.getVidamax()){
+            extras.print("");
+            extras.println_bonito("Voce recupera " + String.format("%.0f", handler.jogador.getVidamax()*0.20) + " pontos de vida por ter completado o andar...", 500, 500); 
+            handler.jogador.curar(handler.jogador.getVidamax()*0.20);// recupera 20% de vida ao chegar no final da fase
+        }
+        extras.print("");
+        extras.println_bonito("Voce segue para o proximo andar da " + this.nome, 500, 500);
+        handler.resetMonstros();
+        loopAndares();
     }
 
     public static void comecarFases(){
@@ -30,29 +48,9 @@ public class fases {
         }
     }
 
-    public void proxAndar(){
-        andares andar = new andares(metodos, nome, desc);
-        andar.iniAndares();
-    }
-
     private void comecarFaseAtual(){
         //extras.print("");
-
-        handler.resetMonstros();
-        while(andar_atual < this.qntd_andares - 1){
-            andar_atual++;
-            proxAndar();
-            extras.print("");
-            extras.println_bonito("Voce terminou o andar " + andar_atual + " da " + this.nome, 1000, 1000);
-            if(handler.jogador.getVida() != handler.jogador.getVidamax()){
-                extras.print("");
-                extras.println_bonito("Voce recupera " + String.format("%.02f", handler.jogador.getVidamax()*0.20) + " pontos de vida por ter completado o andar...", 500, 500); 
-                handler.jogador.curar(handler.jogador.getVidamax()*0.20);// recupera 20% de vida ao chegar no final da fase
-            }
-            extras.print("");
-            extras.println_bonito("Voce segue para o proximo andar da " + this.nome, 500, 500);
-            handler.resetMonstros();
-        }
+        loopAndares();
         andares.boss();
         fimFase();
     }

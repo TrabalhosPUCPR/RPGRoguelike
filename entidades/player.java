@@ -1,6 +1,5 @@
 package entidades;
 
-import adicionais.combate;
 import adicionais.extras;
 import adicionais.handler;
 import fases.fases;
@@ -44,12 +43,11 @@ public class player extends entidade{
 
     public void P_turno(int indexm, int Tmons){
         boolean act = false;
-        combate.n_turno++;
         extras.print("");
         extras.println_bonito("É a sua vez!", 500, 300);
         extras.print("");
         while(act == false){
-            extras.println_bonito("Voce está com " + String.format("%.02f", this.vida) + " de vida!", 800, 300);
+            extras.println_bonito("Voce está com " + String.format("%.00f", this.vida) + " de vida!", 800, 300);
             extras.print("");
             extras.println_bonito("Qual será sua proxima acao? ", 500, 200);
             extras.print("");
@@ -67,11 +65,11 @@ public class player extends entidade{
                     P_atacar(indexm, Tmons);
                     break;
                 case "defender":
-                    P_defender();
                     break;
                 case "usar item":
                     break;
                 case "tentar fugir":
+                    tentarFugir(inimigos.getInimigo(indexm, Tmons).getDestreza(), Tmons);
                     break;
                 case "stats":
                     printStats();
@@ -89,13 +87,7 @@ public class player extends entidade{
         double dano = handler.jogador.atacar();
         armas.texto_som(arma_equip);
         dano = inimigos.getInimigo(indexm, Tmons).levar_dano(dano, this.destreza);
-        extras.println_bonito("O " + inimigos.getInimigo(indexm, Tmons).getNome() + " levou " + String.format("%.02f", dano) + " de dano!", 800, 500);
-    }
-
-    private void P_defender(){
-        extras.println_bonito("Voce se defende!", 300, 300);
-        defender();
-        extras.println_bonito("Sua defesa aumentou para " + this.defesa + " ate o proximo turno!", 1000, 500);
+        extras.println_bonito("O " + inimigos.getInimigo(indexm, Tmons).getNome() + " levou " + String.format("%.00f", dano) + " de dano!", 800, 500);
     }
 
     public static void dor(){
@@ -128,7 +120,8 @@ public class player extends entidade{
         handler.NovoJogo();
     }
 
-    public void fimLuta(int xp_rec, int tipo){
+    public void fimLuta(double xp, int tipo){
+        int xp_rec = (int) xp;
         extras.println("");
         extras.println_bonito("Sucesso!", 300, 300);
         switch(tipo){
@@ -148,6 +141,7 @@ public class player extends entidade{
         buff_forca = 1;
         buff_defesa = 1;
         buff_evasion = 1;
+        defende = 0;
         receberXp(xp_rec);
     }
 
@@ -169,6 +163,26 @@ public class player extends entidade{
                     levelup();
                 }
             }
+        }
+    }
+    
+    @Override
+    public void tentarFugir(int des_atacante, int tipo){
+        extras.println("");
+        extras.println_bonito("Voce tenta fugir!", 400, 400);
+        if(tipo == 0){
+            if(fugir(des_atacante)){
+                extras.println("");
+                extras.println_bonito("Voce conseguiu fugir!", 400, 400);
+                handler.jogador.fimLuta(3, tipo);
+                handler.fase.get(fases.fase_atual-1).fimAndar();
+            }else{
+                extras.println("");
+                extras.println_bonito("Voce falhou na tentativa de fugir!", 400, 400);
+            }
+        }else{
+            extras.println("");
+            extras.println_bonito("O que voce esta fazendo? Voce nao pode fugir desta luta!", 400, 400);
         }
     }
 
@@ -205,7 +219,7 @@ public class player extends entidade{
         extras.println("|      Nome      |      Classe      |   Level   |  VidaMax  |   Forca   |   Defesa   |   Destreza   |");
         extras.println("|________________|__________________|___________|___________|___________|____________|______________|");
         extras.println("|                |                  |           |           |           |            |              |");
-        extras.println("|"+ extras.verTamMax_table(handler.jogador.getNome(), 16) +"|"+ extras.verTamMax_table(handler.jogador.getClasse(), 18) +"|"+ extras.verTamMax_table(handler.jogador.getLevel(), 11) + "|" + extras.verTamMax_table(handler.jogador.getVidamax(), 11) +"|"+ extras.verTamMax_table(handler.jogador.getForcaIni(), 11) +"|"+ extras.verTamMax_table(handler.jogador.getDefesaIni(), 12) +"|"+ extras.verTamMax_table(handler.jogador.getDestrezaIni(), 14) +"|");
+        extras.println("|"+ extras.verTamMax_table(handler.jogador.getNome(), 16) +"|"+ extras.verTamMax_table(handler.jogador.getClasse(), 18) +"|"+ extras.verTamMax_table(handler.jogador.getLevel(), 11) + "|" + extras.verTamMax_table(handler.jogador.getVidamax(), 11) +"|"+ extras.verTamMax_table(handler.jogador.getForcaIni(), 11) +"|"+ extras.verTamMax_table(String.format("%.00f", handler.jogador.getDefesaIni()), 12) +"|"+ extras.verTamMax_table(handler.jogador.getDestrezaIni(), 14) +"|");
         extras.println("|________________|__________________|___________|___________|___________|____________|______________|");
         extras.println("");
         handler.armor.get(handler.jogador.getArmorEquip()).printStats();
