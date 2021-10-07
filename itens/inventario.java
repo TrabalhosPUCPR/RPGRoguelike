@@ -10,6 +10,8 @@ public class inventario {
  private int itenMisc;
  private ArrayList<consumiveis> itenConsumivel;
  private Double dinheiro;
+
+ 
  
  public int getItenOfensivo() {
         return itenOfensivo;

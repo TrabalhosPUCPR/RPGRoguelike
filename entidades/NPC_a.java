@@ -43,7 +43,7 @@ public class inimigos extends entidade{
                         list_NPC = new int[] {0,0,0,1,2,3,4,4};
                         break;
                     case 3:
-                        list_NPC = new int[] {1,1,1};
+                        list_NPC = new int[] {1,4};
                         break;
                     case 4:
                         list_NPC = new int[] {1,1,1};
@@ -52,28 +52,7 @@ public class inimigos extends entidade{
                         list_NPC = new int[] {1,1,1};
                         break;
                 }
-                break;
-            case 1: // caso for monstros incomuns
-                list_NPC = new int[] {0,1,1,1}; 
-                break;
-
-            case 2: // caso for monstros boss
-                switch(fases.fase_atual){
-                    case 1: //aqui e o numero da fase que a pessoa esta
-                        list_NPC = new int[] {1,0,0,0,0,2,2,2,2}; 
-                        break;
-                    case 2:
-                        list_NPC = new int[] {1,1,1};
-                        break;
-                    case 3:
-                        list_NPC = new int[] {1,1,1};
-                        break;
-                    case 4:
-                        list_NPC = new int[] {1,1,1};
-                        break;
-                    case 5:
-                        list_NPC = new int[] {1,1,1};
-                        break;
+            
                 }
                 break;
         }

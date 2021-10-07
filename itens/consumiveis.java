@@ -4,7 +4,7 @@ import adicionais.extras;
 
 public class consumiveis extends itens{
 
-    String acao;
+    int acao;
     double valor;
 
     public consumiveis(String nome, String acao, double valor){
@@ -13,12 +13,18 @@ public class consumiveis extends itens{
         this.valor = valor;
     }
 
-    public static void usarItem(int id){
+    public void usarItem(int id){
         switch(id){
             case 0:
+                handler.jogador.curar(this.valor*handler.jogador.getVidaMax());
                 extras.println("fraca pocao de vida");
+                break;
             case 1:
                 extras.println("fraca pocao de forca");
+                break;
+            case 2:
+                extras.println("fraca pocao de destreza");
+                break;
         }
     }
     
