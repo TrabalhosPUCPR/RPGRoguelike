@@ -129,6 +129,17 @@ public class handler {
         extras.print("[Consumiveis]: Criando Consumiveis...");
         handler.consu.add(new consumiveis("Fraca Pocao de Vida", "cura um pouco a sua vida", 1.2)); // 0 // cura 20% da vida da pessoa
         handler.consu.add(new consumiveis("Fraca Pocao de Forca", "aumenta sua forca um pouco", 1.2)); // 1 // aumenta em 20% a forca da pessoa
+        handler,consu.add(new consumiveis("Fraca Pocao de Destreza","aumenta sua destreza um pouco",1.2))// 2 // aumenta em 20% a destreza da pessoa
+        handler.consu.add(new consumiveis("Media Pocao de Vida", "cura um bocado a sua vida", 1.5)); // 0 // cura 50% da vida da pessoa
+        handler.consu.add(new consumiveis("Media Pocao de Forca", "aumenta sua forca um bocado", 1.5)); // 1 // aumenta em 50% a forca da pessoa
+        handler,consu.add(new consumiveis("Media Pocao de Destreza","aumenta sua destreza um bocado",1.5))// 2 // aumenta em 50% a destreza da pessoa
+        handler.consu.add(new consumiveis("Forte Pocao de Vida", "cura quase toda a sua vida", 1.75)); // 0 // cura 75% da vida da pessoa
+        handler.consu.add(new consumiveis("Forte Pocao de Forca", "aumenta sua forca consideravelmente", 1.75)); // 1 // aumenta em 75% a forca da pessoa
+        handler,consu.add(new consumiveis("Forte Pocao de Destreza","aumenta sua destreza consideravelmente",1.75))// 2 // aumenta em 75% a destreza da pessoa
+        handler.consu.add(new consumiveis("Maxia Pocao de Vida", "cura um pouco a sua vida", 1.2)); // 0 // cura 20% da vida da pessoa
+        handler.consu.add(new consumiveis("Fraca Pocao de Forca", "aumenta sua forca um pouco", 1.2)); // 1 // aumenta em 20% a forca da pessoa
+        handler,consu.add(new consumiveis("Fraca Pocao de Destreza","aumenta sua destreza um pouco",1.2))// 2 // aumenta em 20% a destreza da pessoa
+
         extras.print("[Consumiveis]: Consumiveis criado com sucesso");
     }
 

@@ -5,7 +5,7 @@ import adicionais.handler;
 
 public class NPC_b extends NPC_a{
 
-    public npc_b(String nome, String desc, int arma_equip, int vidamax, int forca, int defesa, int destreza, int exp){
+    public NPC(String nome, String desc, int arma_equip, int vidamax, int forca, int defesa, int destreza, int exp){
         this.nome = nome;
         this.desc = desc;
         this.arma_equip = arma_equip;
