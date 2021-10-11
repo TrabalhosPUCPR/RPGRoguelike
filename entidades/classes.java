@@ -7,8 +7,8 @@ public class classes extends player{
 
     public String classe_desc;
 
-    public classes(String nome, String classe, int arma_equip, int armor_equip, int vidamax, int forca, int defesa, int destreza) {
-        super(nome, classe, arma_equip, armor_equip, vidamax, forca, defesa, destreza);
+    public classes(String nome, String classe, int arma_equip, int armor_equip, int vidamax, int forca, int defesa, int destreza, int tipoArma) {
+        super(nome, classe, arma_equip, armor_equip, vidamax, forca, defesa, destreza, tipoArma);
         this.nome = nome;
         this.classe_desc = classe;
         this.arma_equip = arma_equip;
@@ -17,6 +17,7 @@ public class classes extends player{
         this.defesa = defesa; 
         this.forca = forca;
         this.destreza = destreza;
+        this.tipoArma = tipoArma;
     }
 
     public static void printClasses(){

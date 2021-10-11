@@ -24,25 +24,10 @@ public class entidade {
     double buff_defesa = 1; //modificacoes externas para a defesa da pessoa, sem mudar nada e 1, ou seja, nao muda nada
     double buff_evasion = 1; //modificacoes externas para a chance de desviar da pessoa, sem mudar nada e 1, ou seja, nao muda nada
 
-    int defende = 0;
-
-    public void Iturno(){
-        double dano;
-        extras.print("");
-        extras.println_bonito("Cuidado! o " + this.nome + " vai atacar!", 700, 300);
-        extras.print("");
-        dano = atacar();
-        dano = handler.jogador.levar_dano(dano, this.destreza); 
-        if(dano > 0){
-            player.dor();
-            extras.print("");
-        }
-        extras.println_bonito("Voce levou " + String.format("%.00f", dano) + " de dano do " + this.nome + "!", 700, 500);
-    }
+    boolean defende = false;
 
     boolean fugir(int des_atacante){
         double chance = (((this.destreza*2)*buff_evasion) - 0.3*des_atacante) * 1.5;
-        extras.println("chance"+chance+" coisa "+ extras.rng_double(0, 100));
         if(extras.rng_double(0, 100) < chance){
             return true;
         }else{
@@ -70,24 +55,43 @@ public class entidade {
         return extras.rng_double(dano-(dano*0.1), dano+(dano*0.1));
     }
 
-    public double levar_dano(double d, int des_atacante){
-        double chance;
-        chance = (this.destreza+(0.5*this.destreza)*buff_evasion) - 0.7*des_atacante;
+    public void defender(){
+        this.buff_defesa = 2;
+        this.defende = true;
+    }
 
-        if(extras.rng_double(0, 100) < chance){
-            d = 0;
+    public void resetBuff(){
+        if(this.defende){
+            this.buff_defesa = 1;
+            extras.println("");
+            extras.println_bonito("O " + this.nome + " parou de defender!", 500, 500);
+        }
+    }
+
+    public double levar_dano(double dano, int des_atacante, boolean ig_def){
+        if(dodge(dano, des_atacante)){
             extras.println_bonito("O ataque errou!", 500, 500);
             extras.print("");
             return 0;
         }else{
-            d -= this.defesa*this.buff_defesa;
-            if (d < 1){
-                d = 1;
+            dano -= this.defesa*this.buff_defesa;
+            if (dano < 1){
+                dano = 1;
             }
         }
-        this.vida -= d;
-        return d;
+        this.vida -= dano;
+        return dano;
     }
+
+    public boolean dodge(double dano, int des_atacante){
+        double chance;
+        chance = (this.destreza+(0.5*this.destreza)*buff_evasion) - 0.7*des_atacante;
+        if (extras.rng_double(0, 100) < chance){
+            return true;
+        }else{
+            return false;
+        }
+    } 
 
     public void curar(double c){
         this.vida += c;
@@ -98,11 +102,8 @@ public class entidade {
 
     public void morrer(){
         extras.print("");
-        extras.println_bonito("O " + this.nome + " foi derrotado!", 300, 400);
-        extras.delay(300);
+        extras.println_bonito("O " + this.nome + " foi derrotado!", 300, 700);
     }
-
-    public int getExp(){return this.exp;}
 
     //getters
     public String getNome(){return nome;}
@@ -112,6 +113,7 @@ public class entidade {
     public double getDefesa(){return defesa;}
     public int getDestreza(){return destreza;}
     public int getArmaEquip(){return arma_equip;}
+    public int getExp(){return this.exp;}
 
     //setters
     public void setNome(String n){this.nome = n;}

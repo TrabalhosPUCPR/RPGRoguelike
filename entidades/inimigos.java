@@ -6,21 +6,37 @@ import fases.fases;
 
 public class inimigos extends entidade{
 
-    void falar() {}
-    void dropar() {}
+    public static int indexmonstro;
+    public static int tipomonstro;
 
-    public static entidade getInimigo(int indexm, int tipo){
+    public static inimigos getInimigo(int indexm, int tipo){
+        indexmonstro = indexm;
+        tipomonstro = tipo;
         switch(tipo){
             case 0:
-                return handler.monstros.get(indexm);
+                return (monstros_f)handler.monstros.get(indexm);
             case 1:
-                return handler.bossesrand.get(indexm);
+                return (monstros_b)handler.bossesrand.get(indexm);
             case 2:
-                return handler.bosses.get(indexm);
+                return (monstros_b)handler.bosses.get(indexm);
             case 3:
-                return handler.npcs.get(indexm);
+                return (NPC)handler.npcs.get(indexm);
         }
         return null;
+    }
+
+    public void Iturno(){
+        double dano;
+        extras.print("");
+        extras.println_bonito("Cuidado! o " + this.nome + " vai atacar!", 700, 300);
+        extras.print("");
+        dano = atacar();
+        dano = handler.jogador.levar_dano(dano, this.destreza, false); 
+        if(dano > 0){
+            player.dor();
+            extras.print("");
+        }
+        extras.println_bonito("Voce levou " + String.format("%.00f", dano) + " de dano do " + this.nome + "!", 700, 500);
     }
 
     public static int selec_monstro(int monstipo){ // seleciona o monstro baseado na fase que deve aparecer
@@ -69,7 +85,6 @@ public class inimigos extends entidade{
                 }
                 break;
         }
-
         int index = extras.rng_int(0, list_monst.length);
         return list_monst[index];
     }

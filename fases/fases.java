@@ -2,6 +2,7 @@ package fases;
 
 import adicionais.extras;
 import adicionais.handler;
+import entidades.monstros_f;
 
 public class fases {
 
@@ -50,6 +51,7 @@ public class fases {
 
     private void comecarFaseAtual(){
         //extras.print("");
+        monstros_f.setFaseDrop(fase_atual);
         loopAndares();
         andares.boss();
         fimFase();

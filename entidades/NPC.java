@@ -1,6 +1,6 @@
 package entidades;
 
-public class NPC extends entidade{
+public class NPC extends inimigos{
 
   public NPC(String nome, String desc, int arma_equip, int vidamax, int forca, int defesa, int destreza, int exp){
         this.nome = nome;

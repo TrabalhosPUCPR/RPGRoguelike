@@ -4,10 +4,12 @@ import adicionais.extras;
 import adicionais.handler;
 import fases.fases;
 import itens.armas;
+import itens.inventario;
 
 public class player extends entidade{
 
     String classe;
+    int tipoArma;
     int monstros_f_derrot = 0;
     int monstros_b_derrot = 0;
     int npcs_mortos = 0;
@@ -18,7 +20,7 @@ public class player extends entidade{
     double def_ini;
     int des_ini;
 
-    public player(String nome, String classe, int arma_equip, int armor_equip, int vidamax, int forca, int defesa, int destreza){
+    public player(String nome, String classe, int arma_equip, int armor_equip, int vidamax, int forca, int defesa, int destreza, int tipoArma){
         this.nome = nome;
         this.classe = classe;
         this.arma_equip = arma_equip;
@@ -28,6 +30,7 @@ public class player extends entidade{
         this.defesa = defesa; 
         this.forca = forca;
         this.destreza = destreza;
+        this.tipoArma = tipoArma;
     }
 
     public void luta_prep(){
@@ -36,8 +39,9 @@ public class player extends entidade{
         forca_ini = this.forca;
         def_ini = this.defesa;
         des_ini = this.destreza;
-        this.defesa += handler.armor.get(this.armor_equip).getDefesa();
-        this.destreza += handler.armor.get(this.armor_equip).getPesoDes() + handler.arma.get(this.arma_equip).getPesoDes();;
+        this.forca += + inventario.getForcaTotal();
+        this.defesa += handler.armor.get(this.armor_equip).getDefesa() + inventario.getDefTotal();
+        this.destreza += handler.armor.get(this.armor_equip).getPesoDes() + handler.arma.get(this.arma_equip).getPesoDes() + inventario.getDesTotal();
         buff_evasion = handler.armor.get(this.armor_equip).getEvasionB();
     }
 
@@ -65,8 +69,25 @@ public class player extends entidade{
                     P_atacar(indexm, Tmons);
                     break;
                 case "defender":
+                    defender();
+                    extras.println("");
+                    extras.println_bonito("Voce se defende!", 400, 500);
                     break;
                 case "usar item":
+                    act = inventario.listarItensConsu();
+                    if(act){
+                        extras.println("");
+                        extras.println_bonito("Digite o numero do item que deseja usar, ou 'voltar' para fazer outra coisa...", 800, 500);
+                        res = extras.inputS().toLowerCase();
+                        switch(res){
+                            case "voltar":
+                                act = false;
+                                break;
+                            default: //  TENQ VERIFICAR SE E UM NUMERO
+                                act = inventario.usarItem(Integer.parseInt(res));
+                                break;
+                        }
+                    }
                     break;
                 case "tentar fugir":
                     tentarFugir(inimigos.getInimigo(indexm, Tmons).getDestreza(), Tmons);
@@ -81,12 +102,13 @@ public class player extends entidade{
 
             }
         }
+        inimigos.getInimigo(indexm, Tmons).resetBuff();
     }
     //inimigos.getInimigo(indexm, tipo)
     private void P_atacar(int indexm, int Tmons){
         double dano = handler.jogador.atacar();
         armas.texto_som(arma_equip);
-        dano = inimigos.getInimigo(indexm, Tmons).levar_dano(dano, this.destreza);
+        dano = inimigos.getInimigo(indexm, Tmons).levar_dano(dano, this.destreza, false);
         extras.println_bonito("O " + inimigos.getInimigo(indexm, Tmons).getNome() + " levou " + String.format("%.00f", dano) + " de dano!", 800, 500);
     }
 
@@ -110,9 +132,11 @@ public class player extends entidade{
         printStats();
         extras.println_bonito("Monstros Fracos derrotados: " + this.monstros_f_derrot, 400, 200);
         extras.print("");
+        extras.println_bonito("NPCs derrotados: " + this.npcs_mortos, 400, 200);
+        extras.print("");
         extras.println_bonito("Bosses derrotados: " + this.monstros_b_derrot, 400, 200);
         extras.print("");
-        extras.println_bonito("Voce chegou no andar " + fases.andar_atual + " da fase " + fases.fase_atual, 400, 200);
+        extras.println_bonito("Voce chegou no andar " + (fases.andar_atual+1) + " da fase " + fases.fase_atual, 400, 200);
         extras.print("");
         extras.println_bonito("Precione enter para criar um novo jogo...", 400, 200);
         extras.inputS();
@@ -141,8 +165,16 @@ public class player extends entidade{
         buff_forca = 1;
         buff_defesa = 1;
         buff_evasion = 1;
-        defende = 0;
         receberXp(xp_rec);
+    }
+
+    @Override
+    public void resetBuff(){
+        if(this.defende){
+            this.buff_defesa = 1;
+            extras.println("");
+            extras.println_bonito("Voce parou de defender!", 500, 500);
+        }
     }
 
     public void receberXp(int xp_rec){
@@ -226,6 +258,8 @@ public class player extends entidade{
         extras.println("");
         handler.arma.get(handler.jogador.getArmaEquip()).printStats();
         extras.println("");
+        inventario.printAce();
+        extras.println("");
         extras.println("Xp necessario para subir de nivel: " + String.format("%.02f", player.xp_nes - handler.jogador.getExp()));
         extras.println("");
         extras.println("Aperte enter para continuar...");
@@ -242,9 +276,11 @@ public class player extends entidade{
     public double getDefesaIni(){return def_ini;}
     public int getDestrezaIni(){return des_ini;}
     public int getArmorEquip(){return armor_equip;}
+    public int gettipoArma(){return tipoArma;}
 
     //setters
     public void setClasse(String c){this.classe = c;}
+    public void setTipoArma(int n){this.tipoArma = n;}
     public void addmonstros_f_derrot(int n){this.monstros_f_derrot += n;}
     public void addmonstros_b_derrot(int n){this.monstros_b_derrot += n;}
     public void addnpcs_mortos(int n){this.npcs_mortos += n;}

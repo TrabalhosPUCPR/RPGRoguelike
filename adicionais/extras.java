@@ -88,4 +88,29 @@ public class extras {
         return tex;
     }
 
+    public static boolean simNao(){
+        while(true){
+            print("");
+            println_bonito("Digite 'sim' ou 'nao'...", 400, 200);
+            String res = inputS();
+            switch(res.toLowerCase()){
+                case "sim":
+                    return true;
+                case "nao":
+                    return false;
+                default:
+                    print("");
+                    println_bonito("Digite uma resposta valida", 500, 400);
+            }
+        }
+    }
+
+    public static int[] removeIndex(int[] array, int index){
+        int[] a = {};
+        for(int i = 0; i < array.length; i++){
+            if(i != index){a[i] = array[i];}
+        }
+        return a;
+    }
+
 }

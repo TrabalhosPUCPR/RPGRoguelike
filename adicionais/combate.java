@@ -10,11 +10,12 @@ public class combate extends entidade{
     public combate(){}
 
     public static void lutaini(int tipo){
-        n_turno = 0;
+        n_turno = 1;
         handler.jogador.luta_prep();
         switch(tipo){
             case 0:
                 if(extras.rng_double(0, 1) > 0.02){ // todo andar que for do tipo monstro tem 2% chance de ser um monstro incomum
+
                     luta(inimigos.selec_monstro(0), 0);
                 }else{
                     luta(inimigos.selec_monstro(1), 1);
@@ -29,7 +30,7 @@ public class combate extends entidade{
     }
 
     public static void lutaini(int tipo, int indexm){
-        n_turno = 0;
+        n_turno = 1;
         handler.jogador.luta_prep();
         luta(indexm, tipo);
     }
@@ -68,13 +69,17 @@ public class combate extends entidade{
                     }
                 }
             }
-            n_turno++; 
+            fimTurno();
         }
         if(handler.jogador.getVida() <= 0){
             handler.jogador.morrer(indexm, tipo);
         }
         inimigos.getInimigo(indexm, tipo).morrer();
         handler.jogador.fimLuta(inimigos.getInimigo(indexm, tipo).getExp(), tipo);
+    }
+
+    public static void fimTurno(){
+        n_turno++; 
     }
 
 }
