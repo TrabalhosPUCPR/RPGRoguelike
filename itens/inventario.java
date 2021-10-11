@@ -42,7 +42,6 @@ public class inventario {
     }
 
     public static void printAce(){
-        extras.println("");
         extras.println("______________________________________________________________________________________");
         extras.println("|              |                        |                                            |");
         extras.println("|     Tipo     |          Nome          |                    Desc                    |");
@@ -58,12 +57,13 @@ public class inventario {
         extras.println("|______________|________________________|____________________________________________|");
     }
 
-    public void receberItem(int id){
+    public static void receberItem(int id){
         extras.println("");
         extras.println_bonito("Voce recebeu um " + handler.consu.get(id).getNome()+"!", 700, 500);
         boolean jatem = false;
         for(int i = 0; i < itenConsumivel.length; i++){
             if(itenConsumivel[i] == id){
+                extras.println("");
                 extras.println_bonito("OPS!", 300, 400);
                 extras.println("");
                 extras.println_bonito("Voce ja tem um " + handler.consu.get(id).getNome()+" no seu inventario!", 700, 600);
@@ -76,7 +76,7 @@ public class inventario {
         }
     }
 
-    public void receberItem(itensDef item, int id){
+    public static void receberItem(itensDef item, int id){
         extras.println("");
         extras.println_bonito("Voce recebeu um " + item.getNome() + ", " + item.getDesc(), 700, 500);
         if(itenDefensivo != 0){
@@ -101,7 +101,7 @@ public class inventario {
         }
     }
 
-    public void receberItem(itensOfen item, int id){
+    public static void receberItem(itensOfen item, int id){
         extras.println("");
         extras.println_bonito("Voce recebeu um " + item.getNome() + ", " + item.getDesc(), 700, 500);
         if(itenOfensivo != 0){
@@ -126,7 +126,7 @@ public class inventario {
         }
     }
 
-    public void receberItem(itensMisc item, int id){
+    public static void receberItem(itensMisc item, int id){
         extras.println("");
         extras.println_bonito("Voce recebeu um " + item.getNome() + ", " + item.getDesc(), 700, 500);
         if(itenMisc != 0){

@@ -2,6 +2,7 @@ package entidades;
 
 import adicionais.extras;
 import adicionais.handler;
+import itens.inventario;
 
 public class monstros_f extends inimigos{
 
@@ -25,16 +26,40 @@ public class monstros_f extends inimigos{
     static int[] arma_drop;
     static int[] armor_drop;
 
+    @Override
+    public void morrer(){
+        extras.print("");
+        extras.println_bonito("O " + this.nome + " foi derrotado!", 300, 700);
+        dropar();
+    }
+
     void falar() {}
     void dropar() {
-        switch(extras.rng_int(0, 5)){
+        int id;
+        switch(extras.rng_int(0, 7)){
             case 0: // caso for dropar um item ofensivo
+                id = extras.rng_int(0, itensOfen_drop.length);
+                inventario.receberItem(handler.itemOfen.get(itensOfen_drop[id]), itensOfen_drop[id]);
                 break;
             case 1: // caso for dropar um item defensivo
+                id = extras.rng_int(0, itensDef_drop.length);
+                inventario.receberItem(handler.itemDef.get(itensDef_drop[id]), itensDef_drop[id]);
                 break;
             case 2: // caso for dropar um item misc
+                id = extras.rng_int(0, itensMisc_drop.length);
+                inventario.receberItem(handler.itemMisc.get(itensMisc_drop[id]), itensMisc_drop[id]);
                 break;
             case 3: // caso for dropar um item consumivel
+                id = extras.rng_int(0, consu_drop.length);
+                inventario.receberItem(consu_drop[id]);
+                break;
+            case 4: // caso for dropar uma arma
+                id = extras.rng_int(0, arma_drop.length);
+                handler.jogador.receberArmaArmor(id, 0);
+                break;
+            case 5: // caso for dropar uma armadura
+                id = extras.rng_int(0, armor_drop.length);
+                handler.jogador.receberArmaArmor(id, 1);
                 break;
             default: // caso for para dropar nenhum item
                 break;

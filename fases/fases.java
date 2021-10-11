@@ -44,6 +44,7 @@ public class fases {
     }
 
     public static void comecarFases(){
+        andar_atual = 0;
         for(int i = 0; i < handler.fase.size(); i++){ // vai comecar o loop das fases
             handler.fase.get(i).comecarFaseAtual();
         }
@@ -64,7 +65,6 @@ public class fases {
         extras.print("");
         extras.println_bonito("Voce recuperou sua vida toda!", 500, 500); 
         handler.jogador.curar(handler.jogador.getVidamax());
-        andar_atual = 0;
         extras.delay(2000);
 
     }    

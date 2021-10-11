@@ -86,8 +86,8 @@ public class handler {
     }
 
     public static void iniMonstrosB() {
-        handler.bosses.add(new monstros_b("King Slime", "Rei dos Slimes! Dizem que isto e o resultado da fusao de 8 slimes!", 0, 100, 20, 10, 4, 60)); // 0
-        handler.bosses.add(new monstros_b("Ogro", "Voce invadiu o pantano dele!", 8, 70, 15, 10, 2, 76)); // 2
+        handler.bosses.add(new monstros_b("King Slime", "Rei dos Slimes! Dizem que isto e o resultado da fusao de 8 slimes!", 0, 50, 20, 10, 4, 60)); // 0
+        handler.bosses.add(new monstros_b("Ogro", "Voce invadiu o pantano dele!", 8, 40, 15, 10, 2, 76)); // 2
     }
 
     public static void iniMonstrosBR(){

@@ -119,9 +119,7 @@ public class player extends entidade{
 
     public void morrer(int indexm, int Tmons){
         extras.print("");
-
         extras.println_bonito("Voce se sente fraco demais contra " + inimigos.getInimigo(indexm, Tmons).getNome() + ", sua visao comeca a ficar escura, e voce fecha totalmente seus olhos...", 2000, 500);
-
         extras.print("");
         extras.println_bonito("Voce esta morto...", 500, 200);
         extras.print("");
@@ -195,6 +193,38 @@ public class player extends entidade{
                     levelup();
                 }
             }
+        }
+    }
+
+    public void receberArmaArmor(int id, int tipo){
+        extras.println("");
+        switch(tipo){
+            case 0:
+                extras.println_bonito("Voce recebeu a arma " + handler.arma.get(id).getNome(), 900, 500);
+                extras.println("");
+                extras.println_bonito("Voce gostaria de trocar no lugar do seu " + handler.arma.get(this.arma_equip).getNome() + "?", 900, 500);
+                if(extras.simNao()){
+                    this.arma_equip = id;
+                    extras.println("");
+                    extras.println_bonito("Voce equipou a " + handler.arma.get(id).getNome(), 900, 500);
+                }else{
+                    extras.println("");
+                    extras.println_bonito("Voce jogou a " + handler.arma.get(id).getNome() + " fora...", 900, 500);
+                }
+                break;
+            case 1:
+                extras.println_bonito("Voce recebeu a armadura " + handler.armor.get(id).getNome(), 900, 500);
+                extras.println("");
+                extras.println_bonito("Voce gostaria de trocar no lugar do seu " + handler.armor.get(this.armor_equip).getNome() + "?", 900, 500);
+                if(extras.simNao()){
+                    this.armor_equip = id;
+                    extras.println("");
+                    extras.println_bonito("Voce equipou a " + handler.armor.get(id).getNome(), 900, 500);
+                }else{
+                    extras.println("");
+                    extras.println_bonito("Voce jogou a " + handler.armor.get(id).getNome() + " fora...", 900, 500);
+                }
+                break;
         }
     }
     
@@ -284,5 +314,6 @@ public class player extends entidade{
     public void addmonstros_f_derrot(int n){this.monstros_f_derrot += n;}
     public void addmonstros_b_derrot(int n){this.monstros_b_derrot += n;}
     public void addnpcs_mortos(int n){this.npcs_mortos += n;}
+    public void setArmorEquip(int n){this.armor_equip = n;}
     
 }
