@@ -22,8 +22,8 @@ public class consumiveis extends itens{
         switch(this.acaoId){
             case 0:
                 extras.println("");
-                extras.println_bonito("Voce se curou " + String.format("%.0f", handler.jogador.getVida()*this.valor) + " de vida!", 600, 500);
-                handler.jogador.curar(handler.jogador.getVida()*this.valor);
+                extras.println_bonito("Voce se curou " + String.format("%.0f", handler.jogador.getVidamax()*this.valor) + " de vida!", 600, 500);
+                handler.jogador.curar(handler.jogador.getVidamax()*this.valor);
                 break;
             case 1:
                 extras.println("");

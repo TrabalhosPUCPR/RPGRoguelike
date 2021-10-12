@@ -21,6 +21,7 @@ public class fases {
     }
 
     public void loopAndares(){
+        andar_atual = 0;
         while(andar_atual < this.qntd_andares - 1){
             handler.resetMonstros();
             andar_atual++;
@@ -44,7 +45,7 @@ public class fases {
     }
 
     public static void comecarFases(){
-        andar_atual = 0;
+        fase_atual = 0;
         for(int i = 0; i < handler.fase.size(); i++){ // vai comecar o loop das fases
             handler.fase.get(i).comecarFaseAtual();
         }
@@ -63,9 +64,9 @@ public class fases {
         extras.println_bonito("Voce chegou no final da fase " + fase_atual + ", " + this.nome + " está completa! Parabéns!", 1000, 1000);
         fase_atual++;
         extras.print("");
-        extras.println_bonito("Voce recuperou sua vida toda!", 500, 500); 
+        extras.println_bonito("Voce recuperou sua vida toda!", 500, 1500); 
         handler.jogador.curar(handler.jogador.getVidamax());
-        extras.delay(2000);
-
     }    
+
+    public String getNome(){return nome;}
 }

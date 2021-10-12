@@ -7,8 +7,16 @@ public class inventario {
     public static int itenOfensivo = 0;
     public static int itenDefensivo = 0;
     public static int  itenMisc = 0;
-    private static int[] itenConsumivel = {1};
+    private static int[] itenConsumivel = {};
     public static Double dinheiro = 100.0;
+
+    public static void resetInventario(){
+        itenOfensivo = 0;
+        itenDefensivo = 0;
+        itenMisc = 0;
+        itenConsumivel = new int[]{};
+        dinheiro = 100.0;
+    }
 
     public static boolean usarItem(int index){
         if(index > itenConsumivel.length){
@@ -59,16 +67,18 @@ public class inventario {
 
     public static void receberItem(int id){
         extras.println("");
-        extras.println_bonito("Voce recebeu um " + handler.consu.get(id).getNome()+"!", 700, 500);
+        extras.println_bonito("Voce recebeu " + handler.consu.get(id).getNome()+"!", 700, 500);
         boolean jatem = false;
-        for(int i = 0; i < itenConsumivel.length; i++){
-            if(itenConsumivel[i] == id){
-                extras.println("");
-                extras.println_bonito("OPS!", 300, 400);
-                extras.println("");
-                extras.println_bonito("Voce ja tem um " + handler.consu.get(id).getNome()+" no seu inventario!", 700, 600);
-                jatem = true;
-                break;
+        if(itenConsumivel.length>0){
+            for(int i = 0; i < itenConsumivel.length; i++){
+                if(itenConsumivel[i] == id){
+                    extras.println("");
+                    extras.println_bonito("OPS!", 300, 400);
+                    extras.println("");
+                    extras.println_bonito("Voce ja tem " + handler.consu.get(id).getNome()+" no seu inventario!", 700, 600);
+                    jatem = true;
+                    break;
+                }
             }
         }
         if(jatem == false){
@@ -78,10 +88,10 @@ public class inventario {
 
     public static void receberItem(itensDef item, int id){
         extras.println("");
-        extras.println_bonito("Voce recebeu um " + item.getNome() + ", " + item.getDesc(), 700, 500);
+        extras.println_bonito("Voce recebeu " + item.getNome() + ", " + item.getDesc(), 700, 500);
         if(itenDefensivo != 0){
             extras.println("");
-            extras.println_bonito("Voce ja tem um " + handler.itemDef.get(itenDefensivo).getNome(), 700, 500);
+            extras.println_bonito("Voce ja tem " + handler.itemDef.get(itenDefensivo).getNome(), 700, 500);
             extras.println("");
             extras.println_bonito("Gostaria de trocar o seu " + handler.itemDef.get(itenDefensivo).getNome() + " por um " + item.getNome() + "?", 700, 500);
             if(extras.simNao()){
@@ -103,10 +113,10 @@ public class inventario {
 
     public static void receberItem(itensOfen item, int id){
         extras.println("");
-        extras.println_bonito("Voce recebeu um " + item.getNome() + ", " + item.getDesc(), 700, 500);
+        extras.println_bonito("Voce recebeu " + item.getNome() + ", " + item.getDesc(), 700, 500);
         if(itenOfensivo != 0){
             extras.println("");
-            extras.println_bonito("Voce ja tem um " + handler.itemOfen.get(itenOfensivo).getNome(), 700, 500);
+            extras.println_bonito("Voce ja tem " + handler.itemOfen.get(itenOfensivo).getNome(), 700, 500);
             extras.println("");
             extras.println_bonito("Gostaria de trocar o seu " + handler.itemOfen.get(itenOfensivo).getNome() + " por um " + item.getNome() + "?", 700, 500);
             if(extras.simNao()){
@@ -128,10 +138,10 @@ public class inventario {
 
     public static void receberItem(itensMisc item, int id){
         extras.println("");
-        extras.println_bonito("Voce recebeu um " + item.getNome() + ", " + item.getDesc(), 700, 500);
+        extras.println_bonito("Voce recebeu " + item.getNome() + ", " + item.getDesc(), 700, 500);
         if(itenMisc != 0){
             extras.println("");
-            extras.println_bonito("Voce ja tem um " + handler.itemMisc.get(itenMisc).getNome(), 700, 500);
+            extras.println_bonito("Voce ja tem " + handler.itemMisc.get(itenMisc).getNome(), 700, 500);
             extras.println("");
             extras.println_bonito("Gostaria de trocar o seu " + handler.itemMisc.get(itenMisc).getNome() + " por um " + item.getNome() + "?", 700, 500);
             if(extras.simNao()){
@@ -151,9 +161,14 @@ public class inventario {
         }
     }
 
-    public static void ganharDinheiro(double n){dinheiro += n;}
+    public static void ganharDinheiro(double n){
+        extras.println("");
+        extras.println_bonito("Voce ganhou $" + String.format("%.0f", n) + " por esta luta", 600, 500);
+        dinheiro += n;
+    }
 
     public static double getDefTotal(){return handler.itemDef.get(itenDefensivo).getDefesa() + handler.itemMisc.get(itenMisc).getDefesa();}
     public static double getDesTotal(){return handler.itemDef.get(itenDefensivo).getDestreza() + handler.itemMisc.get(itenMisc).getDestreza() + handler.itemOfen.get(itenOfensivo).getDestreza();}
     public static double getForcaTotal(){return handler.itemOfen.get(itenDefensivo).getForca() + handler.itemMisc.get(itenMisc).getForca();}
+    public static double getDodgeBonus(){return handler.itemMisc.get(itenMisc).getBuffEva();}
 }

@@ -71,7 +71,7 @@ public class andares extends fases{
 
     public static void boss(){
         extras.print("");
-        extras.println_bonito("Voce finalmente chegou no fim da fase " + fase_atual + "!", 700, 500);
+        extras.println_bonito("Voce finalmente chegou no fim da " + handler.fase.get(fase_atual-1).getNome() + "!", 700, 500);
         extras.delay(500);
         extras.print("");
         for(int i = 0; i < 3; i++){
@@ -85,7 +85,7 @@ public class andares extends fases{
         extras.print("");
         extras.println_bonito("Essa nao! O " + handler.bosses.get(indexm).getNome() + " apareceu!", 1000, 700);
         extras.print("");
-        extras.println_bonito("Este é o chefe desta fase! Se prepare para uma luta dificil!", 1000, 700);
+        extras.println_bonito("Este é o chefe da "+handler.fase.get(fase_atual-1).getNome()+"! Se prepare para uma luta dificil!", 1000, 700);
         combate.lutaini(2, indexm);
     }
 }

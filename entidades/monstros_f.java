@@ -36,7 +36,7 @@ public class monstros_f extends inimigos{
     void falar() {}
     void dropar() {
         int id;
-        switch(extras.rng_int(0, 7)){
+        switch(extras.rng_int(0, 6)){
             case 0: // caso for dropar um item ofensivo
                 id = extras.rng_int(0, itensOfen_drop.length);
                 inventario.receberItem(handler.itemOfen.get(itensOfen_drop[id]), itensOfen_drop[id]);
@@ -55,16 +55,16 @@ public class monstros_f extends inimigos{
                 break;
             case 4: // caso for dropar uma arma
                 id = extras.rng_int(0, arma_drop.length);
-                handler.jogador.receberArmaArmor(id, 0);
+                handler.jogador.receberArmaArmor(arma_drop[id], 0);
                 break;
             case 5: // caso for dropar uma armadura
                 id = extras.rng_int(0, armor_drop.length);
-                handler.jogador.receberArmaArmor(id, 1);
+                handler.jogador.receberArmaArmor(armor_drop[id], 1);
                 break;
             default: // caso for para dropar nenhum item
                 break;
-
         }
+        inventario.ganharDinheiro(extras.rng_double(0, 30));
     }
 
     public static void setFaseDrop(int fase){
@@ -74,16 +74,16 @@ public class monstros_f extends inimigos{
                 itensDef_drop = new int[] {1};
                 itensMisc_drop = new int[] {1};
                 consu_drop = new int[] {0,1,2,3};
-                setArmaDrop(new int[]{1,2,4,5,7}, new int[]{3,10,11});
-                armor_drop = new int[] {0,1,1,2,2,3,3};
+                setArmaDrop(new int[]{1,2,4,5,7}, new int[]{3,10,11,14});
+                armor_drop = new int[] {0,1,1};
                 break;
             case 2:
                 monstros_f.itensOfen_drop = new int[] {1}; // fase 2
                 itensDef_drop = new int[] {1};
                 itensMisc_drop = new int[] {1};
                 consu_drop = new int[] {0,1,2,3,4,5,6};
-                setArmaDrop(new int[]{4,5,7,8,9,12}, new int[]{3,9,9,10,11,11,13,13});
-                armor_drop = new int[] {0,1,1,2,2,3,3};
+                setArmaDrop(new int[]{4,5,7,8,9,12,15}, new int[]{3,9,9,10,11,11,13,13,14});
+                armor_drop = new int[] {0,1,1};
                 break;
             case 3:
                 break;

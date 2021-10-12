@@ -11,7 +11,8 @@ public class itensMisc extends itens{
         this.forca = forca;
         this.destreza = destreza;
         this.buff_evasion = buff_evasion;
-
     }
+
+    public double getBuffEva(){return this.buff_evasion;}
 
 }

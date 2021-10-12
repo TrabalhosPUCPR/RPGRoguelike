@@ -13,6 +13,7 @@ import fases.fases;
 import itens.armaduras;
 import itens.armas;
 import itens.consumiveis;
+import itens.inventario;
 import itens.itensDef;
 import itens.itensOfen;
 import itens.itensMisc;
@@ -39,8 +40,8 @@ public class handler {
         iniFases();
         iniAndares();
         iniNpcs();
-        iniMonstros();
         iniClasses();
+        iniMonstros();
         iniItens();
         extras.println("[Jogo]: Carregado");
         extras.println(" ");
@@ -86,13 +87,33 @@ public class handler {
     }
 
     public static void iniMonstrosB() {
+        // fase 1
         handler.bosses.add(new monstros_b("King Slime", "Rei dos Slimes! Dizem que isto e o resultado da fusao de 8 slimes!", 0, 50, 20, 10, 4, 60)); // 0
-        handler.bosses.add(new monstros_b("Ogro", "Voce invadiu o pantano dele!", 8, 40, 15, 10, 2, 76)); // 2
+        handler.bosses.add(new monstros_b("Ogro", "Voce invadiu o pantano dele!", 8, 40, 15, 10, 2, 76)); // 1
+
+        // fase 2
+        handler.bosses.add(new monstros_b("Shadow " + handler.jogador.getNome(), "Um lado seu obscuro...", handler.jogador.getArmaEquip(), handler.jogador.getVidamax(), handler.jogador.getForca(), (int)handler.jogador.getDefesa(), handler.jogador.getDestreza(), 106)); // 2
+
+        //fase 3
+        handler.bosses.add(new monstros_b("Aguia do deserto", "Quando ele ataca, se parece com uma bala saindo de uma arma!", 15, 90, 32, 15, 33, 159)); // 3
+        handler.bosses.add(new monstros_b("Farao", "Rei-deus do deserto! Usa magias para atacar!", 15, 100, 5, 23, 20, 156)); // 4
+
+        //fase 4
+        handler.bosses.add(new monstros_b("Senador Armstrong", "Extremamente patriota, fez infusao com nanomachines para fortalecer seus musculos a ponto de ser superhumano", 0, 200, 70, 30, 35, 156)); // 5
+
+        //fase 5
+        handler.bosses.add(new monstros_b("Quetzalcoatl", "A Serpente com plumas! Deusa de El Dorado!", 0, 500, 82, 53, 60, 340)); // 6
+
+        //ultima fase: ceu
+        handler.bosses.add(new monstros_b("O Criador", "O criador do universo, capaz de realizar o desejo de qualquer que se mostrar mais poderoso que ele!", 0, 200, 70, 30, 35, 1000)); // 7
+        //ultima fase: inferno
+        handler.bosses.add(new monstros_b("O Destruidor", "O mais poderoso do universo! Destruidor de mundos, banido do ceu e o mais malvado de todos, nunca foi visto antes por olhos vivos...", 0, 200, 70, 30, 35, 1000)); // 8
     }
 
     public static void iniMonstrosBR(){
-        handler.bossesrand.add(new monstros_b("Ceifador", "Ele esta atras de voce, a sua hora chegou...", 4, 600, 25, 20, 22, 240)); // 0
+        handler.bossesrand.add(new monstros_b("Ceifador", "Ele esta atras de voce, a sua hora chegou...", 4, 600, 15*fases.fase_atual, 10*fases.fase_atual, 17*fases.fase_atual, 240)); // 0
         handler.bossesrand.add(new monstros_b("Slime de ferro", "O rarissimo slime de ferro! Dizem que se voce derrotar ele, voce podera ficar rico!", 0, 5, 3, 99999, 50, 500)); // 1
+        handler.bossesrand.add(new monstros_b("Nouveau Riche", "Um homem tao rico que se veste com um terno de ouro", 0, 50, 30, 16, 15, 500)); // 2
     }
 
     public static void iniMonstrosF(){
@@ -113,7 +134,9 @@ public class handler {
                 handler.monstros.add(new monstros_f("Mendigo bebado", "Ele estava bebendo e voce o interrompeu", 6, 73, 20, 16, 10, 32)); // 3
                 handler.monstros.add(new monstros_f("Fantasma", "BOO! Ele veio para te assustar", 0, 40, 25, 10, 15, 22)); // 4
                 handler.monstros.add(new monstros_f("Mimic", "Um bau com itens?", 0, 20, 15, 20, 15, 20)); // 5
-                handler.monstros.add(new monstros_f("Zumbi", "Infectado por um virus rarissimo, ele vai atras de cerebro humano", 0, 300, 35, 5, 15, 25)); // 6
+                handler.monstros.add(new monstros_f("Zumbi", "Infectado por um virus rarissimo, ele vai atras de cerebro humano", 0, 80, 35, 5, 15, 25)); // 6
+                break;
+            case 3:
                 break;
         }
     }
@@ -123,6 +146,8 @@ public class handler {
         handler.classe.add(new classes("Arqueiro", "Rapido e com alta destreza, pode usar armas de longo alcance, mas possui baixa defesa", 3, 0, 35, 5, 4, 8, 1)); // 0
         handler.classe.add(new classes("Guerreiro","Forte e defensivo, pode causar alto dano em curto alcance mas possui pessima destreza", 1, 1, 35, 6, 3, 7, 0)); // 1
         handler.classe.add(new classes("Paladino","Balanceado de todas as formas, usa arma de curto alcance e experiente em qualquer situacao", 2, 1, 50, 8, 5, 3, 0)); // 2
+
+        handler.jogador = new player("", "", 0, 0, 30, 5, 5, 5, 0); //vai criar os valores do jogador na classe handler para que possa acessa-la em outras classes
         extras.print("[Player]: Classes criado com sucesso");
     }
 
@@ -156,6 +181,8 @@ public class handler {
         handler.arma.add(new armas("Arco longo de madeira", 12, "longo", "super pesado")); // 11
         handler.arma.add(new armas("Martelo", 13, "curto", "pesado")); // 12
         handler.arma.add(new armas("Arco de Ferro", 9, "longo", "leve")); // 13
+        handler.arma.add(new armas("Zarabatana", 6, "longo", "super leve")); // 14
+        handler.arma.add(new armas("Garras de ferro", 12, "curto", "omega leve")); // 15
     }
 
     static void iniArmor(){
@@ -203,13 +230,20 @@ public class handler {
     }
 
     static void iniFases(){
-        handler.fase.add(new fases("Masmorra","foda", 5)); // ordem das fases e de cima para baixo
-        handler.fase.add(new fases("aaaaa","sim", 5));
+        fases.fase_atual = 1;
+        handler.fase.add(new fases("Masmorra","Um lugar com um passado sombrio, muitas pessoas foram presas aqui para passar o resto das suas vidas para pagar pelos seus crimes...", 5)); // ordem das fases e de cima para baixo
+        handler.fase.add(new fases("Mansao Assombrada","Uma casa abandonada seculos atras, dizem que todos que entram nao saem mais...", 7));
+        handler.fase.add(new fases("Deserto","Um lugar aberto, onde se enxerga apenas areia ate o fim do horizonte...", 5));
+        handler.fase.add(new fases("Colorado U.S","Uma cidade cheio de arranha-ceus, repleto de nanomachines e memes, parece estar tendo algum tipo de guerra...", 8));
+        handler.fase.add(new fases("El dorado","Uma antiga cidade indigena, dizem que e uma cidade feita de ouro, muitos aventureiros vem em busca de riquezas...", 10));
+        handler.fase.add(new fases("Ceu","O lugar onde todos que nao cometeram pecados vem quando morrem, tambem onde permanece o criador...", 0)); // ultima fase so tem o boss
+        handler.fase.add(new fases("Inferno","O lugar onde todos que cometeram muitos pecados vao quando morrem, tambem permanece a pessoa mais malvada e poderosa do planeta...", 0)); // ultima fase tb, aparece esse se o jogador matou mt npc
     }
 
     public static void NovoJogo(){
         extras.console_clear();
         extras.println_bonito("Bem vindo ao mundo de foda nao sei o nome! ", 1000, 500);
+        inventario.resetInventario();
         NovoJogador();
         fases.comecarFases(); 
         //aqui vai ser pra dar a introducao para o jogo
@@ -217,7 +251,7 @@ public class handler {
 
     static void NovoJogador(){
         extras.println_bonito("Digite o seu nome: ", 700, 100);
-        handler.jogador = new player(extras.inputS(), "", 0, 0, 30, 5, 5, 5, 0); //vai criar os valores do jogador na classe handler para que possa acessa-la em outras classes
+        handler.jogador.setNome(extras.inputS());
         setClasseJogador();
     }
 

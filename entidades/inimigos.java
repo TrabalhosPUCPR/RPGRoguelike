@@ -62,7 +62,7 @@ public class inimigos extends entidade{
                 }
                 break;
             case 1: // caso for monstros incomuns
-                list_monst = new int[] {0,1,1,1}; 
+                list_monst = new int[] {0,1,1,1,2,2,2}; 
                 break;
 
             case 2: // caso for monstros boss
@@ -71,16 +71,23 @@ public class inimigos extends entidade{
                         list_monst = new int[] {1,0}; 
                         break;
                     case 2:
-                        list_monst = new int[] {1,1,1};
+                        list_monst = new int[] {2};
                         break;
                     case 3:
-                        list_monst = new int[] {1,1,1};
+                        list_monst = new int[] {3,3,4};
                         break;
                     case 4:
-                        list_monst = new int[] {1,1,1};
+                        list_monst = new int[] {5};
                         break;
                     case 5:
-                        list_monst = new int[] {1,1,1};
+                        list_monst = new int[] {6};
+                        break;
+                    default:
+                        if(handler.jogador.getNpcsMortos() > 10){
+                            list_monst = new int[] {8};
+                        }else{
+                            list_monst = new int[] {7};
+                        }
                         break;
                 }
                 break;

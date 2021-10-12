@@ -39,10 +39,10 @@ public class player extends entidade{
         forca_ini = this.forca;
         def_ini = this.defesa;
         des_ini = this.destreza;
-        this.forca += + inventario.getForcaTotal();
+        this.forca += inventario.getForcaTotal();
         this.defesa += handler.armor.get(this.armor_equip).getDefesa() + inventario.getDefTotal();
         this.destreza += handler.armor.get(this.armor_equip).getPesoDes() + handler.arma.get(this.arma_equip).getPesoDes() + inventario.getDesTotal();
-        buff_evasion = handler.armor.get(this.armor_equip).getEvasionB();
+        buff_evasion = handler.armor.get(this.armor_equip).getEvasionB()*inventario.getDodgeBonus();
     }
 
     public void P_turno(int indexm, int Tmons){
@@ -307,6 +307,7 @@ public class player extends entidade{
     public int getDestrezaIni(){return des_ini;}
     public int getArmorEquip(){return armor_equip;}
     public int gettipoArma(){return tipoArma;}
+    public int getNpcsMortos(){return npcs_mortos;}
 
     //setters
     public void setClasse(String c){this.classe = c;}
