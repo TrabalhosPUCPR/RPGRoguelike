@@ -118,13 +118,14 @@ public class handler {
 
     public static void iniMonstrosF(){
         switch(fases.fase_atual){
+            case 0:
             case 1: // cada fase vai ter a propria lista de monstros, esse vai ser pra fase 1
                 handler.monstros.add(new monstros_f("Slime azul", "Parece uma gelatina.", 0, 10, 6, 2, 3, 6)); // 0
                 handler.monstros.add(new monstros_f("Goblin guerreiro", "Goblin equipado com uma espada e escudo!", 2, 16, 7, 4, 5, 10)); // 1
                 handler.monstros.add(new monstros_f("Goblin arqueiro", "Goblin equipado com arco e flecha", 3, 16, 6, 3, 8, 10)); // 2
                 handler.monstros.add(new monstros_f("Mendigo", "Ele estava dormindo e voce o acordou.", 1, 30, 8, 6, 5, 16)); // 3
                 handler.monstros.add(new monstros_f("Rato", "Ele parece estar atras de algo, e voce esta no caminho.", 0, 13, 5, 4, 15, 8)); // 4
-                handler.monstros.add(new monstros_f("Mimic", "Um bau com itens?", 0, 20, 15, 20, 15, 14)); // 5
+                handler.monstros.add(new monstros_f("Mimic", "Um bau com itens?", 0, 20, 15, 10, 15, 14)); // 5
                 handler.monstros.add(new monstros_f("Sapo", "Um sapo agressivo", 0, 10, 7, 2, 4, 8)); // 6
                 break;
             case 2: // fase 2
@@ -194,16 +195,28 @@ public class handler {
         // defensivos
         handler.itemDef.add(new itensDef("nada", "nada", 0, 0)); // 0
         handler.itemDef.add(new itensDef("Botas de couro", "Aumenta um pouco a sua destreza", 1, 3)); // 1
+        handler.itemDef.add(new itensDef("Escudo de Madeira", "Aumenta um pouco a sua defesa", 3, 0)); // 2
+        handler.itemDef.add(new itensDef("Chapeu de palha", "Um chapeu feito de palha, nao faz nada de especial", 0, 0)); // 3
+        handler.itemDef.add(new itensDef("Oculos escuros", "Te deixa maneiro, mas nao faz muita diferenca", 0, 1)); // 4
+        handler.itemDef.add(new itensDef("Capa vermelha", "Uma capa vermelha, aumenta sua destreza", 0, 6)); // 5
+        handler.itemDef.add(new itensDef("Escudo quebrado", "Um escudo usado varias vezes que quebrou, aumenta defesa", 1, 0)); // 6
+        handler.itemDef.add(new itensDef("Colete a prova de balas", "Aumenta a sua defesa, mas diminui destreza", 15, -8)); // 7
 
 
         //ofensivos
         handler.itemOfen.add(new itensOfen("nada", "nada", 0, 0)); // 0
         handler.itemOfen.add(new itensOfen("Anel de forca", "Aumenta um pouco a sua forca", 2, 0)); // 1
+        handler.itemOfen.add(new itensOfen("Luvas de couro", "Aumenta a sua destreza", 1, 5)); // 2
+        handler.itemOfen.add(new itensOfen("Colar de ouro", "Te faz se sentir um pouco mais forte", 4, 0)); // 3
+        handler.itemOfen.add(new itensOfen("Bandana", "Aumenta forca e destreza", 2, 4)); // 4
 
 
         //Misc
         handler.itemMisc.add(new itensMisc("nada", "nada", 0, 0, 0, 1)); // 0
         handler.itemMisc.add(new itensMisc("Peso de 5kg", "Aumenta sua forca, mas diminui destreza", 3, 0, -3, 0.7)); // 1
+        handler.itemMisc.add(new itensMisc("Tijolo da supreme", "???", 0, 0, -6, 0.8)); // 2
+        handler.itemMisc.add(new itensMisc("Amuleto da sorte", "Aumenta sua chance de desviar", 0, 0, 0, 1.5)); // 3
+        handler.itemMisc.add(new itensMisc("Carta colecionavel", "Uma carta colecionavel, aumenta sua forca", 3, 0, 0, 1)); // 3
 
 
     }

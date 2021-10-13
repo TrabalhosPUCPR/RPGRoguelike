@@ -11,20 +11,19 @@ public class fases {
 
     public static int fase_atual = 1;
 
-    public static int andar_atual = 0;
+    public static int andar_atual = 1;
     public int qntd_andares;
 
     public fases(String nome, String desc, int qntd){
         this.nome = nome;
         this.desc = desc;
         this.qntd_andares = qntd;
-    }
+    } 
 
     public void loopAndares(){
-        andar_atual = 0;
-        while(andar_atual < this.qntd_andares - 1){
+        andar_atual = 1;
+        while(andar_atual < this.qntd_andares){
             handler.resetMonstros();
-            andar_atual++;
             andares.proxAndar();
             fimAndar();
         }
@@ -40,19 +39,16 @@ public class fases {
         }
         extras.print("");
         extras.println_bonito("Voce segue para o proximo andar da " + this.nome, 500, 500);
-        handler.resetMonstros();
-        loopAndares();
+        andar_atual++;
     }
 
     public static void comecarFases(){
-        fase_atual = 0;
         for(int i = 0; i < handler.fase.size(); i++){ // vai comecar o loop das fases
             handler.fase.get(i).comecarFaseAtual();
         }
     }
 
     private void comecarFaseAtual(){
-        //extras.print("");
         monstros_f.setFaseDrop(fase_atual);
         loopAndares();
         andares.boss();
