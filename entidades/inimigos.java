@@ -38,17 +38,39 @@ public class inimigos extends entidade{
         double dano;
         extras.print("");
         extras.println_bonito("Cuidado! o " + this.nome + " vai atacar!", 700, 300);
-        extras.print("");
         dano = atacar();
-        dano = handler.jogador.levar_dano(dano, this.destreza, false); 
+        dano = handler.jogador.levar_dano(dano, this.destreza, handler.arma.get(this.arma_equip).getPeso(), false); 
         if(dano > 0){
             player.dor();
-            extras.print("");
         }
+        extras.print("");
         extras.println_bonito("Voce levou " + String.format("%.00f", dano) + " de dano do " + this.nome + "!", 700, 500);
     }
 
-    void dropar() {
+    @Override
+    public double levar_dano(double dano, int des_atacante, String pesoAtac, boolean ig_def){
+        double danolevou = calc_dano(dano, des_atacante, ig_def);
+        msg_dano(danolevou);
+        this.vida -= danolevou;
+        if(pesoAtac == "omega leve" || handler.armor.get(handler.jogador.getArmorEquip()).getPeso() == "omega leve"){
+            extras.println("");
+            extras.println_bonito("O ataque acertou duas vezes!", 400, 600);
+            dano = calc_dano(dano, des_atacante, ig_def);
+            msg_dano(dano);
+            this.vida -= dano;
+            return danolevou + dano;
+        }
+        return danolevou;
+    }
+
+    @Override
+    public void morrer(){
+        extras.print("");
+        extras.println_bonito("O " + this.nome + " foi derrotado!", 300, 700);
+        dropar();
+    }
+
+    public void dropar() {
         int id;
         switch(extras.rng_int(0, 6)){
             case 0: // caso for dropar um item ofensivo
@@ -89,15 +111,15 @@ public class inimigos extends entidade{
                 itensMisc_drop = new int[] {1,2,3,4};
                 consu_drop = new int[] {0,1,2,3};
                 setArmaDrop(new int[]{1,2,4,5,7}, new int[]{3,10,11,14});
-                armor_drop = new int[] {0,1,1};
+                armor_drop = new int[] {0,1,2,3,4};
                 break;
             case 2:
-                itensOfen_drop = new int[] {1}; // fase 2
+                itensOfen_drop = new int[] {1,2,3,4}; // fase 2
                 itensDef_drop = new int[] {3,4,5,6};
                 itensMisc_drop = new int[] {1,2,3,4};
                 consu_drop = new int[] {0,1,2,3,4,5,6};
-                setArmaDrop(new int[]{4,5,7,8,9,12,15}, new int[]{3,9,9,10,11,11,13,13,14});
-                armor_drop = new int[] {0,1,1};
+                setArmaDrop(new int[]{4,5,7,8,9,12,15}, new int[]{3,9,9,10,11,11,13,13,14,16});
+                armor_drop = new int[] {0,1,2,3,4,5,5,5,6,6};
                 break;
             case 3:
                 break;
@@ -117,6 +139,7 @@ public class inimigos extends entidade{
                 arma_drop = listaL;
                 break;
             case 2:
+                arma_drop = new int[listaC.length+listaL.length];
                 for(int i = 0; i < listaC.length; i++){
                     arma_drop[i] = listaC[i];
                 }
@@ -128,7 +151,7 @@ public class inimigos extends entidade{
     }
 
     public static int selec_monstro(int monstipo){ // seleciona o monstro baseado na fase que deve aparecer
-        int list_monst[] = {};
+        int[] list_monst = {};
         switch(monstipo){
             case 0: // caso for monstros normais
                 switch(fases.fase_atual){

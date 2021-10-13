@@ -23,12 +23,10 @@ public class armas extends itens{
             case "curto":
                 extras.print("");
                 extras.println_bonito(sons_c[extras.rng_int(0, sons_c.length)], 300, 200);
-                extras.print("");
                 break;
             case "longo":
                 extras.print("");
                 extras.println_bonito(sons_l[extras.rng_int(0, sons_l.length)], 300, 200);
-                extras.print("");
                 break;
         }
     }

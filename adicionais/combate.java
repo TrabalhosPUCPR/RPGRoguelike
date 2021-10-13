@@ -8,21 +8,25 @@ public class combate extends entidade{
     public static int n_turno = 0;
 
     public static void lutaini(int tipo){
-        n_turno = 1;
-        handler.jogador.luta_prep();
-        switch(tipo){
-            case 0:
-                if(extras.rng_double(0, 1) > 0.05){ // todo andar que for do tipo monstro tem 5% chance de ser um monstro incomum
-                    luta(inimigos.selec_monstro(0), 0);
-                }else{
-                    luta(inimigos.selec_monstro(1), 1);
-                }
-                break;
-            case 1:
-            case 2:
-            case 3:
-                luta(inimigos.selec_monstro(tipo), tipo);
-                break;
+        try{
+            n_turno = 1;
+            handler.jogador.luta_prep();
+            switch(tipo){
+                case 0:
+                    if(extras.rng_double(0, 1) > 0.05){ // todo andar que for do tipo monstro tem 5% chance de ser um monstro incomum
+                        luta(inimigos.selec_monstro(0), 0);
+                    }else{
+                        luta(inimigos.selec_monstro(1), 1);
+                    }
+                    break;
+                case 1:
+                case 2:
+                case 3:
+                    luta(inimigos.selec_monstro(tipo), tipo);
+                    break;
+            }
+        }catch(Exception e){
+            extras.print("Erro: " + e);
         }
     }
 

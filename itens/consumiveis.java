@@ -38,7 +38,7 @@ public class consumiveis extends itens{
             case 3:
                 extras.println("");
                 extras.println_bonito("Voce Jogou " + this.nome + " no " + inimigos.getInimigo(inimigos.indexmonstro, inimigos.tipomonstro).getNome() + "!", 600, 500);
-                inimigos.getInimigo(inimigos.indexmonstro, inimigos.tipomonstro).levar_dano(this.valor, handler.jogador.getDestreza(), true);
+                inimigos.getInimigo(inimigos.indexmonstro, inimigos.tipomonstro).levar_dano(this.valor, handler.jogador.getDestreza(), "leve", true);
                 break;
         }
     }

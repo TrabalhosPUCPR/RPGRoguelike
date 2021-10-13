@@ -97,6 +97,7 @@ public class player extends entidade{
                     act = false;
                     break;
                 default:
+                    extras.print("");
                     extras.println_bonito("Digite uma acao valida", 800, 500);
                     act = false;
 
@@ -108,12 +109,14 @@ public class player extends entidade{
     private void P_atacar(int indexm, int Tmons){
         double dano = handler.jogador.atacar();
         armas.texto_som(arma_equip);
-        dano = inimigos.getInimigo(indexm, Tmons).levar_dano(dano, this.destreza, false);
+        dano = inimigos.getInimigo(indexm, Tmons).levar_dano(dano, this.destreza, handler.arma.get(this.arma_equip).getPeso(), false);
+        extras.print("");
         extras.println_bonito("O " + inimigos.getInimigo(indexm, Tmons).getNome() + " levou " + String.format("%.00f", dano) + " de dano!", 800, 500);
     }
 
     public static void dor(){
         String sons_d[] = {"AIAIAI!", "AAAAAAAAH!", "OOOF!"};
+        extras.print("");
         extras.println_bonito("" + sons_d[extras.rng_int(0, sons_d.length)], 100, 300);
     }
 
@@ -206,14 +209,14 @@ public class player extends entidade{
                 if(extras.simNao()){
                     this.arma_equip = id;
                     extras.println("");
-                    extras.println_bonito("Voce equipou a " + handler.arma.get(id).getNome(), 900, 500);
+                    extras.println_bonito("Voce equipou a arma " + handler.arma.get(id).getNome(), 900, 500);
                 }else{
                     extras.println("");
-                    extras.println_bonito("Voce jogou a " + handler.arma.get(id).getNome() + " fora...", 900, 500);
+                    extras.println_bonito("Voce jogou a arma " + handler.arma.get(id).getNome() + " fora...", 900, 500);
                 }
                 break;
             case 1:
-                extras.println_bonito("Voce recebeu a armadura " + handler.armor.get(id).getNome(), 900, 500);
+                extras.println_bonito("Voce recebeu a " + handler.armor.get(id).getNome(), 900, 500);
                 extras.println("");
                 extras.println_bonito("Voce gostaria de trocar no lugar do seu " + handler.armor.get(this.armor_equip).getNome() + "?", 900, 500);
                 if(extras.simNao()){
@@ -251,10 +254,10 @@ public class player extends entidade{
     public void levelup(){
         switch(handler.jogador.getClasse().toLowerCase()){
             case "arqueiro":
-                handler.jogador.setVidamax(this.vidamax + extras.rng_int(1, 3)); 
-                handler.jogador.setForca(this.forca + extras.rng_int(1, 3)); 
+                handler.jogador.setVidamax(this.vidamax + extras.rng_int(1, 4)); 
+                handler.jogador.setForca(this.forca + extras.rng_int(1, 5)); 
                 handler.jogador.setDefesa(this.defesa + extras.rng_int(1, 3));
-                handler.jogador.setDestreza(this.destreza + extras.rng_int(1, 5));
+                handler.jogador.setDestreza(this.destreza + extras.rng_int(1, 8));
             break;
             case "guerreiro":
                 handler.jogador.setVidamax(this.vidamax + extras.rng_int(1, 5)); 
@@ -267,6 +270,12 @@ public class player extends entidade{
                 handler.jogador.setForca(this.forca + extras.rng_int(1, 4)); 
                 handler.jogador.setDefesa(this.defesa + extras.rng_int(1, 5));
                 handler.jogador.setDestreza(this.destreza + extras.rng_int(1, 3));
+                break;
+            case "despojado":
+                handler.jogador.setVidamax(this.vidamax + extras.rng_int(1, 10)); 
+                handler.jogador.setForca(this.forca + extras.rng_int(1, 5)); 
+                handler.jogador.setDefesa(this.defesa + extras.rng_int(1, 5));
+                handler.jogador.setDestreza(this.destreza + extras.rng_int(1, 5));
                 break;
         }
         extras.print("");
@@ -289,6 +298,8 @@ public class player extends entidade{
         handler.arma.get(handler.jogador.getArmaEquip()).printStats();
         extras.println("");
         inventario.printAce();
+        extras.println("");
+        extras.println("Dinheiro: " + String.format("%.02f", inventario.dinheiro));
         extras.println("");
         extras.println("Xp necessario para subir de nivel: " + String.format("%.02f", player.xp_nes - handler.jogador.getExp()));
         extras.println("");

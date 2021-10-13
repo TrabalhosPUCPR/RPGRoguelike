@@ -22,5 +22,6 @@ public class monstros_b extends inimigos{
         extras.println_bonito("Viva! O " + this.nome + " foi derrotado!", 500, 1000);
         extras.print("");
         extras.println_bonito("Voce ganhou experiencia extra por esta luta!", 400, 400);
+        dropar();
     }
 }

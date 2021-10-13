@@ -135,7 +135,7 @@ public class handler {
                 handler.monstros.add(new monstros_f("Mendigo bebado", "Ele estava bebendo e voce o interrompeu", 6, 73, 20, 16, 10, 32)); // 3
                 handler.monstros.add(new monstros_f("Fantasma", "BOO! Ele veio para te assustar", 0, 40, 25, 10, 15, 22)); // 4
                 handler.monstros.add(new monstros_f("Mimic", "Um bau com itens?", 0, 20, 15, 20, 15, 20)); // 5
-                handler.monstros.add(new monstros_f("Zumbi", "Infectado por um virus rarissimo, ele vai atras de cerebro humano", 0, 80, 35, 5, 15, 25)); // 6
+                handler.monstros.add(new monstros_f("Zumbi", "Infectado por um virus rarissimo, ele vai atras de cerebro humano", 0, 80, 25, 5, 15, 25)); // 6
                 break;
             case 3:
                 break;
@@ -144,9 +144,10 @@ public class handler {
 
     static void iniClasses(){
         extras.print("[Player]: Criando Classes...");
-        handler.classe.add(new classes("Arqueiro", "Rapido e com alta destreza, pode usar armas de longo alcance, mas possui baixa defesa", 3, 0, 35, 5, 4, 8, 1)); // 0
-        handler.classe.add(new classes("Guerreiro","Forte e defensivo, pode causar alto dano em curto alcance mas possui pessima destreza", 1, 1, 35, 6, 3, 7, 0)); // 1
-        handler.classe.add(new classes("Paladino","Balanceado de todas as formas, usa arma de curto alcance e experiente em qualquer situacao", 2, 1, 50, 8, 5, 3, 0)); // 2
+        handler.classe.add(new classes("Arqueiro", "Rapido e com alta destreza, pode usar armas de longo alcance, mas possui baixa defesa", 3, 0, 40, 5, 4, 8, 1)); // 0
+        handler.classe.add(new classes("Guerreiro","Forte e defensivo, pode causar alto dano em curto alcance mas possui pessima destreza", 1, 1, 40, 6, 3, 7, 0)); // 1
+        handler.classe.add(new classes("Paladino","Balanceado de todas as formas, usa arma de curto alcance e experiente em qualquer situacao", 2, 1, 40, 8, 5, 3, 0)); // 2
+        handler.classe.add(new classes("Despojado","Roubado de todos os seus pertences, comeca fraco mas ganha pontos em status extremamente rapido e pode usar qualquer arma", 0, 2, 40, 5, 3, 5, 2)); // 3
 
         handler.jogador = new player("", "", 0, 0, 30, 5, 5, 5, 0); //vai criar os valores do jogador na classe handler para que possa acessa-la em outras classes
         extras.print("[Player]: Classes criado com sucesso");
@@ -168,7 +169,7 @@ public class handler {
     }
 
     static void iniArmas(){
-        handler.arma.add(new armas("nada", 2, "curto", "omega leve")); // 0
+        handler.arma.add(new armas("nada", 0, "curto", "omega leve")); // 0
         handler.arma.add(new armas("Faca de passar manteiga", 4, "curto", "super leve")); // 1
         handler.arma.add(new armas("Espada de madeira", 7, "curto", "leve")); // 2
         handler.arma.add(new armas("Arco de madeira", 6, "longo", "leve")); // 3
@@ -184,11 +185,18 @@ public class handler {
         handler.arma.add(new armas("Arco de Ferro", 9, "longo", "leve")); // 13
         handler.arma.add(new armas("Zarabatana", 6, "longo", "super leve")); // 14
         handler.arma.add(new armas("Garras de ferro", 12, "curto", "omega leve")); // 15
+        handler.arma.add(new armas("Boomerang", 9, "longo", "omega leve")); // 16
     }
 
     static void iniArmor(){
-        handler.armor.add(new armaduras("Armadura de Couro", 2, 1.1, "super leve"));
-        handler.armor.add(new armaduras("Armadura de Ferro", 4, 0.7, "pesado"));
+        handler.armor.add(new armaduras("Armadura de Couro", 4, 1.1, "super leve")); // 0
+        handler.armor.add(new armaduras("Armadura de Ferro", 6, 0.7, "pesado")); // 1
+        handler.armor.add(new armaduras("Armadura de Pano", 1, 1.5, "omega leve")); // 2
+        handler.armor.add(new armaduras("Armadura de Pedra", 5, 0.5, "super pesado")); // 3
+        handler.armor.add(new armaduras("Armadura de Madeira", 2, 1.0, "leve")); // 4
+        handler.armor.add(new armaduras("Armadura do Cavaleiro", 8, 1.0, "leve")); // 5
+        handler.armor.add(new armaduras("Armadura do Juggernaut", 15, 0, "super pesado")); // 5
+
     }
 
     static void iniAce(){
@@ -216,7 +224,7 @@ public class handler {
         handler.itemMisc.add(new itensMisc("Peso de 5kg", "Aumenta sua forca, mas diminui destreza", 3, 0, -3, 0.7)); // 1
         handler.itemMisc.add(new itensMisc("Tijolo da supreme", "???", 0, 0, -6, 0.8)); // 2
         handler.itemMisc.add(new itensMisc("Amuleto da sorte", "Aumenta sua chance de desviar", 0, 0, 0, 1.5)); // 3
-        handler.itemMisc.add(new itensMisc("Carta colecionavel", "Uma carta colecionavel, aumenta sua forca", 3, 0, 0, 1)); // 3
+        handler.itemMisc.add(new itensMisc("Carta colecionavel", "Uma carta colecionavel, aumenta sua forca", 3, 0, 0, 1)); // 4
 
 
     }
@@ -286,6 +294,9 @@ public class handler {
                 case"paladino":
                     res3 = 2;
                     break;
+                case "despojado":
+                    res3 = 3;
+                    break;
                 default:
                     extras.println_bonito("Por favor digite uma classe válida...", 1000, 500);
                     res2 = 0;
@@ -297,6 +308,7 @@ public class handler {
         handler.jogador.setDefesa(handler.classe.get(res3).getDefesa());
         handler.jogador.setDestreza(handler.classe.get(res3).getDestreza());
         handler.jogador.setArmaEquip(handler.classe.get(res3).getArmaEquip());
+        handler.jogador.setArmorEquip(handler.classe.get(res3).getArmorEquip());
         handler.jogador.setClasse(handler.classe.get(res3).getNome());
         handler.jogador.setTipoArma(handler.classe.get(res3).gettipoArma());
     }

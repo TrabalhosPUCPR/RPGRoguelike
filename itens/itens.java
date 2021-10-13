@@ -52,6 +52,7 @@ public class itens {
     public String getNome(){return this.nome;}
     public String getDesc(){return this.desc;}
     public String getTipo(){return this.tipo;}
+    public String getPeso(){return this.peso;}
 
     public int getForca(){return forca;}
     public double getDefesa(){return defesa;}

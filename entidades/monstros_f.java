@@ -1,7 +1,5 @@
 package entidades;
 
-import adicionais.extras;
-
 public class monstros_f extends inimigos{
 
     public monstros_f(String nome, String desc, int arma_equip, int vidamax, int forca, int defesa, int destreza, int exp){
@@ -14,13 +12,6 @@ public class monstros_f extends inimigos{
         this.forca = forca;
         this.destreza = destreza;
         this.exp = exp;
-    }
-
-    @Override
-    public void morrer(){
-        extras.print("");
-        extras.println_bonito("O " + this.nome + " foi derrotado!", 300, 700);
-        dropar();
     }
 
     void falar(){}

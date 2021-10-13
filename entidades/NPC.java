@@ -66,6 +66,4 @@ public class NPC extends inimigos{
         */
 
     }
-    void dropar() {}
-
 }

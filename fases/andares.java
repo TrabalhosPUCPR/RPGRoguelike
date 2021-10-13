@@ -39,7 +39,9 @@ public class andares extends fases{
                 extras.println_bonito("Voce deu carinho no cachorro", 500, 500);
                 extras.print("");
                 extras.println_bonito("Ele esta feliz", 500, 500);
-                handler.jogador.receberXp(15);
+                extras.print("");
+                extras.println_bonito("Ele te entrega um item", 500, 500);
+                inimigos.getInimigo(3, 3).dropar();
                 break;
             case "chutar":
                 extras.print("");
@@ -80,8 +82,7 @@ public class andares extends fases{
         int indexm = inimigos.selec_monstro(2);
         extras.delay(500);
         extras.print("");
-        extras.println_bonito("Este barulho nao e um bom sinal...", 700, 500);
-        extras.delay(500);
+        extras.println_bonito("Este barulho nao e um bom sinal...", 700, 900);
         extras.print("");
         extras.println_bonito("Essa nao! O " + handler.bosses.get(indexm).getNome() + " apareceu!", 1000, 700);
         extras.print("");

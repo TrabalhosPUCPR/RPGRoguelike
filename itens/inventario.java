@@ -80,9 +80,8 @@ public class inventario {
                     break;
                 }
             }
-        }
-        if(jatem == false){
-            itenConsumivel[itenConsumivel.length] = id;
+        }else if(jatem == false){
+            itenConsumivel = new int[] {id};
         }
     }
 
@@ -106,8 +105,15 @@ public class inventario {
             }
         }else{
             extras.println("");
-            itenDefensivo = id;
-            extras.println_bonito("Voce equipou o " + handler.itemDef.get(itenDefensivo).getNome() + "!", 700, 500);
+            extras.println_bonito("Gostaria de guarda-lo? ", 700, 500);
+            if(extras.simNao()){
+                itenDefensivo = id;
+                extras.println("");
+                extras.println_bonito("Voce equipou o " + handler.itemDef.get(itenDefensivo).getNome() + "!", 700, 500);
+            }else{
+                extras.println("");
+                extras.println_bonito("Voce deixou o " + item.getNome() + " para tras, sera que foi para o melhor?", 700, 500);
+            }
         }
     }
 
@@ -131,8 +137,15 @@ public class inventario {
             }
         }else{
             extras.println("");
-            itenOfensivo = id;
-            extras.println_bonito("Voce equipou o " + handler.itemOfen.get(itenOfensivo).getNome() + "!", 700, 500);
+            extras.println_bonito("Gostaria de guarda-lo? ", 700, 500);
+            if(extras.simNao()){
+                itenOfensivo = id;
+                extras.println("");
+                extras.println_bonito("Voce equipou o " + handler.itemOfen.get(itenOfensivo).getNome() + "!", 700, 500);
+            }else{
+                extras.println("");
+                extras.println_bonito("Voce deixou o " + item.getNome() + " para tras, sera que foi para o melhor?", 700, 500);
+            }
         }
     }
 
@@ -156,8 +169,15 @@ public class inventario {
             }
         }else{
             extras.println("");
-            itenMisc = id;
-            extras.println_bonito("Voce equipou o " + handler.itemMisc.get(itenMisc).getNome() + "!", 700, 500);
+            extras.println_bonito("Gostaria de guarda-lo? ", 700, 500);
+            if(extras.simNao()){
+                itenMisc = id;
+                extras.println("");
+                extras.println_bonito("Voce equipou o " + handler.itemMisc.get(itenMisc).getNome() + "!", 700, 500);
+            }else{
+                extras.println("");
+                extras.println_bonito("Voce deixou o " + item.getNome() + " para tras, sera que foi para o melhor?", 700, 500);
+            }
         }
     }
 
@@ -169,6 +189,6 @@ public class inventario {
 
     public static double getDefTotal(){return handler.itemDef.get(itenDefensivo).getDefesa() + handler.itemMisc.get(itenMisc).getDefesa();}
     public static double getDesTotal(){return handler.itemDef.get(itenDefensivo).getDestreza() + handler.itemMisc.get(itenMisc).getDestreza() + handler.itemOfen.get(itenOfensivo).getDestreza();}
-    public static double getForcaTotal(){return handler.itemOfen.get(itenDefensivo).getForca() + handler.itemMisc.get(itenMisc).getForca();}
+    public static double getForcaTotal(){return handler.itemOfen.get(itenOfensivo).getForca() + handler.itemMisc.get(itenMisc).getForca();}
     public static double getDodgeBonus(){return handler.itemMisc.get(itenMisc).getBuffEva();}
 }

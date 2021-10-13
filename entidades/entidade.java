@@ -51,7 +51,7 @@ public class entidade {
     }
 
     public double atacar(){
-        double dano = ((this.forca + handler.arma.get(this.arma_equip).getAtaque()) * this.buff_forca);
+        double dano = ((this.forca + handler.arma.get(this.arma_equip).getAtaque()) * this.buff_forca)+(this.destreza*0.2);
         return extras.rng_double(dano-(dano*0.1), dano+(dano*0.1));
     }
 
@@ -68,24 +68,59 @@ public class entidade {
         }
     }
 
-    public double levar_dano(double dano, int des_atacante, boolean ig_def){
-        if(dodge(dano, des_atacante)){
+    public double levar_dano(double dano, int des_atacante, String pesoAtac, boolean ig_def){
+        double danolevou = calc_dano(dano, des_atacante, ig_def);
+        msg_dano(danolevou);
+        this.vida -= danolevou;
+        if(pesoAtac == "omega leve"){
+            extras.println("");
+            extras.println_bonito("O ataque acertou duas vezes!", 400, 600);
+            dano = calc_dano(dano, des_atacante, ig_def);
+            msg_dano(dano);
+            this.vida -= dano;
+            return danolevou + dano;
+        }
+        return danolevou;
+    }
+
+    public double calc_dano(double dano, int des_atacante, boolean ig_def){
+        if(dodge(des_atacante)){
+            extras.println("");
             extras.println_bonito("O ataque errou!", 500, 500);
-            extras.print("");
             return 0;
         }else{
-            dano -= this.defesa*this.buff_defesa;
+            if(ig_def != true){
+                dano -= this.defesa*this.buff_defesa;
+            }
             if (dano < 1){
                 dano = 1;
             }
         }
-        this.vida -= dano;
         return dano;
     }
+    /*
+    ⠀⠀⠀⢠⣀⠀⢀⢢⠀⢀⣠⠀⠀⠀⠀
+    ⠀⠤⣤⠤⠣⠑⠊⠈⠒⠡⠣⢤⡤⠄⠀
+    ⣀⣤⣴⣛⡂⠀⠀⠀⠀⠀⣚⣣⣤⣄⡀
+    ⠀⠀⣠⠮⠄⡂⢀⢄⠀⡂⠭⢦⡀⠀⠀
+    ⠀⠀⠀⠀⠀⠗⠁⠀⠑⠇⠀⠀⠀⠀⠀
+    */
+    static void msg_dano(double dano){
+        if(dano != 0){
+            extras.delay(100);
+            extras.print("");
+            extras.println_bonito("    ⠀⠀⠀ ⢠⠀⢀⢢⠀⢀⣠⠀⠀⠀", 10, 0);
+            extras.println_bonito("    ⠀⠤⣤⠤⠣⠑⠊⠈⠒⠡⠣⢤⡤⠄", 10, 0);
+            extras.println_bonito("    ⣀⣤⣴⣛⡂"+extras.verTamMax_table(String.format("%.0f", dano), 5)+"⣚⣣⣤⣄⡀", 10, 0);
+            extras.println_bonito("    ⠀⠀⣠⠮⠄⡂⢀⢄⠀⡂⠭⢦⡀⠀⠀", 10, 0);
+            extras.println_bonito("    ⠀⠀⠀⠀⠀⠗⠁⠀⠑⠇⠀", 10, 500);
+        }
+    }
 
-    public boolean dodge(double dano, int des_atacante){
+    public boolean dodge(int des_atacante){
         double chance;
         chance = (this.destreza+(0.5*this.destreza)*buff_evasion) - 0.7*des_atacante;
+        extras.println("Chance de desviar " + chance);
         if (extras.rng_double(0, 100) < chance){
             return true;
         }else{
