@@ -1,6 +1,7 @@
 package entidades;
 
 import adicionais.extras;
+import itens.inventario;
 
 public class monstros_b extends inimigos{
 
@@ -24,4 +25,23 @@ public class monstros_b extends inimigos{
         extras.println_bonito("Voce ganhou experiencia extra por esta luta!", 400, 400);
         dropar();
     }
+
+    @Override
+    public void dropar() {
+        switch(this.nome){
+            case "slime de ferro":
+                dropItemGenerico();
+                inventario.ganharDinheiro(extras.rng_double(0, 30));
+                break;
+            case "nouveau riche":
+                dropItemGenerico();
+                inventario.ganharDinheiro(extras.rng_double(500, 1000));
+            default:
+                dropItemQualidade();
+                inventario.ganharDinheiro(extras.rng_double(30, 60));
+                break;
+        }
+    }
+
 }
+

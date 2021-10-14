@@ -75,7 +75,7 @@ public class entidade {
         if(pesoAtac == "omega leve"){
             extras.println("");
             extras.println_bonito("O ataque acertou duas vezes!", 400, 600);
-            dano = calc_dano(dano, des_atacante, ig_def);
+            dano = (calc_dano(dano, des_atacante, ig_def))/2;
             msg_dano(dano);
             this.vida -= dano;
             return danolevou + dano;
@@ -120,7 +120,6 @@ public class entidade {
     public boolean dodge(int des_atacante){
         double chance;
         chance = (this.destreza+(0.5*this.destreza)*buff_evasion) - 0.7*des_atacante;
-        extras.println("Chance de desviar " + chance);
         if (extras.rng_double(0, 100) < chance){
             return true;
         }else{

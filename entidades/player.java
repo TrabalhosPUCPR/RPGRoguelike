@@ -199,6 +199,46 @@ public class player extends entidade{
         }
     }
 
+    public boolean venderArma(){
+        if(this.arma_equip == 0){
+            extras.print("");
+            extras.println_bonito("Voce nao pode vender o nada...", 500, 500);
+        }else{
+            extras.print("");
+            extras.println_bonito("Voce gostaria de vender o seu " +handler.arma.get(this.arma_equip).getNome()+" por $"+(handler.arma.get(this.arma_equip).getDinheiro()/2)+"?", 700, 500);
+            extras.print("");
+            handler.arma.get(this.arma_equip).printStats();
+            if(extras.simNao()){
+                extras.print("");
+                extras.println_bonito("Voce vendeu o seu "+handler.arma.get(this.arma_equip).getNome(), 500, 500);
+                inventario.ganharDinheiro(handler.arma.get(this.arma_equip).getDinheiro()/2);
+                this.arma_equip = 0;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean venderArmadura(){
+        if(this.armor_equip == 0){
+            extras.print("");
+            extras.println_bonito("Voce nao pode vender o nada...", 500, 500);
+        }else{
+            extras.print("");
+            extras.println_bonito("Voce gostaria de vender o seu " +handler.armor.get(this.armor_equip).getNome()+" por $"+(handler.armor.get(this.armor_equip).getDinheiro()/2)+"?", 700, 500);
+            extras.print("");
+            handler.armor.get(this.armor_equip).printStats();
+            if(extras.simNao()){
+                extras.print("");
+                extras.println_bonito("Voce vendeu o seu "+handler.armor.get(this.armor_equip).getNome(), 500, 500);
+                inventario.ganharDinheiro(handler.armor.get(this.armor_equip).getDinheiro()/2);
+                this.armor_equip = 0;
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void receberArmaArmor(int id, int tipo){
         extras.println("");
         switch(tipo){

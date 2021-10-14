@@ -6,11 +6,12 @@ public class armaduras extends itens{
     double evasion_bonus;
     double defesa;
 
-    public armaduras(String nome, double defesa, double evasion_bonus, String peso){
+    public armaduras(String nome, double defesa, double evasion_bonus, String peso, double dinheiro){
         this.nome = nome;
         this.defesa = defesa;
         this.evasion_bonus = evasion_bonus;
         this.peso = peso;
+        this.dinheiro = dinheiro;
     }
 
     public void printStats(){

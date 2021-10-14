@@ -10,11 +10,13 @@ public class consumiveis extends itens{
     double valor;
 
 
-    public consumiveis(String nome, String acao, double valor, int acaoId){
+    public consumiveis(String nome, String acao, double valor, int acaoId, double dinheiro){
         this.nome = nome;
         this.acao = acao;
         this.valor = valor;
         this.acaoId = acaoId;
+        this.valor = valor;
+        this.dinheiro = dinheiro;
     }
 
 

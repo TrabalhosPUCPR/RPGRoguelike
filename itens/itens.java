@@ -8,6 +8,7 @@ public class itens {
     String desc;
     String peso;
     String tipo;
+    double dinheiro;
 
     int forca;
     int defesa;
@@ -26,10 +27,10 @@ public class itens {
                 des = 0;
                 break;
             case "pesado":
-                des = -2;
+                des = -5;
                 break;
             case "super pesado":
-                des = -5;
+                des = -9;
                 break;
         }
         return des;
@@ -53,6 +54,7 @@ public class itens {
     public String getDesc(){return this.desc;}
     public String getTipo(){return this.tipo;}
     public String getPeso(){return this.peso;}
+    public double getDinheiro(){return this.dinheiro;}
 
     public int getForca(){return forca;}
     public double getDefesa(){return defesa;}

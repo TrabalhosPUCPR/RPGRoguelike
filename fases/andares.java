@@ -4,6 +4,7 @@ import java.util.List;
 
 import adicionais.extras;
 import adicionais.handler;
+import entidades.NPC;
 import entidades.inimigos;
 import adicionais.combate;
 
@@ -20,49 +21,13 @@ public class andares extends fases{
     }
 
     static int selec_index(){
-        int valores[] = {1,1,1,1,0}; // isso e para deixar um andar mais provavel de aparecer, toda vez que criar uma sala diferente tenq colocar o numero dele aqui
+        int valores[] = {1,1,1,0}; // isso e para deixar um andar mais provavel de aparecer, toda vez que criar uma sala diferente tenq colocar o numero dele aqui
         int rand = extras.rng_int(0, valores.length);
         return valores[rand];
     }
 
-    public static void mercador(){}
-
-    public static void cachorro(){
-        extras.print("");
-        extras.println_bonito("Voce encontra um cachorro, o que deseja fazer?", 1300, 500);
-
-        String res = extras.inputS();
-
-        switch(res.toLowerCase()){
-            case "carinho":
-                extras.print("");
-                extras.println_bonito("Voce deu carinho no cachorro", 500, 500);
-                extras.print("");
-                extras.println_bonito("Ele esta feliz", 500, 500);
-                extras.print("");
-                extras.println_bonito("Ele te entrega um item", 500, 500);
-                inimigos.getInimigo(3, 3).dropar();
-                break;
-            case "chutar":
-                extras.print("");
-                extras.println_bonito("Seu desgracado!", 500, 500);
-                extras.print("");
-                extras.println_bonito("O cachorro ficou bravo, ele pegou uma espada no canto da sala!", 500, 500);
-                combate.lutaini(3, 3);
-                
-                break;
-            case "sair":
-                extras.print("");
-                extras.println_bonito("Voce ignora o cachorro e sai", 500, 500);
-                extras.print("");
-                extras.println_bonito("Ele esta triste", 500, 500);
-                handler.jogador.receberXp(2);
-                break;
-            default:
-                extras.print("");
-                extras.println_bonito("O cachorro nao entendeu o que quis dizer, ele vai embora", 500, 500);
-                handler.jogador.receberXp(2);
-        }
+    public static void NPC(){
+        NPC.selec_npc();
     }
 
     public static void monstro(){
@@ -73,8 +38,7 @@ public class andares extends fases{
 
     public static void boss(){
         extras.print("");
-        extras.println_bonito("Voce finalmente chegou no fim da " + handler.fase.get(fase_atual-1).getNome() + "!", 700, 500);
-        extras.delay(500);
+        extras.println_bonito("Voce finalmente chegou no fim da " + handler.fase.get(fase_atual-1).getNome() + "!", 700, 1000);
         extras.print("");
         for(int i = 0; i < 3; i++){
             extras.println_bonito("tum", 200, 100);

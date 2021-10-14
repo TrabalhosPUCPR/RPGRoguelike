@@ -8,14 +8,14 @@ public class inventario {
     public static int itenDefensivo = 0;
     public static int  itenMisc = 0;
     private static int[] itenConsumivel = {};
-    public static Double dinheiro = 100.0;
+    public static Double dinheiro = 0.0;
 
     public static void resetInventario(){
         itenOfensivo = 0;
         itenDefensivo = 0;
         itenMisc = 0;
         itenConsumivel = new int[]{};
-        dinheiro = 100.0;
+        dinheiro = 0.0;
     }
 
     public static boolean usarItem(int index){
@@ -63,6 +63,75 @@ public class inventario {
         extras.println("|              |                        |                                            |");
         extras.println("|"+ extras.verTamMax_table("Misc", 14)+"|"+extras.verTamMax_table(handler.itemMisc.get(itenMisc).getNome(), 24) + "|" + extras.verTamMax_table(handler.itemMisc.get(itenMisc).getDesc(), 44)+ "|");
         extras.println("|______________|________________________|____________________________________________|");
+    }
+
+    public static boolean venderAce(){
+        extras.print("");
+        printAce();
+        extras.print("");
+        extras.println_bonito("Digite o tipo do acessorio que gostaria de vender: ", 500, 500);
+        extras.print("");
+        extras.println_bonito("Ofensivo", 200, 20);
+        extras.println_bonito("Defensivo", 200, 20);
+        extras.println_bonito("Misc", 200, 20);
+        switch(extras.inputS().toLowerCase()){
+            case "ofensivo":
+                if(itenOfensivo == 0){
+                    extras.print("");
+                    extras.println_bonito("Voce nao pode vender o nada...", 500, 500);
+                }else{
+                    extras.print("");
+                    extras.println_bonito("Voce gostaria de vender o seu " + handler.itemOfen.get(itenOfensivo).getNome() + " por $"+(handler.itemOfen.get(itenOfensivo).getDinheiro()/2), 500, 500);
+                    if(extras.simNao()){
+                        extras.print("");
+                        extras.println_bonito("Voce vendeu o seu " + handler.itemOfen.get(itenOfensivo).getNome(), 500, 500);
+                        ganharDinheiro(handler.itemOfen.get(itenOfensivo).getDinheiro()/2);
+                        itenOfensivo = 0;
+                        return true;
+                    }
+                }
+            break;
+            case "defensivo":
+                if(itenDefensivo == 0){
+                    extras.print("");
+                    extras.println_bonito("Voce nao pode vender o nada...", 500, 500);
+                }else{
+                    extras.print("");
+                    extras.println_bonito("Voce gostaria de vender o seu " + handler.itemDef.get(itenDefensivo).getNome() + " por $"+(handler.itemDef.get(itenDefensivo).getDinheiro()/2), 500, 500);
+                    if(extras.simNao()){
+                        extras.print("");
+                        extras.println_bonito("Voce vendeu o seu " + handler.itemDef.get(itenDefensivo).getNome(), 500, 500);
+                        ganharDinheiro(handler.itemDef.get(itenDefensivo).getDinheiro()/2);
+                        itenDefensivo = 0;
+                        return true;
+                    }
+                }
+            break;
+            case "misc":
+                if(itenMisc == 0){
+                    extras.print("");
+                    extras.println_bonito("Voce nao pode vender o nada...", 500, 500);
+                }else{
+                    extras.print("");
+                    extras.println_bonito("Voce gostaria de vender o seu " + handler.itemMisc.get(itenMisc).getNome() + " por $"+(handler.itemMisc.get(itenMisc).getDinheiro()/2), 500, 500);
+                    if(extras.simNao()){
+                        extras.print("");
+                        extras.println_bonito("Voce vendeu o seu " + handler.itemMisc.get(itenMisc).getNome(), 500, 500);
+                        ganharDinheiro(handler.itemMisc.get(itenMisc).getDinheiro()/2);
+                        itenMisc = 0;
+                        return true;
+                    }
+                }
+            break;
+            case "voltar":
+            break;
+            default:
+                extras.print("");
+                extras.println_bonito("Digite uma opcao valida...", 500, 500);
+            break;
+        }
+        return false;
+
     }
 
     public static void receberItem(int id){
@@ -183,7 +252,7 @@ public class inventario {
 
     public static void ganharDinheiro(double n){
         extras.println("");
-        extras.println_bonito("Voce ganhou $" + String.format("%.0f", n) + " por esta luta", 600, 500);
+        extras.println_bonito("Voce ganhou $" + String.format("%.0f", n) + "!", 600, 500);
         dinheiro += n;
     }
 

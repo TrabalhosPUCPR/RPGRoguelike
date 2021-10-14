@@ -7,11 +7,12 @@ public class armas extends itens{
 
     int ataque;
 
-    public armas(String nome, int ataque, String tipo, String peso){
+    public armas(String nome, int ataque, String tipo, String peso, double dinheiro){
         this.nome = nome;
         this.ataque = ataque; 
         this.tipo = tipo;
         this.peso = peso;
+        this.dinheiro = dinheiro;
     }
 
     public static void texto_som(int id){
