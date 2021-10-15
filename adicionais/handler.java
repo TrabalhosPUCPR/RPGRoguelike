@@ -198,23 +198,23 @@ public class handler {
     }
 
     static void iniArmas(){
-        handler.arma.add(new armas("nada", 0, "curto", "omega leve", 0)); // 0
-        handler.arma.add(new armas("Faca de passar manteiga", 4, "curto", "super leve", 15)); // 1
-        handler.arma.add(new armas("Espada de madeira", 7, "curto", "leve", 26)); // 2
-        handler.arma.add(new armas("Arco de madeira", 6, "longo", "leve", 26)); // 3
-        handler.arma.add(new armas("Marrete", 8, "curto", "pesada", 32)); // 4
-        handler.arma.add(new armas("Grande espada de madeira", 12, "curto", "super pesado", 40)); // 5
-        handler.arma.add(new armas("Soco ingles", 7, "curto", "omega leve", 40)); // 6
-        handler.arma.add(new armas("Faca de ferro", 7, "curto", "super leve", 37)); // 7
-        handler.arma.add(new armas("Espada de ferro", 10, "curto", "leve", 39)); // 8
-        handler.arma.add(new armas("Espada longa de ferro", 12, "longo", "pesado", 40)); // 9
-        handler.arma.add(new armas("Estilingue", 5, "longo", "super leve", 20)); // 10
-        handler.arma.add(new armas("Arco longo de madeira", 12, "longo", "super pesado", 41)); // 11
-        handler.arma.add(new armas("Martelo", 13, "curto", "pesado", 45)); // 12
-        handler.arma.add(new armas("Arco de Ferro", 9, "longo", "leve", 36)); // 13
-        handler.arma.add(new armas("Zarabatana", 6, "longo", "super leve", 42)); // 14
-        handler.arma.add(new armas("Garras de ferro", 12, "curto", "omega leve", 63)); // 15
-        handler.arma.add(new armas("Boomerang", 9, "longo", "omega leve", 46)); // 16
+        handler.arma.add(new armas("nada", 0, "curto", "omega leve", 0, 0)); // 0
+        handler.arma.add(new armas("Faca de passar manteiga", 4, "curto", "super leve", 15, 1)); // 1
+        handler.arma.add(new armas("Espada de madeira", 7, "curto", "leve", 26, 1)); // 2
+        handler.arma.add(new armas("Arco de madeira", 6, "longo", "leve", 26, 1)); // 3
+        handler.arma.add(new armas("Marrete", 8, "curto", "pesada", 32, 1)); // 4
+        handler.arma.add(new armas("Grande espada de madeira", 12, "curto", "super pesado", 40, 2)); // 5
+        handler.arma.add(new armas("Soco ingles", 7, "curto", "omega leve", 40, 2)); // 6
+        handler.arma.add(new armas("Faca de ferro", 7, "curto", "super leve", 37, 1)); // 7
+        handler.arma.add(new armas("Espada de ferro", 10, "curto", "leve", 39, 2)); // 8
+        handler.arma.add(new armas("Espada longa de ferro", 12, "longo", "pesado", 40, 2)); // 9
+        handler.arma.add(new armas("Estilingue", 5, "longo", "super leve", 20, 1)); // 10
+        handler.arma.add(new armas("Arco longo de madeira", 12, "longo", "super pesado", 41, 2)); // 11
+        handler.arma.add(new armas("Martelo", 13, "curto", "pesado", 45, 2)); // 12
+        handler.arma.add(new armas("Arco de Ferro", 9, "longo", "leve", 36, 2)); // 13
+        handler.arma.add(new armas("Zarabatana", 6, "longo", "super leve", 42, 1)); // 14
+        handler.arma.add(new armas("Garras de ferro", 12, "curto", "omega leve", 63, 3)); // 15
+        handler.arma.add(new armas("Boomerang", 9, "longo", "omega leve", 46, 2)); // 16
     }
 
     static void iniArmor(){

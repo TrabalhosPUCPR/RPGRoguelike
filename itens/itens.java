@@ -9,6 +9,7 @@ public class itens {
     String peso;
     String tipo;
     double dinheiro;
+    int raridade;
 
     int forca;
     int defesa;
@@ -55,10 +56,14 @@ public class itens {
     public String getTipo(){return this.tipo;}
     public String getPeso(){return this.peso;}
     public double getDinheiro(){return this.dinheiro;}
+    public int getForca(){return this.forca;}
+    public double getDefesa(){return this.defesa;}
+    public int getDestreza(){return this.destreza;}
+    public int getRaridade(){return this.raridade;}
 
-    public int getForca(){return forca;}
-    public double getDefesa(){return defesa;}
-    public int getDestreza(){return destreza;}
+    public void setNome(String n){this.nome = n;}
+    public void setPeso(String n){this.peso = n;}
+    public void setValor(double n){this.dinheiro = n;}
 
 }
 

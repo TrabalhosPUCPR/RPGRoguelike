@@ -17,7 +17,7 @@ public class extras {
 
     public static int inputI(){
         System.out.print("R: ");
-        int res = input.nextInt();
+        int res = Integer.parseInt(input.nextLine());
         return res;
     }
 
@@ -111,6 +111,19 @@ public class extras {
         }
     }
 
+    public static int[] aumentarTamArrayInt(int[] array, int n){
+        int[] Novo_array = new int[array.length+n];
+        try{
+            for(int i = 0;i<array.length;i++){
+                Novo_array[i] = array[i];
+            }
+            return Novo_array;
+        }catch(Exception e){
+            println("Erro ao aumentar o tamanho do array: "+e);
+        }
+        return Novo_array;
+    }
+
     public static int[] removeIndex(int[] array, int index){
         int[] a = {};
         for(int i = 0; i < array.length; i++){
@@ -118,5 +131,4 @@ public class extras {
         }
         return a;
     }
-
 }

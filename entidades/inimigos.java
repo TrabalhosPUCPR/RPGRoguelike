@@ -196,6 +196,12 @@ public class inimigos extends entidade{
     }
 
     static void setArmaDrop(int[] listaC, int[] listaL){
+        arma_drop = new int[handler.arma.size()];
+        for(int i = 0; i < handler.arma.size(); i++){
+            arma_drop[i] = i;
+        }
+
+        /*
         switch(handler.jogador.gettipoArma()){
             case 0:
                 arma_drop = listaC;
@@ -213,6 +219,7 @@ public class inimigos extends entidade{
                 }
                 break;
         }
+        */
     }
 
     static void setArmaDropQualidade(int[] listaC, int[] listaL){

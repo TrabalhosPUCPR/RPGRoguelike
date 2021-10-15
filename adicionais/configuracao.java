@@ -1,6 +1,7 @@
 package adicionais;
 
 import entidades.classes;
+import itens.armas;
 
 public class configuracao {
     public static void configurar(){
@@ -20,6 +21,7 @@ public class configuracao {
                 classes.configClasses();
             break;
             case "armas":
+                armas.configArmas();
             break;
             case "armaduras":
             break;
