@@ -39,6 +39,16 @@ public class armas extends itens{
         extras.println("|"+ extras.verTamMax_table(this.nome, 18) + "|" + extras.verTamMax_table(this.ataque, 12) + "|" + extras.verTamMax_table(this.tipo, 10) + "|" + extras.verTamMax_table(this.peso, 16) + "|");
         extras.println("|__________________|____________|__________|________________|");
     }
+
+    public static void listArmas(){
+        extras.println("____________________________________________________________________");
+        extras.println("|  id  |       Nome       |   Ataque   |   Tipo   |      Peso      |");
+        extras.println("|______|__________________|____________|__________|________________|");
+        for(int i = 0; i < handler.arma.size(); i++){
+            extras.println("|"+extras.verTamMax_table(i, 6)+"|"+ extras.verTamMax_table(handler.arma.get(i).getNome(), 18) + "|" + extras.verTamMax_table(handler.arma.get(i).getAtaque(), 12) + "|" + extras.verTamMax_table(handler.arma.get(i).getTipo(), 10) + "|" + extras.verTamMax_table(handler.arma.get(i).getPeso(), 16) + "|");
+            extras.println("|______|__________________|____________|__________|________________|");
+        }
+    }
     
     public int getAtaque(){return this.ataque;}
     public void setAtaque(int n){this.ataque = n;}

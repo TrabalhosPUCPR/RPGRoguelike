@@ -74,6 +74,7 @@ public class inventario {
         extras.println_bonito("Ofensivo", 200, 20);
         extras.println_bonito("Defensivo", 200, 20);
         extras.println_bonito("Misc", 200, 20);
+        extras.println_bonito("Voltar", 200, 20);
         switch(extras.inputS().toLowerCase()){
             case "ofensivo":
                 if(itenOfensivo == 0){

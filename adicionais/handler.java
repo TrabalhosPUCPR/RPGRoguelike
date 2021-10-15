@@ -35,7 +35,7 @@ public class handler {
     public static ArrayList<NPC> npcs = new ArrayList<NPC>();
     public static List<Runnable> andar = new ArrayList<>();
 
-    public static void iniciarJogo(){
+    public static void carregarJogo(){
         extras.print("[Jogo]: Carregando...");
         iniFases();
         iniAndares();
@@ -47,7 +47,7 @@ public class handler {
         extras.println(" ");
         extras.print("[Jogo]: Precione enter para comecar o jogo...");
         extras.inputS();
-        NovoJogo();
+        extras.console_clear();
     }
 
     static void iniAndares(){
@@ -290,13 +290,13 @@ public class handler {
     public static void NovoJogo(){
         extras.console_clear();
         extras.println_bonito("Bem vindo ao mundo de foda nao sei o nome! ", 1000, 500);
-        inventario.resetInventario();
         NovoJogador();
         fases.comecarFases(); 
         //aqui vai ser pra dar a introducao para o jogo
     }
 
     static void NovoJogador(){
+        inventario.resetInventario();
         extras.println_bonito("Digite o seu nome: ", 700, 100);
         handler.jogador.setNome(extras.inputS());
         setClasseJogador();
@@ -304,39 +304,32 @@ public class handler {
 
     static void setClasseJogador(){
         int res2 = 0;
-        int res3 = 0;
         while(res2 != 1){
             extras.println_bonito("Digite qual classe voce gostaria de jogar: ", 1000, 500);
             classes.printClasses();
-            String res = extras.inputS().toLowerCase();
+            String res = extras.inputS();
+            Boolean classe_ok = false;
             res2 = 1;
-            switch(res){
-                case"arqueiro":
-                    res3 = 0;
+            for(int i = 0; i < handler.classe.size();i++){
+                if(handler.classe.get(i).getNome().toLowerCase().equals(res.toLowerCase())){
+                    handler.jogador.setVidamax(handler.classe.get(i).getVidamax());
+                    handler.jogador.setVida(handler.classe.get(i).getVida());
+                    handler.jogador.setForca(handler.classe.get(i).getForca());
+                    handler.jogador.setDefesa(handler.classe.get(i).getDefesa());
+                    handler.jogador.setDestreza(handler.classe.get(i).getDestreza());
+                    handler.jogador.setArmaEquip(handler.classe.get(i).getArmaEquip());
+                    handler.jogador.setArmorEquip(handler.classe.get(i).getArmorEquip());
+                    handler.jogador.setClasse(handler.classe.get(i).getNome());
+                    handler.jogador.setTipoArma(handler.classe.get(i).gettipoArma());
+                    classe_ok = true;
                     break;
-                case"guerreiro":
-                    res3 = 1;
-                    break;
-                case"paladino":
-                    res3 = 2;
-                    break;
-                case "despojado":
-                    res3 = 3;
-                    break;
-                default:
-                    extras.println_bonito("Por favor digite uma classe válida...", 1000, 500);
-                    res2 = 0;
+                }
+            }
+            if(classe_ok == false){
+                extras.println_bonito("Por favor digite uma classe válida...", 1000, 500);
+                res2 = 0;
             }
         }
-        handler.jogador.setVidamax(handler.classe.get(res3).getVidamax());
-        handler.jogador.setVida(handler.classe.get(res3).getVida());
-        handler.jogador.setForca(handler.classe.get(res3).getForca());
-        handler.jogador.setDefesa(handler.classe.get(res3).getDefesa());
-        handler.jogador.setDestreza(handler.classe.get(res3).getDestreza());
-        handler.jogador.setArmaEquip(handler.classe.get(res3).getArmaEquip());
-        handler.jogador.setArmorEquip(handler.classe.get(res3).getArmorEquip());
-        handler.jogador.setClasse(handler.classe.get(res3).getNome());
-        handler.jogador.setTipoArma(handler.classe.get(res3).gettipoArma());
     }
 
 }

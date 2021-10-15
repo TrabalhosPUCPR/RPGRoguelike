@@ -151,6 +151,7 @@ public class entidade {
 
     //setters
     public void setNome(String n){this.nome = n;}
+    public void setDesc(String n){this.desc = n;}
     public void setVidamax(int n){this.vidamax = n;}
     public void setVida(double n){this.vida = n;}
     public void setForca(int n){this.forca = n;}

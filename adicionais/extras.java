@@ -15,6 +15,12 @@ public class extras {
         return res;
     }
 
+    public static int inputI(){
+        System.out.print("R: ");
+        int res = input.nextInt();
+        return res;
+    }
+
     public static void delay(int t){
         try {
             Thread.sleep(t);
