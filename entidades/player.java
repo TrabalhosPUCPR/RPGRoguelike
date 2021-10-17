@@ -141,8 +141,16 @@ public class player extends entidade{
         extras.print("");
         extras.println_bonito("Precione enter para criar um novo jogo...", 400, 200);
         extras.inputS();
+        resetNmonstrosderrot();
+        resetBuff();
         extras.console_clear();
         handler.NovoJogo();
+    }
+
+    private void resetNmonstrosderrot(){
+        this.monstros_b_derrot = 0;
+        this.npcs_mortos = 0;
+        this.monstros_f_derrot = 0;
     }
 
     public void fimLuta(double xp, int tipo){
@@ -316,6 +324,12 @@ public class player extends entidade{
                 handler.jogador.setForca(this.forca + extras.rng_int(1, 5)); 
                 handler.jogador.setDefesa(this.defesa + extras.rng_int(1, 5));
                 handler.jogador.setDestreza(this.destreza + extras.rng_int(1, 5));
+                break;
+            default:
+                handler.jogador.setVidamax(this.vidamax + extras.rng_int(1, extras.rng_int(1, 10))); 
+                handler.jogador.setForca(this.forca + extras.rng_int(1, extras.rng_int(1, 5)));  // qnd vc fica na duvida oq dar de pontos pra uma classe criada dentro do jogo
+                handler.jogador.setDefesa(this.defesa + extras.rng_int(1, extras.rng_int(1, 5)));
+                handler.jogador.setDestreza(this.destreza + extras.rng_int(1, extras.rng_int(1, 5)));
                 break;
         }
         extras.print("");

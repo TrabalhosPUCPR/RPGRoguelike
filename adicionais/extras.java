@@ -111,6 +111,31 @@ public class extras {
         }
     }
 
+    public static void printIntArray(int[] arr){
+        String texto = "{";
+        for(int i = 0; i < arr.length; i++){
+            texto+=arr[i];
+            texto+=",";
+        }
+        texto+="}";
+        print(texto);
+    }
+
+    public static int[] arrayintAdd(int [] arr, int n){ //eu podia usar um arraylist? podia, mas qual a graca?
+        int[] Narray = new int[]{};
+        if(arr.length < 1){
+            Narray = new int[1];
+            Narray[0] = n;
+        }else{
+            Narray = new int[arr.length+1];
+            for (int i = 0; i < arr.length; i++){
+                Narray[i] = arr[i];
+            }
+            Narray[Narray.length-1] = n;
+        }
+        return Narray;
+    }
+
     public static int[] aumentarTamArrayInt(int[] array, int n){
         int[] Novo_array = new int[array.length+n];
         try{

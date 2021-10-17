@@ -6,6 +6,8 @@ import fases.fases;
 
 public class armas extends itens{
 
+    static int[] arma_drop;
+    static int[] qual_arma_drop;
     int ataque;
 
     public armas(String nome, int ataque, String tipo, String peso, double dinheiro, int raridade){
@@ -34,18 +36,39 @@ public class armas extends itens{
         }
     }
 
-    public static int[] setDropRateArmas(){
-        int[] arma_drop = new int[handler.arma.size()];
+    public static int dropArma(){
+        return arma_drop[extras.rng_int(0, arma_drop.length)];
+    }
+
+    public static int dropArmaRaro(){
+        return qual_arma_drop[extras.rng_int(0, qual_arma_drop.length)];
+    }
+
+    public static void setDropRateArmas(){
+        int[] arma_drop = new int[]{}; // eu comecei fazendo com int[] pq eu sou vagabundo, e percebi q tinha q fazer .add q o arraylist tem, mas ao inves de trocar pro arraylist eu fiz o meu prorio .add KKKKKKKKKKKKKKKKKK
         for(int i = 0; i < handler.arma.size(); i++){
             if(handler.arma.get(i).getRaridade()<=fases.fase_atual+1 && handler.arma.get(i).getRaridade()>fases.fase_atual-1 && filtroArmaCurtoLongo(handler.arma.get(i).getTipo())){
-                arma_drop[i] = i;
+                arma_drop = extras.arrayintAdd(arma_drop, i);
                 if(handler.arma.get(i).getRaridade()==fases.fase_atual){
-                    extras.aumentarTamArrayInt(arma_drop, 1);
-                    arma_drop[i] = i;
+                    arma_drop = extras.arrayintAdd(arma_drop, i);
                 }
             }
         }
-        return arma_drop;
+        armas.arma_drop = arma_drop;
+        setDropRateArmasRaro();
+    }
+
+    static void setDropRateArmasRaro(){
+        int[] arma_drop = new int[]{}; // msm coisa q ali em cima
+        for(int i = 0; i < handler.arma.size(); i++){
+            if(handler.arma.get(i).getRaridade()<=fases.fase_atual+2 && handler.arma.get(i).getRaridade()>fases.fase_atual && filtroArmaCurtoLongo(handler.arma.get(i).getTipo())){
+                arma_drop = extras.arrayintAdd(arma_drop, i);
+                if(handler.arma.get(i).getRaridade()==fases.fase_atual+1){
+                    arma_drop = extras.arrayintAdd(arma_drop, i);
+                }
+            }
+        }
+        armas.qual_arma_drop = arma_drop;
     }
 
     public static boolean filtroArmaCurtoLongo(String i){
@@ -64,20 +87,20 @@ public class armas extends itens{
     }
 
     public void printStats(){
-        extras.println("_____________________________________________________________");
-        extras.println("|       Nome       |   Ataque   |   Tipo   |      Peso      |");
-        extras.println("|__________________|____________|__________|________________|");
-        extras.println("|"+ extras.verTamMax_table(this.nome, 18) + "|" + extras.verTamMax_table(this.ataque, 12) + "|" + extras.verTamMax_table(this.tipo, 10) + "|" + extras.verTamMax_table(this.peso, 16) + "|");
-        extras.println("|__________________|____________|__________|________________|");
+        extras.println("____________________________________________________________________________");
+        extras.println("|       Nome       |   Ataque   |   Tipo   |      Peso      |   Raridade   |");
+        extras.println("|__________________|____________|__________|________________|______________|");
+        extras.println("|"+ extras.verTamMax_table(this.nome, 18) + "|" + extras.verTamMax_table(this.ataque, 12) + "|" + extras.verTamMax_table(this.tipo, 10) + "|" + extras.verTamMax_table(this.peso, 16) + "|"+extras.verTamMax_table(this.raridade, 14)+ "|");
+        extras.println("|__________________|____________|__________|________________|______________|");
     }
 
     public static void listArmas(){
-        extras.println("____________________________________________________________________");
-        extras.println("|  id  |       Nome       |   Ataque   |   Tipo   |      Peso      |");
-        extras.println("|______|__________________|____________|__________|________________|");
+        extras.println("___________________________________________________________________________________");
+        extras.println("|  id  |       Nome       |   Ataque   |   Tipo   |      Peso      |   Raridade   |");
+        extras.println("|______|__________________|____________|__________|________________|______________|");
         for(int i = 0; i < handler.arma.size(); i++){
-            extras.println("|"+extras.verTamMax_table(i, 6)+"|"+ extras.verTamMax_table(handler.arma.get(i).getNome(), 18) + "|" + extras.verTamMax_table(handler.arma.get(i).getAtaque(), 12) + "|" + extras.verTamMax_table(handler.arma.get(i).getTipo(), 10) + "|" + extras.verTamMax_table(handler.arma.get(i).getPeso(), 16) + "|");
-            extras.println("|______|__________________|____________|__________|________________|");
+            extras.println("|"+extras.verTamMax_table(i, 6)+"|"+ extras.verTamMax_table(handler.arma.get(i).getNome(), 18) + "|" + extras.verTamMax_table(handler.arma.get(i).getAtaque(), 12) + "|" + extras.verTamMax_table(handler.arma.get(i).getTipo(), 10) + "|" + extras.verTamMax_table(handler.arma.get(i).getPeso(), 16) + "|"+extras.verTamMax_table(handler.arma.get(i).getRaridade(), 14)+ "|");
+            extras.println("|______|__________________|____________|__________|________________|______________|");
         }
     }
 
@@ -164,6 +187,8 @@ public class armas extends itens{
                     extras.println("");
                     extras.println_bonito("Qual sera o valor $ da arma " + handler.arma.get(i).getNome() + "?", 500, 500);
                     handler.arma.get(i).setValor(extras.inputI());
+                break;
+                case "raridade":
                 break;
                 default:
                     extras.println("");

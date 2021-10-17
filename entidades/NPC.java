@@ -25,18 +25,23 @@ public class NPC extends inimigos{
         switch(extras.rng_int(0, 4)){
             case 0:
                 vendedor();
+
                 break;
             case 1:
                 prisioneiro();
+                extras.print("vc passou por prisioneiro");
                 break;
             case 2:
                 morto();
+                extras.print("vc passou por uma pessoa quase morrendo");
                 break;
             case 3:
                 mendigo();
+                extras.print("vc passou por mendigo");
                 break;
             case 4:
                 dog();
+                
                 break;
         }
     }

@@ -3,6 +3,7 @@ package entidades;
 import adicionais.extras;
 import adicionais.handler;
 import fases.fases;
+import itens.armas;
 import itens.inventario;
 
 public class inimigos extends entidade{
@@ -84,7 +85,7 @@ public class inimigos extends entidade{
 
     public static void dropItemGenerico(){
         int id;
-        switch(extras.rng_int(0, 7)){
+        switch(extras.rng_int(4, 5)){
             case 0: // caso for dropar um item ofensivo
                 id = extras.rng_int(0, itensOfen_drop.length);
                 inventario.receberItem(handler.itemOfen.get(itensOfen_drop[id]), itensOfen_drop[id]);
@@ -104,8 +105,7 @@ public class inimigos extends entidade{
                 inventario.receberItem(consu_drop[id]);
                 break;
             case 4: // caso for dropar uma arma
-                id = extras.rng_int(0, arma_drop.length);
-                handler.jogador.receberArmaArmor(arma_drop[id], 0);
+                handler.jogador.receberArmaArmor(armas.dropArma(), 0);
                 break;
             case 5: // caso for dropar uma armadura
                 id = extras.rng_int(0, armor_drop.length);
@@ -130,8 +130,7 @@ public class inimigos extends entidade{
                 inventario.receberItem(handler.itemMisc.get(qual_itensMisc_drop[id]), id);
                 break;
             case 3: // caso for dropar uma arma
-                id = extras.rng_int(0, qual_arma_drop.length);
-                handler.jogador.receberArmaArmor(qual_arma_drop[id], 0);
+                handler.jogador.receberArmaArmor(armas.dropArmaRaro(), 0);
                 break;
             case 4: // caso for dropar uma armadura
                 id = extras.rng_int(0, qual_armor_drop.length);
@@ -141,16 +140,16 @@ public class inimigos extends entidade{
                 break;
         }
     }
-
-    public static void setFaseDrop(int fase){
-        monstros_b.setFaseDropQualidade(fase);
+    /*
+    public static void setDrop(int fase){
+        setDropQualidade(fase);
         switch(fase){ // cada fase vai ter lista de drops diferentes 
             case 1:
                 itensOfen_drop = new int[] {1,2,3,4}; // a lista de ids dos possiveis itens que um monstro fraco pode dropar na fase 1
                 itensDef_drop = new int[] {1,2,3,4,5,6};
                 itensMisc_drop = new int[] {1,2,3,4};
                 consu_drop = new int[] {0,1,2,3};
-                setArmaDrop(new int[]{1,2,4,5,7}, new int[]{3,10,11,14});
+                arma_drop = armas.setDropRateArmas();
                 armor_drop = new int[] {0,1,2,3,4};
                 break;
             case 2:
@@ -158,7 +157,6 @@ public class inimigos extends entidade{
                 itensDef_drop = new int[] {3,4,5,6};
                 itensMisc_drop = new int[] {1,2,3,4};
                 consu_drop = new int[] {0,1,2,3,4,5,6};
-                setArmaDrop(new int[]{4,5,7,8,9,12,15}, new int[]{3,9,9,10,11,11,13,13,14,16});
                 armor_drop = new int[] {0,1,2,3,4,5,5,5,6,6};
                 break;
             case 3:
@@ -169,21 +167,19 @@ public class inimigos extends entidade{
                 break;
         }
     }
-
-    static void setFaseDropQualidade(int fase){
+    */
+    static void setDropQualidade(int fase){
         switch(fase){ // cada fase vai ter lista de drops diferentes 
             case 1:
                 qual_itensOfen_drop = new int[] {3,4}; // a lista de ids dos possiveis itens que um boss pode dropar na fase 1
                 qual_itensDef_drop = new int[] {7,5,2};
                 qual_itensMisc_drop = new int[] {4};
-                setArmaDrop(new int[]{4,5,6,8,12}, new int[]{9,10,11,13,14,16});
                 qual_armor_drop = new int[] {5,6,2};
                 break;
             case 2:
                 qual_itensOfen_drop = new int[] {3,4}; // a lista de ids dos possiveis itens que um boss pode dropar na fase 1
                 qual_itensDef_drop = new int[] {7,5,2};
                 qual_itensMisc_drop = new int[] {4};
-                setArmaDrop(new int[]{8,12,15}, new int[]{13,14,16});
                 qual_armor_drop = new int[] {5,6,2};
                 break;
             case 3:
@@ -193,33 +189,6 @@ public class inimigos extends entidade{
             case 5:
                 break;
         }
-    }
-
-    static void setArmaDrop(int[] listaC, int[] listaL){
-        arma_drop = new int[handler.arma.size()];
-        for(int i = 0; i < handler.arma.size(); i++){
-            arma_drop[i] = i;
-        }
-
-        /*
-        switch(handler.jogador.gettipoArma()){
-            case 0:
-                arma_drop = listaC;
-                break;
-            case 1:
-                arma_drop = listaL;
-                break;
-            case 2:
-                arma_drop = new int[listaC.length+listaL.length];
-                for(int i = 0; i < listaC.length; i++){
-                    arma_drop[i] = listaC[i];
-                }
-                for(int i = 0; i < listaL.length; i++){
-                    arma_drop[i + listaC.length] = listaL[i];
-                }
-                break;
-        }
-        */
     }
 
     static void setArmaDropQualidade(int[] listaC, int[] listaL){

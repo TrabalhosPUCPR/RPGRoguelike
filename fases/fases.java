@@ -2,7 +2,7 @@ package fases;
 
 import adicionais.extras;
 import adicionais.handler;
-import entidades.monstros_f;
+import itens.armas;
 
 public class fases {
 
@@ -48,8 +48,12 @@ public class fases {
         }
     }
 
+    static void setDropsFase(){
+        armas.setDropRateArmas();
+    }
+
     private void comecarFaseAtual(){
-        monstros_f.setFaseDrop(fase_atual);
+        setDropsFase();
         loopAndares();
         andares.boss();
         fimFase();
