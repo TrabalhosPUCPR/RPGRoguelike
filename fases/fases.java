@@ -2,7 +2,9 @@ package fases;
 
 import adicionais.extras;
 import adicionais.handler;
+import itens.armaduras;
 import itens.armas;
+import itens.itens;
 
 public class fases {
 
@@ -21,7 +23,7 @@ public class fases {
     } 
 
     public void loopAndares(){
-        andar_atual = 1;
+        andar_atual =  1;
         while(andar_atual < this.qntd_andares){
             handler.resetMonstros();
             andares.proxAndar();
@@ -50,6 +52,8 @@ public class fases {
 
     static void setDropsFase(){
         armas.setDropRateArmas();
+        armaduras.setDropRateArmaduras();
+        itens.setDropRateAce();
     }
 
     private void comecarFaseAtual(){

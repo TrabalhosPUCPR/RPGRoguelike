@@ -2,18 +2,60 @@ package itens;
 
 import adicionais.extras;
 import adicionais.handler;
+import fases.fases;
 
 public class armaduras extends itens{
+
     double evasion_bonus;
     double defesa;
 
-    public armaduras(String nome, double defesa, double evasion_bonus, String peso, double dinheiro){
+    static int[] armor_drop;
+    static int[] qual_armor_drop;
+
+    public armaduras(String nome, double defesa, double evasion_bonus, String peso, double dinheiro, int raridade){
         this.nome = nome;
         this.defesa = defesa;
         this.evasion_bonus = evasion_bonus;
         this.peso = peso;
         this.dinheiro = dinheiro;
+        this.raridade = raridade;
     }
+
+    public static int dropArmor(){
+        return armor_drop[extras.rng_int(0, armor_drop.length)];
+    }
+
+    public static int dropArmorRaro(){
+        return qual_armor_drop[extras.rng_int(0, qual_armor_drop.length)];
+    }
+
+    public static void setDropRateArmaduras(){
+        int[] armor_drop = new int[]{}; // eu comecei fazendo com int[] pq eu sou vagabundo, e percebi q tinha q fazer .add q o arraylist tem, mas ao inves de trocar pro arraylist eu fiz o meu prorio .add KKKKKKKKKKKKKKKKKK
+        for(int i = 0; i < handler.armor.size(); i++){
+            if(handler.armor.get(i).getRaridade()<=fases.fase_atual+1 && handler.armor.get(i).getRaridade()>fases.fase_atual-1){
+                armor_drop = extras.arrayintAdd(armor_drop, i);
+                if(handler.armor.get(i).getRaridade()==fases.fase_atual){
+                    armor_drop = extras.arrayintAdd(armor_drop, i);
+                }
+            }
+        }
+        armaduras.armor_drop = armor_drop;
+        setDropRateArmadurasRaro();
+    }
+
+    static void setDropRateArmadurasRaro(){
+        int[] armor_drop = new int[]{};
+        for(int i = 0; i < handler.armor.size(); i++){
+            if(handler.armor.get(i).getRaridade()<=fases.fase_atual+2 && handler.armor.get(i).getRaridade()>fases.fase_atual){
+                armor_drop = extras.arrayintAdd(armor_drop, i);
+                if(handler.armor.get(i).getRaridade()==fases.fase_atual+1){
+                    armor_drop = extras.arrayintAdd(armor_drop, i);
+                }
+            }
+        }
+        armaduras.armor_drop = armor_drop;
+    }
+
 
     public void printStats(){
         extras.println("____________________________________________________________________");

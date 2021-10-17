@@ -3,11 +3,9 @@ package adicionais;
 import java.util.Random;
 import java.util.Scanner;
 
-public class extras {
+public class extras { // essa classe serve para colocar uns codigos para fazer umas coisas meio q padrao pelo codigo todo, nao tem um lugar especifico pra colocar eles
 
     static Scanner input = new Scanner(System.in);
-
-    public extras(){}
 
     public static String inputS(){
         System.out.print("R: ");

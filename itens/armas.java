@@ -36,7 +36,7 @@ public class armas extends itens{
         }
     }
 
-    public static int dropArma(){
+    public static int dropArma(){ // isso daqui vai retorna o id de uma arma aleatorio baseada na fase atual e raridade de arma, da pra usar isso no ngc do mercador tb, msm coisa com outros itens e equips
         return arma_drop[extras.rng_int(0, arma_drop.length)];
     }
 

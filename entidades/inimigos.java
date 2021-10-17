@@ -3,28 +3,18 @@ package entidades;
 import adicionais.extras;
 import adicionais.handler;
 import fases.fases;
+import itens.armaduras;
 import itens.armas;
+import itens.consumiveis;
 import itens.inventario;
+import itens.itensDef;
+import itens.itensMisc;
+import itens.itensOfen;
 
 public class inimigos extends entidade{
 
     public static int indexmonstro;
     public static int tipomonstro;
-
-    static int[] itensOfen_drop; // a lista de ids dos possiveis itens que um monstro fraco pode dropar
-    static int[] itensDef_drop;
-    static int[] itensMisc_drop;
-    static int[] consu_drop;
-
-    static int[] arma_drop;
-    static int[] armor_drop;
-
-    static int[] qual_itensOfen_drop; // a lista de ids dos possiveis itens de qualidade que pode dropar
-    static int[] qual_itensDef_drop;
-    static int[] qual_itensMisc_drop;
-
-    static int[] qual_arma_drop;
-    static int[] qual_armor_drop;
 
     public static inimigos getInimigo(int indexm, int tipo){
         indexmonstro = indexm;
@@ -85,129 +75,65 @@ public class inimigos extends entidade{
 
     public static void dropItemGenerico(){
         int id;
-        switch(extras.rng_int(4, 5)){
-            case 0: // caso for dropar um item ofensivo
-                id = extras.rng_int(0, itensOfen_drop.length);
-                inventario.receberItem(handler.itemOfen.get(itensOfen_drop[id]), itensOfen_drop[id]);
-                break;
-            case 1: // caso for dropar um item defensivo
-                id = extras.rng_int(0, itensDef_drop.length);
-                inventario.receberItem(handler.itemDef.get(itensDef_drop[id]), itensDef_drop[id]);
-                break;
-            case 2: // caso for dropar um item misc
-                id = extras.rng_int(0, itensMisc_drop.length);
-                inventario.receberItem(handler.itemMisc.get(itensMisc_drop[id]), itensMisc_drop[id]);
-                break;
-            case 6:
-            case 7:
-            case 3: // caso for dropar um item consumivel
-                id = extras.rng_int(0, consu_drop.length);
-                inventario.receberItem(consu_drop[id]);
-                break;
-            case 4: // caso for dropar uma arma
-                handler.jogador.receberArmaArmor(armas.dropArma(), 0);
-                break;
-            case 5: // caso for dropar uma armadura
-                id = extras.rng_int(0, armor_drop.length);
-                handler.jogador.receberArmaArmor(armor_drop[id], 1);
-                break;
+        try{
+            switch(extras.rng_int(0, 6)){
+                case 0: // caso for dropar um item ofensivo
+                    id = itensOfen.dropItenOfen();
+                    inventario.receberItem(handler.itemOfen.get(id), id);
+                    break;
+                case 1: // caso for dropar um item defensivo
+                    id = itensDef.dropItenDef();
+                    inventario.receberItem(handler.itemDef.get(id), id);
+                    break;
+                case 2: // caso for dropar um item misc
+                    id = itensMisc.dropItenMisc();
+                    inventario.receberItem(handler.itemMisc.get(id), id);
+                    break;
+                case 3: // caso for dropar uma arma
+                    handler.jogador.receberArmaArmor(armas.dropArma(), 0);
+                    break;
+                case 4: // caso for dropar uma armadura
+                    handler.jogador.receberArmaArmor(armaduras.dropArmor(), 1);
+                    break;
+                default:
+                    id = consumiveis.dropConsu();
+                    inventario.receberItem(id);
+                    break;
+            }
+        }catch(Exception e){
+            extras.println("");
+            extras.println_bonito("Erro: "+e, 600, 500);
+            extras.println_bonito("Talvez seja por que nao ha nenhum item para dropar", 600, 500);
         }
     }
 
     public static void dropItemQualidade(){
         int id;
-        switch(extras.rng_int(0, 5)){
-            case 0: // caso for dropar um item ofensivo
-                id = extras.rng_int(0, qual_itensOfen_drop.length);
-                inventario.receberItem(handler.itemOfen.get(qual_itensOfen_drop[id]), id);
-                break;
-            case 1: // caso for dropar um item defensivo
-                id = extras.rng_int(0, qual_itensDef_drop.length);
-                inventario.receberItem(handler.itemDef.get(qual_itensDef_drop[id]), id);
-                break;
-            case 2: // caso for dropar um item misc
-                id = extras.rng_int(0, qual_itensMisc_drop.length);
-                inventario.receberItem(handler.itemMisc.get(qual_itensMisc_drop[id]), id);
-                break;
-            case 3: // caso for dropar uma arma
-                handler.jogador.receberArmaArmor(armas.dropArmaRaro(), 0);
-                break;
-            case 4: // caso for dropar uma armadura
-                id = extras.rng_int(0, qual_armor_drop.length);
-                handler.jogador.receberArmaArmor(qual_armor_drop[id], 1);
-                break;
-            default: // caso for para dropar nenhum item
-                break;
-        }
-    }
-    /*
-    public static void setDrop(int fase){
-        setDropQualidade(fase);
-        switch(fase){ // cada fase vai ter lista de drops diferentes 
-            case 1:
-                itensOfen_drop = new int[] {1,2,3,4}; // a lista de ids dos possiveis itens que um monstro fraco pode dropar na fase 1
-                itensDef_drop = new int[] {1,2,3,4,5,6};
-                itensMisc_drop = new int[] {1,2,3,4};
-                consu_drop = new int[] {0,1,2,3};
-                arma_drop = armas.setDropRateArmas();
-                armor_drop = new int[] {0,1,2,3,4};
-                break;
-            case 2:
-                itensOfen_drop = new int[] {1,2,3,4}; // fase 2
-                itensDef_drop = new int[] {3,4,5,6};
-                itensMisc_drop = new int[] {1,2,3,4};
-                consu_drop = new int[] {0,1,2,3,4,5,6};
-                armor_drop = new int[] {0,1,2,3,4,5,5,5,6,6};
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-        }
-    }
-    */
-    static void setDropQualidade(int fase){
-        switch(fase){ // cada fase vai ter lista de drops diferentes 
-            case 1:
-                qual_itensOfen_drop = new int[] {3,4}; // a lista de ids dos possiveis itens que um boss pode dropar na fase 1
-                qual_itensDef_drop = new int[] {7,5,2};
-                qual_itensMisc_drop = new int[] {4};
-                qual_armor_drop = new int[] {5,6,2};
-                break;
-            case 2:
-                qual_itensOfen_drop = new int[] {3,4}; // a lista de ids dos possiveis itens que um boss pode dropar na fase 1
-                qual_itensDef_drop = new int[] {7,5,2};
-                qual_itensMisc_drop = new int[] {4};
-                qual_armor_drop = new int[] {5,6,2};
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-        }
-    }
-
-    static void setArmaDropQualidade(int[] listaC, int[] listaL){
-        switch(handler.jogador.gettipoArma()){
-            case 0:
-                qual_arma_drop = listaC;
-                break;
-            case 1:
-                qual_arma_drop = listaL;
-                break;
-            case 2:
-                qual_arma_drop = new int[listaC.length+listaL.length];
-                for(int i = 0; i < listaC.length; i++){
-                    qual_arma_drop[i] = listaC[i];
-                }
-                for(int i = 0; i < listaL.length; i++){
-                    qual_arma_drop[i + listaC.length] = listaL[i];
-                }
-                break;
+        try{
+            switch(extras.rng_int(0, 4)){
+                case 0: // caso for dropar um item ofensivo
+                    id = itensOfen.dropItenOfenRaro();
+                    inventario.receberItem(handler.itemOfen.get(id), id);
+                    break;
+                case 1: // caso for dropar um item defensivo
+                    id = itensDef.dropItenDefRaro();
+                    inventario.receberItem(handler.itemDef.get(id), id);
+                    break;
+                case 2: // caso for dropar um item misc
+                    id = itensMisc.dropItenMiscRaro();
+                    inventario.receberItem(handler.itemMisc.get(id), id);
+                    break;
+                case 3: // caso for dropar uma arma
+                    handler.jogador.receberArmaArmor(armas.dropArmaRaro(), 0);
+                    break;
+                case 4: // caso for dropar uma armadura
+                    handler.jogador.receberArmaArmor(armaduras.dropArmorRaro(), 1);
+                    break;
+            }
+        }catch(Exception e){
+            extras.println("");
+            extras.println_bonito("Erro: "+e, 600, 500);
+            extras.println_bonito("Talvez seja por que nao ha nenhum item para dropar", 600, 500);
         }
     }
 

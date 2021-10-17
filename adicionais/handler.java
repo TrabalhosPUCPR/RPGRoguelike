@@ -47,14 +47,13 @@ public class handler {
         extras.println(" ");
         extras.print("[Jogo]: Precione enter para comecar o jogo...");
         extras.inputS();
-        extras.console_clear();
     }
 
     static void iniAndares(){
         // essa e na minha opiniao a forma mais facil de escolher uma funcao de um andar aleatoriamente 
         handler.andar.add(andares::NPC); // 0, numero de cada sala para fazer com que a chance de cada sala aparecer seja diferente
         handler.andar.add(andares::monstro); // 1
-        //handler.andar.add(andares::mercador); // 2
+        // acho q vai ser so esses dois msm, pensei q seria mais
     }
 
     static void iniNpcs(){
@@ -175,6 +174,7 @@ public class handler {
         handler.classe.add(new classes("Guerreiro","Forte e defensivo, pode causar alto dano em curto alcance mas possui pessima destreza", 1, 1, 40, 6, 3, 7, 0)); // 1
         handler.classe.add(new classes("Paladino","Balanceado de todas as formas, usa arma de curto alcance e experiente em qualquer situacao", 2, 1, 40, 8, 5, 3, 0)); // 2
         handler.classe.add(new classes("Despojado","Roubado de todos os seus pertences, comeca fraco mas ganha pontos em status extremamente rapido e pode usar qualquer arma", 0, 2, 40, 5, 3, 5, 2)); // 3
+        handler.classe.add(new classes("Dev","dev mode", 0, 2, 999, 999, 999, 999, 2)); // 3
 
         handler.jogador = new player("", "", 0, 0, 30, 5, 5, 5, 0); //vai criar os valores do jogador na classe handler para que possa acessa-la em outras classes
         extras.print("[Player]: Classes criado com sucesso");
@@ -218,57 +218,57 @@ public class handler {
     }
 
     static void iniArmor(){
-        handler.armor.add(new armaduras("Armadura de Couro", 4, 1.1, "super leve", 30)); // 0
-        handler.armor.add(new armaduras("Armadura de Ferro", 6, 0.7, "pesado", 36)); // 1
-        handler.armor.add(new armaduras("Armadura de Pano", 0, 1.5, "omega leve", 63)); // 2
-        handler.armor.add(new armaduras("Armadura de Pedra", 5, 0.5, "super pesado", 32)); // 3
-        handler.armor.add(new armaduras("Armadura de Madeira", 2, 1.0, "leve", 24)); // 4
-        handler.armor.add(new armaduras("Armadura do Cavaleiro", 8, 1.0, "leve", 47)); // 5
-        handler.armor.add(new armaduras("Armadura do Juggernaut", 15, 0, "super pesado", 80)); // 5
+        handler.armor.add(new armaduras("Armadura de Couro", 4, 1.1, "super leve", 30, 1)); // 0
+        handler.armor.add(new armaduras("Armadura de Ferro", 6, 0.7, "pesado", 36, 1)); // 1
+        handler.armor.add(new armaduras("Armadura de Pano", 0, 1.5, "omega leve", 63, 3)); // 2
+        handler.armor.add(new armaduras("Armadura de Pedra", 5, 0.5, "super pesado", 32, 1)); // 3
+        handler.armor.add(new armaduras("Armadura de Madeira", 2, 1.0, "leve", 24, 1)); // 4
+        handler.armor.add(new armaduras("Armadura do Cavaleiro", 8, 1.0, "leve", 47, 2)); // 5
+        handler.armor.add(new armaduras("Armadura do Juggernaut", 15, 0, "super pesado", 80, 3)); // 6
 
     }
 
     static void iniAce(){
         // defensivos
-        handler.itemDef.add(new itensDef("nada", "nada", 0, 0, 0.0)); // 0
-        handler.itemDef.add(new itensDef("Botas de couro", "Aumenta um pouco a sua destreza", 1, 3, 25)); // 1
-        handler.itemDef.add(new itensDef("Escudo de Madeira", "Aumenta um pouco a sua defesa", 3, 0, 40)); // 2
-        handler.itemDef.add(new itensDef("Chapeu de palha", "Um chapeu feito de palha, nao faz nada de especial", 0, 0, 15)); // 3
-        handler.itemDef.add(new itensDef("Oculos escuros", "Te deixa maneiro, mas nao faz muita diferenca", 0, 1, 50)); // 4
-        handler.itemDef.add(new itensDef("Capa vermelha", "Uma capa vermelha, aumenta sua destreza", 0, 6, 70)); // 5
-        handler.itemDef.add(new itensDef("Escudo quebrado", "Um escudo usado varias vezes que quebrou, aumenta defesa", 1, 0, 15)); // 6
-        handler.itemDef.add(new itensDef("Colete a prova de balas", "Aumenta a sua defesa, mas diminui destreza", 15, -8, 150)); // 7
+        handler.itemDef.add(new itensDef("nada", "nada", 0, 0, 0.0, 0)); // 0
+        handler.itemDef.add(new itensDef("Botas de couro", "Aumenta um pouco a sua destreza", 1, 3, 25, 1)); // 1
+        handler.itemDef.add(new itensDef("Escudo de Madeira", "Aumenta um pouco a sua defesa", 3, 0, 40, 2)); // 2
+        handler.itemDef.add(new itensDef("Chapeu de palha", "Um chapeu feito de palha, nao faz nada de especial", 0, 0, 15, 1)); // 3
+        handler.itemDef.add(new itensDef("Oculos escuros", "Te deixa maneiro, mas nao faz muita diferenca", 0, 1, 50, 1)); // 4
+        handler.itemDef.add(new itensDef("Capa vermelha", "Uma capa vermelha, aumenta sua destreza", 0, 6, 70, 2)); // 5
+        handler.itemDef.add(new itensDef("Escudo quebrado", "Um escudo usado varias vezes que quebrou, aumenta defesa", 1, 0, 15, 1)); // 6
+        handler.itemDef.add(new itensDef("Colete a prova de balas", "Aumenta a sua defesa, mas diminui destreza", 15, -8, 150, 3)); // 7
 
         //ofensivos
-        handler.itemOfen.add(new itensOfen("nada", "nada", 0, 0, 0)); // 0
-        handler.itemOfen.add(new itensOfen("Anel de forca", "Aumenta um pouco a sua forca", 2, 0, 30)); // 1
-        handler.itemOfen.add(new itensOfen("Luvas de couro", "Aumenta a sua destreza", 1, 5, 23.5)); // 2
-        handler.itemOfen.add(new itensOfen("Colar de ouro", "Te faz se sentir um pouco mais forte", 4, 0, 75)); // 3
-        handler.itemOfen.add(new itensOfen("Bandana", "Aumenta forca e destreza", 2, 4, 40)); // 4
+        handler.itemOfen.add(new itensOfen("nada", "nada", 0, 0, 0, 0)); // 0
+        handler.itemOfen.add(new itensOfen("Anel de forca", "Aumenta um pouco a sua forca", 2, 0, 30, 1)); // 1
+        handler.itemOfen.add(new itensOfen("Luvas de couro", "Aumenta a sua destreza", 1, 5, 23.5, 1)); // 2
+        handler.itemOfen.add(new itensOfen("Colar de ouro", "Te faz se sentir um pouco mais forte", 4, 0, 75, 1)); // 3
+        handler.itemOfen.add(new itensOfen("Bandana", "Aumenta forca e destreza", 2, 4, 40, 2)); // 4
 
 
         //Misc
-        handler.itemMisc.add(new itensMisc("nada", "nada", 0, 0, 0, 1, 0.0)); // 0
-        handler.itemMisc.add(new itensMisc("Peso de 5kg", "Aumenta sua forca, mas diminui destreza", 3, 0, -3, 0.7, 28)); // 1
-        handler.itemMisc.add(new itensMisc("Tijolo da supreme", "So serve como peso, mas vale bastante", 0, 0, -6, 0.8, 99.99)); // 2
-        handler.itemMisc.add(new itensMisc("Amuleto da sorte", "Aumenta sua chance de desviar", 0, 0, 0, 1.5, 44.0)); // 3
-        handler.itemMisc.add(new itensMisc("Carta colecionavel", "Uma carta colecionavel, aumenta sua forca", 3, 0, 0, 1, 25.0)); // 4
+        handler.itemMisc.add(new itensMisc("nada", "nada", 0, 0, 0, 1, 0.0, 0)); // 0
+        handler.itemMisc.add(new itensMisc("Peso de 5kg", "Aumenta sua forca, mas diminui destreza", 3, 0, -3, 0.7, 28, 1)); // 1
+        handler.itemMisc.add(new itensMisc("Tijolo da supreme", "So serve como peso, mas vale bastante", 0, 0, -6, 0.8, 99.99, 1)); // 2
+        handler.itemMisc.add(new itensMisc("Amuleto da sorte", "Aumenta sua chance de desviar", 0, 0, 0, 1.5, 44.0, 1)); // 3
+        handler.itemMisc.add(new itensMisc("Carta colecionavel", "Uma carta colecionavel, aumenta sua forca", 3, 0, 0, 1, 25.0, 1)); // 4
     }
 
     static void iniConsu(){
-        handler.consu.add(new consumiveis("Pedra", "Uma pedra que voce pode jogar", 5, 3, 10)); // 0 // causa 5 de dano garantido no oponente
-        handler.consu.add(new consumiveis("Fraca Pocao de Vida", "Cura um pouco a sua vida", 0.2, 0, 15)); // 1 // cura 20% da vida da pessoa
-        handler.consu.add(new consumiveis("Fraca Pocao de Forca", "Aumenta sua forca um pouco", 0.2, 1, 15)); // 2 // aumenta em 20% a forca da pessoa
-        handler.consu.add(new consumiveis("Fraca Pocao de Destreza","Aumenta sua destreza um pouco",0.2, 2, 15));// 3 // aumenta em 20% a destreza da pessoa
-        handler.consu.add(new consumiveis("Media Pocao de Vida", "Cura um bocado a sua vida", 0.5, 0, 35)); // 4 // cura 50% da vida da pessoa
-        handler.consu.add(new consumiveis("Media Pocao de Forca", "Aumenta sua forca um bocado", 0.5, 1, 35)); // 5 // aumenta em 50% a forca da pessoa
-        handler.consu.add(new consumiveis("Media Pocao de Destreza","Aumenta sua destreza um bocado",0.5, 2, 35));// 6 // aumenta em 50% a destreza da pessoa
-        handler.consu.add(new consumiveis("Forte Pocao de Vida", "Cura a sua vida consideravelmente", 0.75, 0, 45)); // 7 // cura 75% da vida da pessoa
-        handler.consu.add(new consumiveis("Forte Pocao de Forca", "Aumenta sua forca consideravelmente", 0.75, 1, 45)); // 8 // aumenta em 75% a forca da pessoa
-        handler.consu.add(new consumiveis("Forte Pocao de Destreza","Aumenta sua destreza consideravelmente",0.75, 2, 45));// 9 // aumenta em 75% a destreza da pessoa
-        handler.consu.add(new consumiveis("Maxima Pocao de Vida", "Cura completamente a sua vida", 1, 0, 65)); // 10 // cura 100% da vida da pessoa
-        handler.consu.add(new consumiveis("Maxima Pocao de Forca", "Dobra a sua forca", 1, 1, 65)); // 11 // aumenta em 100% a forca da pessoa
-        handler.consu.add(new consumiveis("Maxima Pocao de Destreza","Dobra sua destreza", 1, 2, 65));// 12 // aumenta em 100% a destreza da pessoa
+        handler.consu.add(new consumiveis("Pedra", "Uma pedra que voce pode jogar", 5, 3, 10, 1)); // 0 // causa 5 de dano garantido no oponente
+        handler.consu.add(new consumiveis("Fraca Pocao de Vida", "Cura um pouco a sua vida", 0.2, 0, 15, 1)); // 1 // cura 20% da vida da pessoa
+        handler.consu.add(new consumiveis("Fraca Pocao de Forca", "Aumenta sua forca um pouco", 0.2, 1, 15, 1)); // 2 // aumenta em 20% a forca da pessoa
+        handler.consu.add(new consumiveis("Fraca Pocao de Destreza","Aumenta sua destreza um pouco",0.2, 2, 15, 1));// 3 // aumenta em 20% a destreza da pessoa
+        handler.consu.add(new consumiveis("Media Pocao de Vida", "Cura um bocado a sua vida", 0.5, 0, 35, 1)); // 4 // cura 50% da vida da pessoa
+        handler.consu.add(new consumiveis("Media Pocao de Forca", "Aumenta sua forca um bocado", 0.5, 1, 35, 1)); // 5 // aumenta em 50% a forca da pessoa
+        handler.consu.add(new consumiveis("Media Pocao de Destreza","Aumenta sua destreza um bocado",0.5, 2, 35, 1));// 6 // aumenta em 50% a destreza da pessoa
+        handler.consu.add(new consumiveis("Forte Pocao de Vida", "Cura a sua vida consideravelmente", 0.75, 0, 45, 2)); // 7 // cura 75% da vida da pessoa
+        handler.consu.add(new consumiveis("Forte Pocao de Forca", "Aumenta sua forca consideravelmente", 0.75, 1, 45, 2)); // 8 // aumenta em 75% a forca da pessoa
+        handler.consu.add(new consumiveis("Forte Pocao de Destreza","Aumenta sua destreza consideravelmente",0.75, 2, 45, 2));// 9 // aumenta em 75% a destreza da pessoa
+        handler.consu.add(new consumiveis("Maxima Pocao de Vida", "Cura completamente a sua vida", 1, 0, 65, 3)); // 10 // cura 100% da vida da pessoa
+        handler.consu.add(new consumiveis("Maxima Pocao de Forca", "Dobra a sua forca", 1, 1, 65, 3)); // 11 // aumenta em 100% a forca da pessoa
+        handler.consu.add(new consumiveis("Maxima Pocao de Destreza","Dobra sua destreza", 1, 2, 65, 3));// 12 // aumenta em 100% a destreza da pessoa
 
         // 0 cura vida
         // 1 aumenta forca

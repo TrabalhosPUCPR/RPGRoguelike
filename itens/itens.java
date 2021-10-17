@@ -15,6 +15,13 @@ public class itens {
     int defesa;
     int destreza;
 
+    public static void setDropRateAce(){
+        itensDef.setDropRateItensDef();
+        itensOfen.setDropRateItensOfen();
+        itensMisc.setDropRateItensMisc();
+        consumiveis.setDropRateconsu();
+    }
+
     public int getPesoDes(){
         int des = 0;
         switch(this.peso){
