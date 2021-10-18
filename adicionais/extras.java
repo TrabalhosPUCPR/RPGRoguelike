@@ -154,4 +154,15 @@ public class extras { // essa classe serve para colocar uns codigos para fazer u
         }
         return a;
     }
+
+    public static String intArraytoString(int[] array){
+        String texto = "";
+        for(int i = 0; i < array.length;i++){
+            texto += array[i];
+            if(i < array.length-1){
+                texto += ", ";
+            }
+        }
+        return texto;
+    }
 }

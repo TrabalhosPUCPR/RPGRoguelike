@@ -32,8 +32,9 @@ public class armaduras extends itens{
     public static void setDropRateArmaduras(){
         int[] armor_drop = new int[]{}; // eu comecei fazendo com int[] pq eu sou vagabundo, e percebi q tinha q fazer .add q o arraylist tem, mas ao inves de trocar pro arraylist eu fiz o meu prorio .add KKKKKKKKKKKKKKKKKK
         for(int i = 0; i < handler.armor.size(); i++){
-            if(handler.armor.get(i).getRaridade()<=fases.fase_atual+1 && handler.armor.get(i).getRaridade()>fases.fase_atual-1){
+            if(handler.armor.get(i).getRaridade()<=fases.fase_atual+1 && handler.armor.get(i).getRaridade()>=fases.fase_atual){
                 armor_drop = extras.arrayintAdd(armor_drop, i);
+                extras.println(handler.armor.get(i).getRaridade()+" i: "+i);
                 if(handler.armor.get(i).getRaridade()==fases.fase_atual){
                     armor_drop = extras.arrayintAdd(armor_drop, i);
                 }
@@ -53,25 +54,25 @@ public class armaduras extends itens{
                 }
             }
         }
-        armaduras.armor_drop = armor_drop;
+        armaduras.qual_armor_drop = armor_drop;
     }
 
 
     public void printStats(){
-        extras.println("____________________________________________________________________");
-        extras.println("|       Nome       |   Defesa   |   BonusEvasao   |      Peso      |");
-        extras.println("|__________________|____________|_________________|________________|");
-        extras.println("|"+ extras.verTamMax_table(this.nome, 18) + "|" + extras.verTamMax_table(String.format("%.00f", this.defesa), 12) + "|" + extras.verTamMax_table(this.evasion_bonus, 17) + "|" + extras.verTamMax_table(this.peso, 16) + "|");
-        extras.println("|__________________|____________|_________________|________________|");
+        extras.println("___________________________________________________________________________________");
+        extras.println("|       Nome       |   Defesa   |   BonusEvasao   |      Peso      |   Raridade   |");
+        extras.println("|__________________|____________|_________________|________________|______________|");
+        extras.println("|"+ extras.verTamMax_table(this.nome, 18) + "|" + extras.verTamMax_table(String.format("%.00f", this.defesa), 12) + "|" + extras.verTamMax_table(this.evasion_bonus, 17) + "|" + extras.verTamMax_table(this.peso, 16) + "|" + extras.verTamMax_table(this.raridade, 14) + "|");
+        extras.println("|__________________|____________|_________________|________________|______________|");
     }
 
     public static void listArmaduras(){
-        extras.println("___________________________________________________________________________");
-        extras.println("|  id  |       Nome       |   Defesa   |   BonusEvasao   |      Peso      |");
-        extras.println("|______|__________________|____________|_________________|________________|");
+        extras.println("__________________________________________________________________________________________");
+        extras.println("|  id  |       Nome       |   Defesa   |   BonusEvasao   |      Peso      |   Raridade   |");
+        extras.println("|______|__________________|____________|_________________|________________|______________|");
         for(int i = 0; i < handler.armor.size(); i++){
-            extras.println("|"+extras.verTamMax_table(i, 6)+"|"+ extras.verTamMax_table(handler.armor.get(i).getNome(), 18) + "|" + extras.verTamMax_table(String.format("%.00f", handler.armor.get(i).getDefesa()), 12) + "|" + extras.verTamMax_table(handler.armor.get(i).getEvasionB(), 17) + "|" + extras.verTamMax_table(handler.armor.get(i).getPeso(), 16) + "|");
-            extras.println("|______|__________________|____________|_________________|________________|");
+            extras.println("|"+extras.verTamMax_table(i, 6)+"|"+ extras.verTamMax_table(handler.armor.get(i).getNome(), 18) + "|" + extras.verTamMax_table(String.format("%.00f", handler.armor.get(i).getDefesa()), 12) + "|" + extras.verTamMax_table(handler.armor.get(i).getEvasionB(), 17) + "|" + extras.verTamMax_table(handler.armor.get(i).getPeso(), 16) + "|"+ extras.verTamMax_table(handler.armor.get(i).getRaridade(), 14) + "|");
+            extras.println("|______|__________________|____________|_________________|________________|______________|");
         }
     }
     

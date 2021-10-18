@@ -101,58 +101,48 @@ public class handler {
 
     public static void iniMonstrosB() {
         // fase 1
-        handler.bosses.add(new monstros_b("King Slime", "Rei dos Slimes! Dizem que isto e o resultado da fusao de 8 slimes!", 0, 50, 20, 10, 4, 60)); // 0
-        handler.bosses.add(new monstros_b("Ogro", "Voce invadiu o pantano dele!", 8, 40, 15, 10, 2, 76)); // 1
+        handler.bosses.add(new monstros_b("King Slime", "Rei dos Slimes! Dizem que isto e o resultado da fusao de 8 slimes!", 0, 50, 20, 10, 4, 60, new int[]{1})); // 0
+        handler.bosses.add(new monstros_b("Ogro", "Voce invadiu o pantano dele!", 8, 40, 15, 10, 2, 76, new int[]{1})); // 1
 
         // fase 2
-        handler.bosses.add(new monstros_b("Shadow " + handler.jogador.getNome(), "Um lado seu obscuro...", handler.jogador.getArmaEquip(), handler.jogador.getVidamax(), handler.jogador.getForca(), (int)handler.jogador.getDefesa(), handler.jogador.getDestreza(), 106)); // 2
+        handler.bosses.add(new monstros_b("Shadow " + handler.jogador.getNome(), "Um lado seu obscuro...", handler.jogador.getArmaEquip(), handler.jogador.getVidamax(), handler.jogador.getForca(), (int)handler.jogador.getDefesa(), handler.jogador.getDestreza(), 106, new int[]{2})); // 2
 
         //fase 3
-        handler.bosses.add(new monstros_b("Aguia do deserto", "Quando ele ataca, se parece com uma bala saindo de uma arma!", 15, 90, 32, 15, 33, 159)); // 3
-        handler.bosses.add(new monstros_b("Farao", "Rei-deus do deserto! Usa magias para atacar!", 15, 100, 5, 23, 20, 156)); // 4
+        handler.bosses.add(new monstros_b("Aguia do deserto", "Quando ele ataca, se parece com uma bala saindo de uma arma!", 15, 90, 32, 15, 33, 159, new int[]{3})); // 3
+        handler.bosses.add(new monstros_b("Farao", "Rei-deus do deserto! Usa magias para atacar!", 15, 100, 5, 23, 20, 156, new int[]{3})); // 4
 
         //fase 4
-        handler.bosses.add(new monstros_b("Senador Armstrong", "Extremamente patriota, fez infusao com nanomachines para fortalecer seus musculos a ponto de ser superhumano", 0, 200, 70, 30, 35, 156)); // 5
+        handler.bosses.add(new monstros_b("Senador Armstrong", "Extremamente patriota, fez infusao com nanomachines para fortalecer seus musculos a ponto de ser superhumano", 0, 200, 70, 30, 35, 156, new int[]{4})); // 5
 
         //fase 5
-        handler.bosses.add(new monstros_b("Quetzalcoatl", "A Serpente com plumas! Deusa de El Dorado!", 0, 500, 82, 53, 60, 340)); // 6
+        handler.bosses.add(new monstros_b("Quetzalcoatl", "A Serpente com plumas! Deusa de El Dorado!", 0, 500, 82, 53, 60, 340, new int[]{5})); // 6
 
         //ultima fase: ceu
-        handler.bosses.add(new monstros_b("O Criador", "O criador do universo, capaz de realizar o desejo de qualquer que se mostrar mais poderoso que ele!", 0, 200, 70, 30, 35, 1000)); // 7
+        handler.bosses.add(new monstros_b("O Criador", "O criador do universo, capaz de realizar o desejo de qualquer que se mostrar mais poderoso que ele!", 0, 200, 70, 30, 35, 1000, new int[]{6})); // 7
         //ultima fase: inferno
-        handler.bosses.add(new monstros_b("O Destruidor", "O mais poderoso do universo! Destruidor de mundos, banido do ceu e o mais malvado de todos, nunca foi visto antes por olhos vivos...", 0, 200, 70, 30, 35, 1000)); // 8
+        handler.bosses.add(new monstros_b("O Destruidor", "O mais poderoso do universo! Destruidor de mundos, banido do ceu e o mais malvado de todos, nunca foi visto antes por olhos vivos...", 0, 200, 70, 30, 35, 1000, new int[]{6})); // 8
     }
 
     public static void iniMonstrosBR(){
-        handler.bossesrand.add(new monstros_b("Ceifador", "Ele esta atras de voce, a sua hora chegou...", 4, 600, 15*fases.fase_atual, 10*fases.fase_atual, 17*fases.fase_atual, 240)); // 0
-        handler.bossesrand.add(new monstros_b("Slime de ferro", "O rarissimo slime de ferro! Dizem que se voce derrotar ele, voce podera ficar rico!", 0, 5, 3, 99999, 40, 500)); // 1
-        handler.bossesrand.add(new monstros_b("Nouveau Riche", "Um homem tao rico que se veste com um terno de ouro", 0, 50, 30, 16, 15, 30)); // 2
+        handler.bossesrand.add(new monstros_b("Ceifador", "Ele esta atras de voce, a sua hora chegou...", 4, 600, 15*fases.fase_atual, 10*fases.fase_atual, 17*fases.fase_atual, 240, new int[]{1, 2, 3, 4, 5})); // 0
+        handler.bossesrand.add(new monstros_b("Slime de ferro", "O rarissimo slime de ferro! Dizem que se voce derrotar ele, voce podera ficar rico!", 0, 5, 3, 99999, 40, 500, new int[]{1, 2, 3, 4, 5})); // 1
+        handler.bossesrand.add(new monstros_b("Nouveau Riche", "Um homem tao rico que se veste com um terno de ouro", 0, 50, 30, 16, 15, 30, new int[]{1, 2, 3, 4, 5})); // 2
     }
 
     public static void iniMonstrosF(){
-        switch(fases.fase_atual){
-            case 0:
-            case 1: // cada fase vai ter a propria lista de monstros, esse vai ser pra fase 1
-                handler.monstros.add(new monstros_f("Slime azul", "Parece uma gelatina.", 0, 10, 6, 2, 3, 6)); // 0
-                handler.monstros.add(new monstros_f("Goblin guerreiro", "Goblin equipado com uma espada e escudo!", 2, 16, 7, 4, 5, 10)); // 1
-                handler.monstros.add(new monstros_f("Goblin arqueiro", "Goblin equipado com arco e flecha", 3, 16, 6, 3, 8, 10)); // 2
-                handler.monstros.add(new monstros_f("Mendigo", "Ele estava dormindo e voce o acordou.", 1, 30, 8, 6, 5, 16)); // 3
-                handler.monstros.add(new monstros_f("Rato", "Ele parece estar atras de algo, e voce esta no caminho.", 0, 13, 5, 4, 15, 8)); // 4
-                handler.monstros.add(new monstros_f("Mimic", "Um bau com itens?", 0, 20, 15, 10, 15, 14)); // 5
-                handler.monstros.add(new monstros_f("Sapo", "Um sapo agressivo", 0, 10, 7, 2, 4, 8)); // 6
-                break;
-            case 2: // fase 2
-                handler.monstros.add(new monstros_f("Slime vermelho", "Parece uma gelatina.", 0, 40, 15, 6, 5, 18)); // 0
-                handler.monstros.add(new monstros_f("Esqueleto guerreiro", "Esqueleto equipado com uma espada e escudo!", 8, 55, 16, 11, 4, 20)); // 1
-                handler.monstros.add(new monstros_f("Esqueleto arqueiro", "Esqueleto equipado com arco e flecha", 13, 36, 11, 6, 13, 20)); // 2
-                handler.monstros.add(new monstros_f("Mendigo bebado", "Ele estava bebendo e voce o interrompeu", 6, 73, 20, 16, 10, 32)); // 3
-                handler.monstros.add(new monstros_f("Fantasma", "BOO! Ele veio para te assustar", 0, 40, 25, 10, 15, 22)); // 4
-                handler.monstros.add(new monstros_f("Mimic", "Um bau com itens?", 0, 20, 15, 20, 15, 20)); // 5
-                handler.monstros.add(new monstros_f("Zumbi", "Infectado por um virus rarissimo, ele vai atras de cerebro humano", 0, 80, 25, 5, 15, 25)); // 6
-                break;
-            case 3:
-                break;
-        }
+        handler.monstros.add(new monstros_f("Slime azul", "Parece uma gelatina.", 0, 10, 6, 2, 3, 6, new int[]{1})); // 0
+        handler.monstros.add(new monstros_f("Goblin guerreiro", "Goblin equipado com uma espada e escudo!", 2, 16, 7, 4, 5, 10, new int[]{1})); // 1
+        handler.monstros.add(new monstros_f("Goblin arqueiro", "Goblin equipado com arco e flecha", 3, 16, 6, 3, 8, 10, new int[]{1})); // 2
+        handler.monstros.add(new monstros_f("Mendigo", "Ele estava dormindo e voce o acordou.", 1, 30, 8, 6, 5, 16, new int[]{1})); // 3
+        handler.monstros.add(new monstros_f("Rato", "Ele parece estar atras de algo, e voce esta no caminho.", 0, 13, 5, 4, 15, 8, new int[]{1})); // 4
+        handler.monstros.add(new monstros_f("Mimic", "Um bau com itens?", 0, 20, 15, 10, 15, 14, new int[]{1, 2})); // 5
+        handler.monstros.add(new monstros_f("Sapo", "Um sapo agressivo", 0, 10, 7, 2, 4, 8, new int[]{1})); // 6
+        handler.monstros.add(new monstros_f("Slime vermelho", "Parece uma gelatina.", 0, 40, 15, 6, 5, 18, new int[]{2})); // 7
+        handler.monstros.add(new monstros_f("Esqueleto guerreiro", "Esqueleto equipado com uma espada e escudo!", 8, 55, 16, 11, 4, 20, new int[]{2})); // 8
+        handler.monstros.add(new monstros_f("Esqueleto arqueiro", "Esqueleto equipado com arco e flecha", 13, 36, 11, 6, 13, 20, new int[]{2})); // 9
+        handler.monstros.add(new monstros_f("Mendigo bebado", "Ele estava bebendo e voce o interrompeu", 6, 73, 20, 16, 10, 32, new int[]{2})); // 10
+        handler.monstros.add(new monstros_f("Fantasma", "BOO! Ele veio para te assustar", 0, 40, 25, 10, 15, 22, new int[]{2})); // 11
+        handler.monstros.add(new monstros_f("Zumbi", "Infectado por um virus rarissimo, ele vai atras de cerebro humano", 0, 80, 25, 5, 15, 25, new int[]{2})); // 12
     }
 
     static void iniClasses(){
@@ -218,13 +208,14 @@ public class handler {
     }
 
     static void iniArmor(){
-        handler.armor.add(new armaduras("Armadura de Couro", 4, 1.1, "super leve", 30, 1)); // 0
-        handler.armor.add(new armaduras("Armadura de Ferro", 6, 0.7, "pesado", 36, 1)); // 1
-        handler.armor.add(new armaduras("Armadura de Pano", 0, 1.5, "omega leve", 63, 3)); // 2
-        handler.armor.add(new armaduras("Armadura de Pedra", 5, 0.5, "super pesado", 32, 1)); // 3
-        handler.armor.add(new armaduras("Armadura de Madeira", 2, 1.0, "leve", 24, 1)); // 4
-        handler.armor.add(new armaduras("Armadura do Cavaleiro", 8, 1.0, "leve", 47, 2)); // 5
-        handler.armor.add(new armaduras("Armadura do Juggernaut", 15, 0, "super pesado", 80, 3)); // 6
+        handler.armor.add(new armaduras("nada", 0, 1, " super leve", 0, 0)); // 0
+        handler.armor.add(new armaduras("Armadura de Couro", 4, 1.1, "super leve", 30, 1)); // 1
+        handler.armor.add(new armaduras("Armadura de Ferro", 6, 0.7, "pesado", 36, 1)); // 2
+        handler.armor.add(new armaduras("Armadura de Pano", 0, 1.5, "omega leve", 63, 3)); // 3
+        handler.armor.add(new armaduras("Armadura de Pedra", 5, 0.5, "super pesado", 32, 1)); // 4
+        handler.armor.add(new armaduras("Armadura de Madeira", 2, 1.0, "leve", 24, 1)); // 5
+        handler.armor.add(new armaduras("Armadura do Cavaleiro", 8, 1.0, "leve", 47, 2)); // 6
+        handler.armor.add(new armaduras("Armadura do Juggernaut", 15, 0, "super pesado", 80, 3)); // 7
 
     }
 

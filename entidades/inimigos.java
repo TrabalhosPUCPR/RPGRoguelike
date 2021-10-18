@@ -13,6 +13,7 @@ import itens.itensOfen;
 
 public class inimigos extends entidade{
 
+    int[] Nfases;
     public static int indexmonstro;
     public static int tipomonstro;
 
@@ -76,7 +77,7 @@ public class inimigos extends entidade{
     public static void dropItemGenerico(){
         int id;
         try{
-            switch(extras.rng_int(0, 6)){
+            switch(extras.rng_int(0, 6)){ 
                 case 0: // caso for dropar um item ofensivo
                     id = itensOfen.dropItenOfen();
                     inventario.receberItem(handler.itemOfen.get(id), id);
@@ -141,59 +142,63 @@ public class inimigos extends entidade{
         int[] list_monst = {};
         switch(monstipo){
             case 0: // caso for monstros normais
-                switch(fases.fase_atual){
-                    case 0:
-                    case 1: //aqui e o numero da fase que a pessoa esta
-                        list_monst = new int[] {0,0,0,0,0,1,1,1,1,1,2,2,2,3,4,4,4,6,6,5,6,6,6,6,6}; // lista com os ids de cada monstro que e para aparecer na fase, pode colocar o mesmo id mais de uma vez pra aumenta a chance dele aparecer
-                        break;
-                    case 2:
-                        list_monst = new int[] {0,0,0,0,0,1,1,1,1,1,2,2,2,3,4,4,4,6,6,5,6,6,6,6,6};
-                        break;
-                    case 3:
-                        list_monst = new int[] {1,1,1};
-                        break;
-                    case 4:
-                        list_monst = new int[] {1,1,1};
-                        break;
-                    case 5:
-                        list_monst = new int[] {1,1,1};
-                        break;
+                for(int i = 0; i < handler.monstros.size();i++){
+                    int[] Nfases = handler.monstros.get(i).getNfases();
+                    for(int z = 0; z < Nfases.length;z++){
+                        if(Nfases[z] == fases.fase_atual){
+                            list_monst = extras.arrayintAdd(list_monst, i);
+                            break;
+                        }
+                    }
                 }
                 break;
             case 1: // caso for monstros incomuns
-                list_monst = new int[] {0,1,1,1,2,2,2}; 
-                break;
-
-            case 2: // caso for monstros boss
-                switch(fases.fase_atual){
-                    case 0:
-                    case 1: //aqui e o numero da fase que a pessoa esta
-                        list_monst = new int[] {1,0}; 
-                        break;
-                    case 2:
-                        list_monst = new int[] {2};
-                        break;
-                    case 3:
-                        list_monst = new int[] {3,3,4};
-                        break;
-                    case 4:
-                        list_monst = new int[] {5};
-                        break;
-                    case 5:
-                        list_monst = new int[] {6};
-                        break;
-                    default:
-                        if(handler.jogador.getNpcsMortos() > 10){
-                            list_monst = new int[] {8};
-                        }else{
-                            list_monst = new int[] {7};
+                for(int i = 0; i < handler.bossesrand.size();i++){
+                    int[] Nfases = handler.bossesrand.get(i).getNfases();
+                    for(int z = 0; z < Nfases.length;z++){
+                        if(Nfases[z] == fases.fase_atual){
+                            list_monst = extras.arrayintAdd(list_monst, i);
+                            break;
                         }
-                        break;
+                    }
+                }
+                break;
+            case 2: // caso for monstros boss
+                for(int i = 0; i < handler.bosses.size();i++){
+                    int[] Nfases = handler.bosses.get(i).getNfases();
+                    for(int z = 0; z < Nfases.length;z++){
+                        if(Nfases[z] == fases.fase_atual){
+                            list_monst = extras.arrayintAdd(list_monst, i);
+                            break;
+                        }
+                    }
                 }
                 break;
         }
         int index = extras.rng_int(0, list_monst.length);
         return list_monst[index];
     }
+
+    public static void listarInimigos(int tipo){
+        extras.println("_________________________________________________________________________________________________________________________________________________");
+        extras.println("|   ID   |       Nome       |   Descricao   |   ID Arma   |   VidaMax   |   Forca   |   Defesa   |   Destreza   |   Exp   |   FasesQueAparece   |");
+        extras.println("|________|__________________|_______________|_____________|_____________|___________|____________|______________|_________|_____________________|");
+        for(int i = 0; i < handler.bosses.size();i++){
+            extras.println(extras.verTamMax_table(i, 8)
+            + "|" + extras.verTamMax_table(inimigos.getInimigo(i, tipo).getNome(), 18) 
+            + "|" + extras.verTamMax_table(inimigos.getInimigo(i, tipo).getDesc(), 15) 
+            + "|" + extras.verTamMax_table(inimigos.getInimigo(i, tipo).getArmaEquip(), 13) 
+            + "|" + extras.verTamMax_table(inimigos.getInimigo(i, tipo).getVidamax(), 13) 
+            + "|" + extras.verTamMax_table(inimigos.getInimigo(i, tipo).getForca(), 11) 
+            + "|" + extras.verTamMax_table(inimigos.getInimigo(i, tipo).getDefesa(), 12) 
+            + "|" + extras.verTamMax_table(inimigos.getInimigo(i, tipo).getDestreza(), 14) 
+            + "|" + extras.verTamMax_table(inimigos.getInimigo(i, tipo).getExp(), 9) 
+            + "|" + extras.verTamMax_table(extras.intArraytoString(inimigos.getInimigo(i, tipo).getNfases()), 21) 
+            );
+            extras.println("|________|__________________|_______________|_____________|_____________|___________|____________|______________|_________|_____________________|");
+        }
+    }
+
+    public int[] getNfases(){return this.Nfases;}
 
 }

@@ -5,7 +5,7 @@ import itens.inventario;
 
 public class monstros_f extends inimigos{
 
-    public monstros_f(String nome, String desc, int arma_equip, int vidamax, int forca, int defesa, int destreza, int exp){
+    public monstros_f(String nome, String desc, int arma_equip, int vidamax, int forca, int defesa, int destreza, int exp, int[] Nfases){
         this.nome = nome;
         this.desc = desc;
         this.arma_equip = arma_equip;
@@ -15,6 +15,7 @@ public class monstros_f extends inimigos{
         this.forca = forca;
         this.destreza = destreza;
         this.exp = exp;
+        this.Nfases = Nfases;
     }
 
     void falar(){}

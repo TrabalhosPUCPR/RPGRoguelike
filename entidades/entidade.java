@@ -141,6 +141,7 @@ public class entidade {
 
     //getters
     public String getNome(){return nome;}
+    public String getDesc(){return this.desc;}
     public int getVidamax(){return vidamax;}
     public double getVida(){return vida;}
     public int getForca(){return forca;}
