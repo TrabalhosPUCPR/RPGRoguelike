@@ -124,7 +124,7 @@ public class handler {
     }
 
     public static void iniMonstrosBR(){
-        handler.bossesrand.add(new monstros_b("Ceifador", "Ele esta atras de voce, a sua hora chegou...", 4, 600, 15*fases.fase_atual, 10*fases.fase_atual, 17*fases.fase_atual, 240, new int[]{1, 2, 3, 4, 5})); // 0
+        handler.bossesrand.add(new monstros_b("Ceifador", "Ele esta atras de voce, a sua hora chegou...", 17, 600, 15*fases.fase_atual, 10*fases.fase_atual, 17*fases.fase_atual, 240, new int[]{1, 2, 3, 4, 5})); // 0
         handler.bossesrand.add(new monstros_b("Slime de ferro", "O rarissimo slime de ferro! Dizem que se voce derrotar ele, voce podera ficar rico!", 0, 5, 3, 99999, 40, 500, new int[]{1, 2, 3, 4, 5})); // 1
         handler.bossesrand.add(new monstros_b("Nouveau Riche", "Um homem tao rico que se veste com um terno de ouro", 0, 50, 30, 16, 15, 30, new int[]{1, 2, 3, 4, 5})); // 2
     }
@@ -164,7 +164,7 @@ public class handler {
         handler.classe.add(new classes("Guerreiro","Forte e defensivo, pode causar alto dano em curto alcance mas possui pessima destreza", 1, 1, 40, 6, 3, 7, 0)); // 1
         handler.classe.add(new classes("Paladino","Balanceado de todas as formas, usa arma de curto alcance e experiente em qualquer situacao", 2, 1, 40, 8, 5, 3, 0)); // 2
         handler.classe.add(new classes("Despojado","Roubado de todos os seus pertences, comeca fraco mas ganha pontos em status extremamente rapido e pode usar qualquer arma", 0, 2, 40, 5, 3, 5, 2)); // 3
-        handler.classe.add(new classes("Dev","dev mode", 0, 2, 999, 999, 999, 999, 2)); // 3
+        handler.classe.add(new classes("Dev","dev mode", 1, 2, 999, 999, 999, 999, 2)); // 3
 
         handler.jogador = new player("", "", 0, 0, 30, 5, 5, 5, 0); //vai criar os valores do jogador na classe handler para que possa acessa-la em outras classes
         extras.print("[Player]: Classes criado com sucesso");
@@ -205,6 +205,7 @@ public class handler {
         handler.arma.add(new armas("Zarabatana", 6, "longo", "super leve", 42, 1)); // 14
         handler.arma.add(new armas("Garras de ferro", 12, "curto", "omega leve", 63, 3)); // 15
         handler.arma.add(new armas("Boomerang", 9, "longo", "omega leve", 46, 2)); // 16
+        handler.arma.add(new armas("Foice", 19, "curto", "pesado", 86, 3)); // 17
     }
 
     static void iniArmor(){
@@ -247,7 +248,7 @@ public class handler {
     }
 
     static void iniConsu(){
-        handler.consu.add(new consumiveis("Pedra", "Uma pedra que voce pode jogar", 5, 3, 10, 1)); // 0 // causa 5 de dano garantido no oponente
+        handler.consu.add(new consumiveis("Pedra", "Uma pedra que voce pode jogar", 5, 4, 10, 1)); // 0 // causa 5 de dano garantido no oponente
         handler.consu.add(new consumiveis("Fraca Pocao de Vida", "Cura um pouco a sua vida", 0.2, 0, 15, 1)); // 1 // cura 20% da vida da pessoa
         handler.consu.add(new consumiveis("Fraca Pocao de Forca", "Aumenta sua forca um pouco", 0.2, 1, 15, 1)); // 2 // aumenta em 20% a forca da pessoa
         handler.consu.add(new consumiveis("Fraca Pocao de Destreza","Aumenta sua destreza um pouco",0.2, 2, 15, 1));// 3 // aumenta em 20% a destreza da pessoa

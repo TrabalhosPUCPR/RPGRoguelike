@@ -19,6 +19,12 @@ public class extras { // essa classe serve para colocar uns codigos para fazer u
         return res;
     }
 
+    public static double inputD(){
+        System.out.print("R: ");
+        double res = Double.parseDouble(input.nextLine());
+        return res;
+    }
+
     public static void delay(int t){
         try {
             Thread.sleep(t);
@@ -164,5 +170,19 @@ public class extras { // essa classe serve para colocar uns codigos para fazer u
             }
         }
         return texto;
+    }
+
+    public static int[] stringtoIntArray(String texto){
+        int[] arr = new int[]{};
+        String nX = "";
+        for(int i = 0; i < texto.length();i++){
+            if(Character.toString(texto.charAt(i)) != ","){
+                nX += texto.charAt(i);
+            }else{
+                arr = arrayintAdd(arr, Integer.parseInt(nX));
+                nX = "";
+            }
+        }
+        return arr;
     }
 }

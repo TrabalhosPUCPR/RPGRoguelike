@@ -139,7 +139,7 @@ public class armas extends itens{
             String peso = extras.inputS().toLowerCase();
             extras.println("");
             extras.println_bonito("Qual sera o valor da arma?", 500, 500);
-            double valor = extras.inputI();
+            double valor = extras.inputD();
             extras.println("");
             extras.println_bonito("Qual sera a raridade da arma?", 500, 500);
             int raridade = extras.inputI();
@@ -160,6 +160,7 @@ public class armas extends itens{
             int i = extras.inputI();
             extras.println("");
             extras.println_bonito("Qual valor da arma "+handler.arma.get(i).getNome()+" voce gostaria de editar?", 500, 500);
+            extras.println_bonito("Nome\nAtaque\nTipo\nPeso\nValor\nRaridade", 500, 500);
             switch(extras.inputS().toLowerCase()){
                 case "nome":
                     extras.println("");
@@ -186,9 +187,12 @@ public class armas extends itens{
                 case "valor":
                     extras.println("");
                     extras.println_bonito("Qual sera o valor $ da arma " + handler.arma.get(i).getNome() + "?", 500, 500);
-                    handler.arma.get(i).setValor(extras.inputI());
+                    handler.arma.get(i).setValor(extras.inputD());
                 break;
                 case "raridade":
+                    extras.println("");
+                    extras.println_bonito("Qual sera a raridade da arma " + handler.arma.get(i).getNome() + "?", 500, 500);
+                    handler.arma.get(i).setRaridade(extras.inputI());
                 break;
                 default:
                     extras.println("");

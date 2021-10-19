@@ -1,5 +1,7 @@
 package entidades;
 
+import java.util.ArrayList;
+
 import adicionais.extras;
 import adicionais.handler;
 import fases.fases;
@@ -31,6 +33,22 @@ public class inimigos extends entidade{
                 return (NPC)handler.npcs.get(indexm);
         }
         return null;
+    }
+
+    public static ArrayList<inimigos> getInimigoLista(int tipo){
+        ArrayList<inimigos> lista = new ArrayList<inimigos>();
+        switch(tipo){
+            case 0:
+                lista = new ArrayList<inimigos>(handler.monstros);
+            break;
+            case 1:
+                lista = new ArrayList<inimigos>(handler.bossesrand);
+            break;
+            case 2:
+                lista = new ArrayList<inimigos>(handler.bosses);
+            break;
+        }
+        return lista;
     }
 
     public void Iturno(){
@@ -180,13 +198,13 @@ public class inimigos extends entidade{
     }
 
     public static void listarInimigos(int tipo){
-        extras.println("_________________________________________________________________________________________________________________________________________________");
-        extras.println("|   ID   |       Nome       |   Descricao   |   ID Arma   |   VidaMax   |   Forca   |   Defesa   |   Destreza   |   Exp   |   FasesQueAparece   |");
-        extras.println("|________|__________________|_______________|_____________|_____________|___________|____________|______________|_________|_____________________|");
-        for(int i = 0; i < handler.bosses.size();i++){
-            extras.println(extras.verTamMax_table(i, 8)
-            + "|" + extras.verTamMax_table(inimigos.getInimigo(i, tipo).getNome(), 18) 
-            + "|" + extras.verTamMax_table(inimigos.getInimigo(i, tipo).getDesc(), 15) 
+        extras.println("_________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________");
+        extras.println("|   ID   |          Nome          |                                                Descricao                                                |   ID Arma   |   VidaMax   |   Forca   |   Defesa   |   Destreza   |   Exp   |   FasesQueAparece   |");
+        extras.println("|________|________________________|_________________________________________________________________________________________________________|_____________|_____________|___________|____________|______________|_________|_____________________|");
+        for(int i = 0; i < getInimigoLista(tipo).size();i++){
+            extras.println("|" + extras.verTamMax_table(i, 8)
+            + "|" + extras.verTamMax_table(inimigos.getInimigo(i, tipo).getNome(), 24) 
+            + "|" + extras.verTamMax_table(inimigos.getInimigo(i, tipo).getDesc(), 105) 
             + "|" + extras.verTamMax_table(inimigos.getInimigo(i, tipo).getArmaEquip(), 13) 
             + "|" + extras.verTamMax_table(inimigos.getInimigo(i, tipo).getVidamax(), 13) 
             + "|" + extras.verTamMax_table(inimigos.getInimigo(i, tipo).getForca(), 11) 
@@ -194,11 +212,143 @@ public class inimigos extends entidade{
             + "|" + extras.verTamMax_table(inimigos.getInimigo(i, tipo).getDestreza(), 14) 
             + "|" + extras.verTamMax_table(inimigos.getInimigo(i, tipo).getExp(), 9) 
             + "|" + extras.verTamMax_table(extras.intArraytoString(inimigos.getInimigo(i, tipo).getNfases()), 21) 
-            );
-            extras.println("|________|__________________|_______________|_____________|_____________|___________|____________|______________|_________|_____________________|");
+            + "|");
+            extras.println("|________|________________________|_________________________________________________________________________________________________________|_____________|_____________|___________|____________|______________|_________|_____________________|");
         }
     }
 
+    public static void configInimigos(int tipo){
+        extras.println("");
+        listarInimigos(tipo);
+        extras.println("");
+        extras.println_bonito("Adicionar um novo inimigo ou editar um ja existente?", 500, 500);
+        switch(extras.inputS().toLowerCase()){
+            case "adicionar":
+                criarInimigo(tipo);
+            break;
+            case "editar":
+                editarInimigo(tipo);
+            break;
+            default:
+            break;
+        }
+    }
+
+    static void criarInimigo(int tipo){
+        try{
+            extras.println("");
+            extras.println_bonito("Qual sera o nome do inimigo?", 500, 500);
+            String nome = extras.inputS();
+            extras.println("");
+            extras.println_bonito("Qual sera a descricao do inimigo?", 500, 500);
+            String desc = extras.inputS();
+            extras.println("");
+            armas.listArmas();
+            extras.println("");
+            extras.println_bonito("Qual sera o Id da arma do inimigo?", 500, 500);
+            int arma_equip = extras.inputI();
+            extras.println("");
+            extras.println_bonito("Qual sera a Vida Maxima do inimigo?", 500, 500);
+            int vidamax = extras.inputI();
+            extras.println("");
+            extras.println_bonito("Qual sera a forca do inimigo?", 500, 500);
+            int forca = extras.inputI();
+            extras.println("");
+            extras.println_bonito("Qual sera a defesa do inimigo?", 500, 500);
+            int defesa = extras.inputI();
+            extras.println("");
+            extras.println_bonito("Qual sera a destreza do inimigo?", 500, 500);
+            int destreza = extras.inputI();
+            extras.println("");
+            extras.println_bonito("Qual sera a quantidade de xp que o inimigo ira dropar ao morrer?", 500, 500);
+            int exp = extras.inputI();
+            extras.println("");
+            extras.println_bonito("Digite os numeros das fases que o inimigo ira aparecer\n(separe cada numero com virgula)", 500, 500);
+            int[] Nfases = extras.stringtoIntArray(extras.inputS());
+            switch(tipo){
+                case 0:
+                    handler.monstros.add(new monstros_f(nome, desc, arma_equip, vidamax, forca, defesa, destreza, exp, Nfases));
+                break;
+                case 1:
+                    handler.bossesrand.add(new monstros_b(nome, desc, arma_equip, vidamax, forca, defesa, destreza, exp, Nfases));
+                break;
+                case 2:
+                    handler.bosses.add(new monstros_b(nome, desc, arma_equip, vidamax, forca, defesa, destreza, exp, Nfases));
+                break;
+            }
+            extras.println("");
+            extras.println_bonito("Inimigo criado com sucesso", 500, 1000);
+        }
+        catch(Exception e){
+            extras.println("");
+            extras.println("Falha ao criar inimigo: "+e);
+        }
+    }
+   static void editarInimigo(int tipo){
+        try{
+            extras.println("");
+            extras.println_bonito("Digite o ID do inimigo que gostaria de editar: ", 500, 500);
+            int i = extras.inputI();
+            extras.println("");
+            extras.println_bonito("Qual valor do inimigo "+getInimigo(i, tipo).getNome()+" voce gostaria de editar?", 500, 500);
+            extras.println_bonito("Nome\nDesc\nArma\nVidaMax\nForca\nDestreza\nExp\nFases", 500, 500);
+            switch(extras.inputS().toLowerCase()){
+                case "nome":
+                    extras.println("");
+                    extras.println_bonito("Qual sera o novo nome da inimigo " + getInimigo(i, tipo).getNome() + "?", 500, 500);
+                    getInimigo(i, tipo).setNome(extras.inputS());
+                break;
+                case "desc":
+                    extras.println("");
+                    extras.println_bonito("Qual sera a descricao do inimigo " + getInimigo(i, tipo).getNome() + "?", 500, 500);
+                    getInimigo(i, tipo).setDesc(extras.inputS());
+                break;
+                case "arma":
+                    extras.println("");
+                    armas.listArmas();
+                    extras.println("");
+                    extras.println_bonito("Qual sera a arma equipada do inimigo " + getInimigo(i, tipo).getNome() + "?", 500, 500);
+                    getInimigo(i, tipo).setArmaEquip(extras.inputI());
+                break;
+                case "vidamax":
+                    extras.println("");
+                    extras.println_bonito("Qual sera a vida maxima do inimigo " + getInimigo(i, tipo).getNome() + "?", 500, 500);
+                    getInimigo(i, tipo).setVidamax(extras.inputI());
+                break;
+                case "forca":
+                    extras.println("");
+                    extras.println_bonito("Qual sera a forca do inimigo " + getInimigo(i, tipo).getNome() + "?", 500, 500);
+                    getInimigo(i, tipo).setForca(extras.inputI());
+                break;
+                case "destreza":
+                    extras.println("");
+                    extras.println_bonito("Qual sera a destreza do inimigo " + getInimigo(i, tipo).getNome() + "?", 500, 500);
+                    getInimigo(i, tipo).setDestreza(extras.inputI());
+                break;
+                case "exp":
+                    extras.println("");
+                    extras.println_bonito("Qual sera a quantidade de exp que o inimigo " + getInimigo(i, tipo).getNome() + " ira dropar quando morrer?", 500, 500);
+                    getInimigo(i, tipo).setExp(extras.inputI());
+                break;
+                case "fases":
+                    extras.println("");
+                    extras.println_bonito("Qual sera as fases que o inimigo " + getInimigo(i, tipo).getNome() + " ira aparecer?\nSepare cada numero com um virgula", 500, 500);
+                    getInimigo(i, tipo).setNfases(extras.stringtoIntArray(extras.inputS()));
+                break;
+                default:
+                    extras.println("");
+                    extras.println_bonito("Digite uma opcao valida", 1000, 500);
+                break;
+            }
+            extras.println("");
+            extras.println_bonito(getInimigo(i, tipo).getNome() + " editado com sucesso!", 500, 700);
+        }catch(Exception e){
+            extras.println("");
+            extras.println("Falha ao editar inimigo: "+e);
+        }
+    }
+
+    public void setNfases(int[] n){this.Nfases = n;}
     public int[] getNfases(){return this.Nfases;}
 
 }

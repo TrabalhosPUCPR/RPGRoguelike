@@ -159,5 +159,6 @@ public class entidade {
     public void setDefesa(double n){this.defesa = n;}
     public void setDestreza(int n){this.destreza = n;}
     public void setArmaEquip(int n){this.arma_equip = n;}
+    public void setExp(int n){this.exp = n;}
 
 }

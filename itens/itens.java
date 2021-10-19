@@ -40,6 +40,9 @@ public class itens {
             case "super pesado":
                 des = -9;
                 break;
+            default:
+                des = 0;
+                break;
         }
         return des;
     }
@@ -69,8 +72,13 @@ public class itens {
     public int getRaridade(){return this.raridade;}
 
     public void setNome(String n){this.nome = n;}
+    public void setDesc(String n){this.desc = n;}
+    public void setForca(int n){this.forca = n;}
+    public void setDefesa(int n){this.defesa = n;}
+    public void setDestreza(int n){this.destreza = n;}
     public void setPeso(String n){this.peso = n;}
     public void setValor(double n){this.dinheiro = n;}
+    public void setRaridade(int n){this.raridade = n;}
 
 }
 

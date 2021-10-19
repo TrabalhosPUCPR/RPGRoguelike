@@ -75,7 +75,112 @@ public class armaduras extends itens{
             extras.println("|______|__________________|____________|_________________|________________|______________|");
         }
     }
+
     
+    public static void configArmaduras(){
+        extras.println("");
+        listArmaduras();
+        extras.println("");
+        extras.println_bonito("Adicionar uma nova armadura ou editar uma ja existente?", 500, 500);
+        switch(extras.inputS().toLowerCase()){
+            case "adicionar":
+                criarArmadura();
+            break;
+            case "editar":
+                editarArmadura();
+            break;
+            default:
+            break;
+        }
+    }
+
+    private static void criarArmadura(){
+        try{
+            extras.println("");
+            extras.println_bonito("Qual sera o nome da armadura?", 500, 500);
+            String nome = extras.inputS();
+            extras.println("");
+            extras.println_bonito("Qual sera a defesa da armadura?", 500, 500);
+            int defesa = extras.inputI();
+            extras.println("");
+            extras.println_bonito("Qual sera o bonus de evasao da armadura?", 500, 500);
+            extras.println_bonito("(Entre 0.0 e 2.0)", 500, 500);
+            double eva_bonus = extras.inputD();
+            extras.println("");
+            extras.println_bonito("Qual sera o peso da armadura?", 500, 500);
+            extras.println_bonito("Omega leve\nSuper leve\nLeve\nPesado\nSuper pesado", 500, 500);
+            String peso = extras.inputS().toLowerCase();
+            extras.println("");
+            extras.println_bonito("Qual sera o valor da armadura?", 500, 500);
+            double valor = extras.inputD();
+            extras.println("");
+            extras.println_bonito("Qual sera a raridade da armadura?", 500, 500);
+            int raridade = extras.inputI();
+            handler.armor.add(new armaduras(nome, defesa, eva_bonus, peso, valor, raridade));
+            extras.println("");
+            extras.println_bonito("Armadura criado com sucesso", 500, 1000);
+        }
+        catch(Exception e){
+            extras.println("");
+            extras.println("Falha ao criar armadura: "+e);
+            extras.delay(1000);
+        }
+    }
+
+    private static void editarArmadura(){
+        try{
+            extras.println("");
+            extras.println_bonito("Digite o ID da armadura que gostaria de editar: ", 500, 500);
+            int i = extras.inputI();
+            extras.println("");
+            extras.println_bonito("Qual valor da armadura "+handler.armor.get(i).getNome()+" voce gostaria de editar?", 500, 500);
+            extras.println_bonito("Nome\nDefesa\nEbonus\nPeso\nValor\nRaridade", 500, 500);
+            switch(extras.inputS().toLowerCase()){
+                case "nome":
+                    extras.println("");
+                    extras.println_bonito("Qual sera o novo nome da armadura " + handler.armor.get(i).getNome() + "?", 500, 500);
+                    handler.armor.get(i).setNome(extras.inputS());
+                break;
+                case "defesa":
+                    extras.println("");
+                    extras.println_bonito("Qual sera a defesa da armadura " + handler.armor.get(i).getNome() + "?", 500, 500);
+                    handler.armor.get(i).setDefesa(extras.inputD());
+                break;
+                case "ebonus":
+                    extras.println("");
+                    extras.println_bonito("Qual sera o bonus de evasao da armadura " + handler.armor.get(i).getNome() + "?", 500, 500);
+                    extras.println_bonito("(Numero decimal)", 500, 500);
+                    handler.armor.get(i).setEvasionB(extras.inputD());
+                break;
+                case "peso":
+                    extras.println("");
+                    extras.println_bonito("Qual sera o peso da armadura " + handler.armor.get(i).getNome() + "?", 500, 500);
+                    extras.println_bonito("Omega leve\nSuper leve\nLeve\nPesado\nSuper pesado", 500, 500);
+                    handler.armor.get(i).setPeso(extras.inputS());
+                break;
+                case "valor":
+                    extras.println("");
+                    extras.println_bonito("Qual sera o valor $ da armadura " + handler.armor.get(i).getNome() + "?", 500, 500);
+                    handler.armor.get(i).setValor(extras.inputI());
+                break;
+                case "raridade":
+                    extras.println("");
+                    extras.println_bonito("Qual sera a raridade da armadura " + handler.armor.get(i).getNome() + "?", 500, 500);
+                    handler.armor.get(i).setRaridade(extras.inputI());
+                break;
+                default:
+                    extras.println("");
+                    extras.println_bonito("Digite uma opcao valida", 1000, 500);
+                break;
+            }
+        }catch(Exception e){
+            extras.println("");
+            extras.println("Falha ao editar armadura: "+e);
+            extras.delay(1000);
+        }
+    }
+    public void setDefesa(double n){this.defesa = n;}
+    public void setEvasionB(double n){this.evasion_bonus = n;}
     public double getDefesa(){return this.defesa;}
     public double getEvasionB(){return this.evasion_bonus;}
 }
