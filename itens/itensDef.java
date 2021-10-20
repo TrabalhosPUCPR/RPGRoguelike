@@ -21,7 +21,7 @@ public class itensDef extends itens{
         this.raridade = raridade;
     }
 
-    public static int dropItenDef(){ // isso daqui vai retorna o id de uma arma aleatorio baseada na fase atual e raridade de arma, da pra usar isso no ngc do mercador tb, msm coisa com outros itens e equips
+    public static int dropItenDef(){ 
         return itensDef_drop[extras.rng_int(0, itensDef_drop.length)];
     }
 
@@ -30,7 +30,7 @@ public class itensDef extends itens{
     }
 
     public static void setDropRateItensDef(){
-        int[] itensDef_drop = new int[]{}; // eu comecei fazendo com int[] pq eu sou vagabundo, e percebi q tinha q fazer .add q o arraylist tem, mas ao inves de trocar pro arraylist eu fiz o meu prorio .add KKKKKKKKKKKKKKKKKK
+        int[] itensDef_drop = new int[]{};
         for(int i = 0; i < handler.itemDef.size(); i++){
             if(handler.itemDef.get(i).getRaridade()<=fases.fase_atual+1 && handler.itemDef.get(i).getRaridade()>fases.fase_atual-1){
                 itensDef_drop = extras.arrayintAdd(itensDef_drop, i);
@@ -44,7 +44,7 @@ public class itensDef extends itens{
     }
 
     static void setDropRateItensDefRaro(){
-        int[] itensDef_drop = new int[]{}; // eu comecei fazendo com int[] pq eu sou vagabundo, e percebi q tinha q fazer .add q o arraylist tem, mas ao inves de trocar pro arraylist eu fiz o meu prorio .add KKKKKKKKKKKKKKKKKK
+        int[] itensDef_drop = new int[]{}; 
         for(int i = 0; i < handler.itemDef.size(); i++){
             if(handler.itemDef.get(i).getRaridade()<=fases.fase_atual+2 && handler.itemDef.get(i).getRaridade()>fases.fase_atual){
                 itensDef_drop = extras.arrayintAdd(itensDef_drop, i);

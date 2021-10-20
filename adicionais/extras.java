@@ -172,7 +172,7 @@ public class extras { // essa classe serve para colocar uns codigos para fazer u
         return texto;
     }
 
-    public static int[] stringtoIntArray(String texto){
+    public static int[] stringtoIntArray(String texto){ // pse eu acho legal fazer coisa aleatoria com array
         int[] arr = new int[]{};
         String nX = "";
         for(int i = 0; i < texto.length();i++){

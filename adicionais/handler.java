@@ -1,8 +1,11 @@
 package adicionais;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import ascii.ascii;
 import entidades.NPC;
 import entidades.classes;
 import entidades.monstros_b;
@@ -34,19 +37,29 @@ public class handler {
     public static ArrayList<itensMisc> itemMisc = new ArrayList<itensMisc>(); // todos os itens aleatorios presentes no jogo, de todos os tipos     }}  no codigo ta como itens mas no jogo vai aparecer como acessorio
     public static ArrayList<NPC> npcs = new ArrayList<NPC>();
     public static List<Runnable> andar = new ArrayList<>();
+    public static ArrayList<ascii> ascii = new ArrayList<ascii>();
 
-    public static void carregarJogo(){
+    public static void carregarJogo() throws FileNotFoundException{
         extras.print("[Jogo]: Carregando...");
+        iniLerTxtAscii();
         iniFases();
         iniAndares();
-        iniNpcs();
         iniClasses();
+        iniNpcs();
         iniMonstros();
         iniItens();
         extras.println("[Jogo]: Carregado");
         extras.println(" ");
         extras.print("[Jogo]: Precione enter para comecar o jogo...");
         extras.inputS();
+    }
+
+    public static void iniLerTxtAscii() throws FileNotFoundException{
+        // pra criar um novo ascii art e so colocar dentro de um arquivo de texto dentro do ascii/arts/ e fazer igual como ta ai, so coloca o nome em minusculo e facil
+        extras.print("[ASCII]: Criando artes ASCII...");
+        handler.ascii.add(new ascii("logo", new File("ascii/arts/logo.txt")));
+
+        extras.print("[ASCII]: Artes ASCII carregadas");
     }
 
     static void iniAndares(){
@@ -59,7 +72,7 @@ public class handler {
     static void iniNpcs(){
         extras.println("[NPC]: Criando NPCs...");
         handler.npcs.add(new NPC("Vendedor ambulante","Pessoa misteriosa que comercializa itens", 0, 5, 1, 1, 1, 5)); // 0
-        handler.npcs.add(new NPC("Prisioneiro/Player","Outro jogador, mas aparenta estar mentalmente instavel, pode acabar lhe dando uma dica ou item", 0, 5, 1, 1, 1, 5)); // 1
+        handler.npcs.add(new NPC(handler.jogador.getNome(),"Outro jogador, mas aparenta estar mentalmente instavel, pode acabar lhe dando uma dica ou item", handler.jogador.getArmaEquip(), handler.jogador.getVidamax(), handler.jogador.getForca(), (int)handler.jogador.getDefesa(), handler.jogador.getDestreza(), 5)); // 1
         handler.npcs.add(new NPC("Mendigo","Encostado na parede e coberto por um pano surrado um velho senhor, um pouco sus, lhe pede um pouco de dinheiro", 1, 30, 8, 6, 5, 16)); // 2
         handler.npcs.add(new NPC("D-Dog","literalmente um doguinho, com uma espada...", 8, 20, 10, 4, 7, -5)); // 3
         extras.println("[NPC]: NPCs criados com sucesso");
@@ -70,7 +83,12 @@ public class handler {
           monstros_b para boss ou incomuns
         */
 
-         //  PARA CRIAR UM MONSTRO TENQ COLOCAR OS VALORES AQUI E COLOCAR O ID DELE NO SELECTMONSTROS() DENTRO DO INIMIGOS.JAVA PARA QUE ELE POSSA APARECER
+        //  PARA CRIAR UM MONSTRO E SO COLOCAR OS VALORES DELE CERTINHO NO ARRAY DO TIPO DE MONSTRO DELE
+        /*
+            monstros = monstros comuns
+            bossesrand = monstros incomuns
+            bosses = bosses da fase
+        */
 
         /*  AS VARIAVEIS SAO:
         nome
@@ -81,6 +99,7 @@ public class handler {
         defesa
         destreza
         exp que vai dropar quando morrer
+        fases que aparece
         */
 
         extras.print("[Monstro]: Criando Monstros...");
@@ -146,7 +165,7 @@ public class handler {
     }
 
     static void iniClasses(){
-        //  PARA CRIAR UMA NOVA CLASSE TENQ COLOCAR OS VALORES AQUI, LA EM BAIXO NESSE ARQUIVO COLOCAR NO SWITCH CASO O JOGADOR ESCOLHA A CLASSE E NO LEVELUP() NO PLAYER.JAVA DEFINIR OS PONTOS QUE GANHA QUANDO UPA DE NIVEL 
+        //  PARA CRIAR UMA NOVA CLASSE TENQ COLOCAR OS VALORES AQUI, E NO LEVELUP() NO PLAYER.JAVA DEFINIR OS PONTOS QUE GANHA QUANDO UPA DE NIVEL
 
         /*  AS VARIAVEIS SAO:
         nome
@@ -171,7 +190,7 @@ public class handler {
     }
 
     static void iniItens(){
-        // PARA CRIAR QUALQUER ITEM NOVO TENQ COLOCAR OS VALORES CERTINHO DENTRO DO NGC AI E COLOCAR O ID DELE NA LISTA DE DROPS DE MONSTRO PRA Q O PLAYER POSSA PEGAR DURANTE O JOGO
+        // PARA CRIAR QUALQUER ITEM NOVO E SO COLOCA ADICIONA ELE NO ARRAYLIST DO ITEM
 
         extras.print("[Armas]: Criando Armas...");
         iniArmas();
@@ -188,6 +207,16 @@ public class handler {
     }
 
     static void iniArmas(){
+        // PARA CRIAR UMA NOVA ARMA E SO COLOCAR AQUI NESSE ARRAYLIST TB, A RARIDADE DEFINE QUAIS FASES ELE PODE APARECER
+
+        /*  AS VARIAVEIS SAO
+            nome
+            ataque
+            tipo
+            peso
+            valor em dinheiro
+            raridade
+        */
         handler.arma.add(new armas("nada", 0, "curto", "omega leve", 0, 0)); // 0
         handler.arma.add(new armas("Faca de passar manteiga", 4, "curto", "super leve", 15, 1)); // 1
         handler.arma.add(new armas("Espada de madeira", 7, "curto", "leve", 26, 1)); // 2
@@ -209,6 +238,16 @@ public class handler {
     }
 
     static void iniArmor(){
+        // PARA CRIAR UMA NOVA ARMADURA E SO COLOCAR AQUI NESSE ARRAYLIST TB, A RARIDADE DEFINE QUAIS FASES ELE PODE APARECER
+
+        /*  AS VARIAVEIS SAO
+            nome
+            defesa
+            bonus de evasao
+            peso
+            valor em dinheiro
+            raridade
+        */
         handler.armor.add(new armaduras("nada", 0, 1, " super leve", 0, 0)); // 0
         handler.armor.add(new armaduras("Armadura de Couro", 4, 1.1, "super leve", 30, 1)); // 1
         handler.armor.add(new armaduras("Armadura de Ferro", 6, 0.7, "pesado", 36, 1)); // 2
@@ -221,6 +260,16 @@ public class handler {
     }
 
     static void iniAce(){
+        // PARA CRIAR ACESSORIO NOVO DE QUALQUER TIPO E SO COLOCAR AQUI NESSE ARRAYLIST TB, A RARIDADE DEFINE QUAIS FASES ELE PODE APARECER
+
+        /*  AS VARIAVEIS DE UM ITEM DEFENSIVO SAO
+            nome
+            descricao
+            defesa
+            destreza
+            valor em dinheiro
+            raridade
+        */
         // defensivos
         handler.itemDef.add(new itensDef("nada", "nada", 0, 0, 0.0, 0)); // 0
         handler.itemDef.add(new itensDef("Botas de couro", "Aumenta um pouco a sua destreza", 1, 3, 25, 1)); // 1
@@ -231,6 +280,14 @@ public class handler {
         handler.itemDef.add(new itensDef("Escudo quebrado", "Um escudo usado varias vezes que quebrou, aumenta defesa", 1, 0, 15, 1)); // 6
         handler.itemDef.add(new itensDef("Colete a prova de balas", "Aumenta a sua defesa, mas diminui destreza", 15, -8, 150, 3)); // 7
 
+        /*  AS VARIAVEIS DE UM ITEM OFERNSIVO SAO
+            nome
+            descricao
+            forca
+            destreza
+            valor em dinheiro
+            raridade
+        */
         //ofensivos
         handler.itemOfen.add(new itensOfen("nada", "nada", 0, 0, 0, 0)); // 0
         handler.itemOfen.add(new itensOfen("Anel de forca", "Aumenta um pouco a sua forca", 2, 0, 30, 1)); // 1
@@ -238,7 +295,16 @@ public class handler {
         handler.itemOfen.add(new itensOfen("Colar de ouro", "Te faz se sentir um pouco mais forte", 4, 0, 75, 1)); // 3
         handler.itemOfen.add(new itensOfen("Bandana", "Aumenta forca e destreza", 2, 4, 40, 2)); // 4
 
-
+        /*  AS VARIAVEIS DE UM ITEM MISC SAO
+            nome
+            descricao
+            forca
+            defesa
+            destreza
+            bonus de evasao
+            valor em dinheiro
+            raridade
+        */
         //Misc
         handler.itemMisc.add(new itensMisc("nada", "nada", 0, 0, 0, 1, 0.0, 0)); // 0
         handler.itemMisc.add(new itensMisc("Peso de 5kg", "Aumenta sua forca, mas diminui destreza", 3, 0, -3, 0.7, 28, 1)); // 1
@@ -248,6 +314,26 @@ public class handler {
     }
 
     static void iniConsu(){
+        // SO COLOCAR CONSUMIVEL NO ARRAYLIST ALI TB PRA CRIAR UM NOVO, A RARIDADE DEFINE QUAIS FASES ELE PODE APARECER
+
+        /*  AS VARIAVEIS SAO
+            nome
+            descricao
+            valor
+            id da acao
+            valor em dinheiro
+            raridade
+
+            ACOES E ID
+
+            0 = curar
+            1 = aumentar forca
+            2 = aumentar destreza
+            3 = aumentar defesa
+            4 = causar dano verdadeiro
+
+            todos de curar/aumentar vai fazer isso = valor*statusmax(do o que for modificado)
+        */
         handler.consu.add(new consumiveis("Pedra", "Uma pedra que voce pode jogar", 5, 4, 10, 1)); // 0 // causa 5 de dano garantido no oponente
         handler.consu.add(new consumiveis("Fraca Pocao de Vida", "Cura um pouco a sua vida", 0.2, 0, 15, 1)); // 1 // cura 20% da vida da pessoa
         handler.consu.add(new consumiveis("Fraca Pocao de Forca", "Aumenta sua forca um pouco", 0.2, 1, 15, 1)); // 2 // aumenta em 20% a forca da pessoa
@@ -261,11 +347,6 @@ public class handler {
         handler.consu.add(new consumiveis("Maxima Pocao de Vida", "Cura completamente a sua vida", 1, 0, 65, 3)); // 10 // cura 100% da vida da pessoa
         handler.consu.add(new consumiveis("Maxima Pocao de Forca", "Dobra a sua forca", 1, 1, 65, 3)); // 11 // aumenta em 100% a forca da pessoa
         handler.consu.add(new consumiveis("Maxima Pocao de Destreza","Dobra sua destreza", 1, 2, 65, 3));// 12 // aumenta em 100% a destreza da pessoa
-
-        // 0 cura vida
-        // 1 aumenta forca
-        // 2 aumenta destreza
-        // 3 dano no oponente
     }
 
     static void iniFases(){

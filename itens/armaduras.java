@@ -30,11 +30,10 @@ public class armaduras extends itens{
     }
 
     public static void setDropRateArmaduras(){
-        int[] armor_drop = new int[]{}; // eu comecei fazendo com int[] pq eu sou vagabundo, e percebi q tinha q fazer .add q o arraylist tem, mas ao inves de trocar pro arraylist eu fiz o meu prorio .add KKKKKKKKKKKKKKKKKK
+        int[] armor_drop = new int[]{}; 
         for(int i = 0; i < handler.armor.size(); i++){
             if(handler.armor.get(i).getRaridade()<=fases.fase_atual+1 && handler.armor.get(i).getRaridade()>=fases.fase_atual){
                 armor_drop = extras.arrayintAdd(armor_drop, i);
-                extras.println(handler.armor.get(i).getRaridade()+" i: "+i);
                 if(handler.armor.get(i).getRaridade()==fases.fase_atual){
                     armor_drop = extras.arrayintAdd(armor_drop, i);
                 }
