@@ -144,8 +144,11 @@ public class handler {
 
     public static void iniMonstrosBR(){
         handler.bossesrand.add(new monstros_b("Ceifador", "Ele esta atras de voce, a sua hora chegou...", 17, 600, 15*fases.fase_atual, 10*fases.fase_atual, 17*fases.fase_atual, 240, new int[]{1, 2, 3, 4, 5})); // 0
-        handler.bossesrand.add(new monstros_b("Slime de ferro", "O rarissimo slime de ferro! Dizem que se voce derrotar ele, voce podera ficar rico!", 0, 5, 3, 99999, 40, 500, new int[]{1, 2, 3, 4, 5})); // 1
+        handler.bossesrand.add(new monstros_b("Slime de ferro", "O rarissimo slime de ferro! Dizem que se voce derrotar ele, voce podera ficar rico!", 0, 5, 3, 99999, 40, 1000, new int[]{1, 2, 3, 4, 5})); // 1
         handler.bossesrand.add(new monstros_b("Nouveau Riche", "Um homem tao rico que se veste com um terno de ouro", 0, 50, 30, 16, 15, 30, new int[]{1, 2, 3, 4, 5})); // 2
+        handler.bossesrand.add(new monstros_b("Lula", "Lula gigante com 9 tentáculos, o décimo parece ter sido arrancado", 0, 300, 30, 13, 24, 645, new int[]{1, 2, 3, 4, 5})); // 3
+        handler.bossesrand.add(new monstros_b("Anubis", "Um deus do egito, dizem que era responsavel por guiar as almas ate o submundo", 22, 200, 25, 19, 17, 400, new int[]{3})); // 4
+        handler.bossesrand.add(new monstros_b("Homem de preto", "Um deus do egito, dizem que era responsavel por guiar as almas ate o submundo", 21, 150, 20, 18, 20, 410, new int[]{4})); // 5
     }
 
     public static void iniMonstrosF(){
@@ -234,7 +237,12 @@ public class handler {
         handler.arma.add(new armas("Zarabatana", 6, "longo", "super leve", 42, 1)); // 14
         handler.arma.add(new armas("Garras de ferro", 12, "curto", "omega leve", 63, 3)); // 15
         handler.arma.add(new armas("Boomerang", 9, "longo", "omega leve", 46, 2)); // 16
-        handler.arma.add(new armas("Foice", 19, "curto", "pesado", 86, 3)); // 17
+        handler.arma.add(new armas("Lanca", 16, "curto", "leve", 69, 3)); // 17
+        handler.arma.add(new armas("Clava", 18, "curto", "pesado", 65, 3)); // 18
+        handler.arma.add(new armas("Besta", 17, "longo", "pesado", 70, 3)); // 19
+        handler.arma.add(new armas("Foice", 19, "curto", "pesado", 86, 3)); // 20
+        handler.arma.add(new armas("Pistola", 20, "longo", "leve", 150, 4)); // 21
+        handler.arma.add(new armas("Martelo enorme", 25, "curto", "super pesado", 180, 4)); // 21
     }
 
     static void iniArmor(){

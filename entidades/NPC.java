@@ -64,20 +64,38 @@ public class NPC extends inimigos{
             }
             extras.print("");
             extras.println_bonito("Digite o numero do item que deseja comprar ou apenas aperte enter para voltar", 500, 500);
+            extras.println_bonito("ᵈᶦᵍᶦᵗᵉ ʳᵒᵘᵇᵃʳ ᵃⁿᵗᵉˢ ᵈᵒ ⁿᵘᵐᵉʳᵒ ᵖᵃʳᵃ ʳᵒᵘᵇᵃʳ ᵒ ᶦᵗᵉᵐ", 500, 500);
             try{
                 String res = extras.inputS();
                 if(res.isEmpty()){
                     selec = false;
+                }else if(res.startsWith("roubar")){
+                    int id = (Integer.parseInt(res)-1);
+                    extras.print("");
+                    extras.println_bonito("Voce tem certeza que gostaria de roubar " + itens.getItem(itensId[id], itensTipo[id]).getNome()+ "?" , 600, 600);
+                    if(extras.simNao()){
+                        inventario.receberItem(itensTipo[id], itensId[id]);
+                        if(handler.jogador.dodge(inimigos.getInimigo(0, 3).getDestreza())){
+                            extras.print("");
+                            extras.println_bonito("Voce conseguiu roubar o " + itens.getItem(itensId[id], itensTipo[id]).getNome()+ " e conseguiu escapar do vendedor!" , 600, 600);
+                            extras.print("");
+                            extras.println_bonito("Ele nao deve estar feliz, tomara que nao passe por ele de novo..." , 600, 600);
+                        }
+                    }
                 }else{
                     int id = (Integer.parseInt(res)-1);
-                    if(inventario.dinheiro > itens.getItem(itensId[id], itensTipo[id]).getDinheiro()*1.2){
-                        inventario.gastarDinheiro(itens.getItem(itensId[id], itensTipo[id]).getDinheiro()*1.2);
-                        inventario.receberItem(itensTipo[id], itensId[id]);
-                        itensId = extras.removeIndex(itensId, id);
-                        itensTipo = extras.removeIndex(itensTipo, id);
-                    }else{
-                        extras.print("");
-                        extras.println_bonito(vendedor_dininsu[extras.rng_int(0, vendedor_dininsu.length)], 500, 1500);
+                    extras.print("");
+                    extras.println_bonito("Voce tem certeza que gostaria de comprar " + itens.getItem(itensId[id], itensTipo[id]).getNome()+ "?" , 600, 600);
+                    if(extras.simNao()){
+                        if(inventario.dinheiro > itens.getItem(itensId[id], itensTipo[id]).getDinheiro()*1.2){
+                            inventario.gastarDinheiro(itens.getItem(itensId[id], itensTipo[id]).getDinheiro()*1.2);
+                            inventario.receberItem(itensTipo[id], itensId[id]);
+                            itensId = extras.removeIndex(itensId, id);
+                            itensTipo = extras.removeIndex(itensTipo, id);
+                        }else{
+                            extras.print("");
+                            extras.println_bonito(vendedor_dininsu[extras.rng_int(0, vendedor_dininsu.length)], 500, 1500);
+                        }
                     }
                 }
             }catch(Exception e){
@@ -138,11 +156,15 @@ public class NPC extends inimigos{
     static String[] vendedor_tchau = {"Volte à qualquer hora.", "Ate mais!"};
     static String[] vendedor_nomes = {"Drebin"};
     static String vendedor_nome = vendedor_nomes[extras.rng_int(0, vendedor_nomes.length)];
+    static boolean vendedor_brabo = false;
+    static boolean vendedor_morto = false;
 
     static void vendedor(){
-        extras.print("");
-        extras.println_bonito("Voce chega na sala e percebe um homem com um casaco de couro grande, e um chapeu de cowboy, em volta dele tem alguns itens espalhados em volta...", 1000, 1000);
         if(Pvez){
+            extras.print("");
+            extras.println_bonito("Voce chega na sala e percebe um homem com um casaco de couro grande, e um chapeu de cowboy, em volta dele tem alguns itens espalhados em volta...", 1000, 1000);
+            vendedor_brabo = false;
+            vendedor_morto = false;
             handler.npcs.get(1).setNome(vendedor_nome);
             extras.print("");
             extras.println_bonito("Parece suspeito", 500, 800);
@@ -167,42 +189,77 @@ public class NPC extends inimigos{
             extras.print("");
             extras.println_bonito("'Entao fique a vontade para olhar em volta e comprar o que desejar!' ", 1200, 1000);
             Pvez = false;
-        }else{
+        }else if(vendedor_brabo == false || vendedor_morto == false){
+            extras.print("");
+            extras.println_bonito("Voce chega na sala, voce encontra o mercador de itens de antes", 500, 500);
             extras.print("");
             extras.println_bonito("'"+vendedor_chegamais[extras.rng_int(0, vendedor_chegamais.length)]+ "'", 500, 500);
         }
-        extras.print("");
-        extras.println_bonito("'"+vendedor_cumprimentos[extras.rng_int(0, vendedor_cumprimentos.length)]+ "'", 500, 500);
-        boolean loja = true;
-        int[] itensId = new int[4];
-        int[] itensTipo = new int[4];
-        for(int i = 0; i < itensId.length; i++){
-            itensTipo[i] = extras.rng_int(0, 4);
-            itensId[i] = itens.dropItem(itensTipo[i]);
-        }
-        while(loja){
+        if(vendedor_morto){
             extras.print("");
-            extras.println_bonito("Voce tem " + String.format("%.02f",inventario.dinheiro) + " de dinheiro", 500, 500);
+            extras.println_bonito("Voce chega na sala, voce nao encontra nada, apenas uma barraca com alguns baus vazio...", 500, 500);
             extras.print("");
-            extras.println_bonito("Comprar ", 200, 20);
-            extras.println_bonito("Vender ", 200, 20);
-            extras.println_bonito("Sair ", 200, 20);
-            switch(extras.inputS().toLowerCase()){
-                case "comprar":
-                    comprasItem(itensId, itensTipo);
-                    break;
-                case "vender":
-                    vendasItem();
-                    break;
-                case "sair":
-                    extras.print("");
-                    extras.println_bonito("'"+vendedor_tchau[extras.rng_int(0, vendedor_tchau.length)]+ "'", 500, 500);
-                    loja = false;
-                    break;
-                default:
-                    extras.print("");
-                    extras.println_bonito("Digite uma opcao valida...", 500, 500);
-                    break;
+            extras.println_bonito("Talvez era para alguem estar aqui? De qualquer maneira, voce continua sua jornada...", 500, 1500);
+        }else if(vendedor_brabo){
+            extras.print("");
+            extras.println_bonito("Voce chega na sala, voce encontra o mercador de itens de antes", 500, 500);
+            extras.print("");
+            extras.println_bonito("Essa nao...", 600, 600);
+            extras.print("");
+            extras.println_bonito("Ele ainda deve lembrar do o que aconteceu...", 600, 600);
+            extras.print("");
+            extras.println_bonito("'HIEAEHIAEHAI!'\n'HIEAEHIAEHAI!'\n'HIEAEHIAEHAI!'", 500, 500);
+            extras.print("");
+            extras.println_bonito("'Voce nao devia ter feito aquilo!'", 500, 500);
+            extras.print("");
+            extras.println_bonito("'HIEAEHIAEHAI! Seguranca! Acaba com ele!'", 500, 500);
+            extras.print("");
+            extras.println_bonito("'Meu amigo aqui ira te dar uma licao...'", 500, 500);
+            extras.print("");
+            extras.println_bonito("'HIEAEHIAEHAI! Agora voce tera que pagar!'", 500, 500);
+            combate.lutaini(1, 6);
+            extras.print("");
+            extras.println_bonito("'QUE!?!?!?!?'", 500, 500);
+            extras.print("");
+            extras.println_bonito("'ᵃʰ ⁿᵃᵒ'", 500, 500);
+            extras.print("");
+            extras.println_bonito("'Agora chega! Eu mesmo o farei pagar!'", 500, 500);
+            combate.lutaini(2, 0);
+            vendedor_morto = true;
+        }else{
+            extras.print("");
+            extras.println_bonito("'"+vendedor_cumprimentos[extras.rng_int(0, vendedor_cumprimentos.length)]+ "'", 500, 500);
+            boolean loja = true;
+            int[] itensId = new int[4];
+            int[] itensTipo = new int[4];
+            for(int i = 0; i < itensId.length; i++){
+                itensTipo[i] = extras.rng_int(0, 4);
+                itensId[i] = itens.dropItem(itensTipo[i]);
+            }
+            while(loja){
+                extras.print("");
+                extras.println_bonito("Voce tem " + String.format("%.02f",inventario.dinheiro) + " de dinheiro", 500, 500);
+                extras.print("");
+                extras.println_bonito("Comprar ", 200, 20);
+                extras.println_bonito("Vender ", 200, 20);
+                extras.println_bonito("Sair ", 200, 20);
+                switch(extras.inputS().toLowerCase()){
+                    case "comprar":
+                        comprasItem(itensId, itensTipo);
+                        break;
+                    case "vender":
+                        vendasItem();
+                        break;
+                    case "sair":
+                        extras.print("");
+                        extras.println_bonito("'"+vendedor_tchau[extras.rng_int(0, vendedor_tchau.length)]+ "'", 500, 500);
+                        loja = false;
+                        break;
+                    default:
+                        extras.print("");
+                        extras.println_bonito("Digite uma opcao valida...", 500, 500);
+                        break;
+                }
             }
         }
     }

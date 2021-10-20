@@ -36,7 +36,7 @@ public class combate extends entidade{
         luta(indexm, tipo);
     }
 
-    public static void luta(int indexm, int tipo){
+    static void luta(int indexm, int tipo){
         extras.print("");
         extras.println_bonito("Cuidado!", 300, 500);
         extras.print("");
