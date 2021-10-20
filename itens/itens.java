@@ -1,5 +1,6 @@
 package itens;
 
+import adicionais.extras;
 import adicionais.handler;
 
 public class itens {
@@ -20,6 +21,41 @@ public class itens {
         itensOfen.setDropRateItensOfen();
         itensMisc.setDropRateItensMisc();
         consumiveis.setDropRateconsu();
+    }
+
+    public static int dropItem(int tipo){
+        int id = 0;
+        try{
+            switch(tipo){
+                case 0:
+                    id = consumiveis.dropConsu();
+                    break;
+                case 1:
+                    if(extras.rng_int(0, 100) > 10){
+                        id = itensOfen.dropItenOfen();
+                    }else{
+                        id = itensOfen.dropItenOfenRaro();
+                    }
+                    break;
+                case 2:
+                    if(extras.rng_int(0, 100) > 10){
+                        id = itensDef.dropItenDef();
+                    }else{
+                        id = itensDef.dropItenDefRaro();
+                    }
+                    break;
+                default:
+                    if(extras.rng_int(0, 100) > 10){
+                        id = itensMisc.dropItenMisc();
+                    }else{
+                        id = itensMisc.dropItenMiscRaro();
+                    }
+                    break;
+            }
+        }catch(Exception e){
+            extras.println("Falha ao dropar um item");
+        }
+        return id;
     }
 
     public int getPesoDes(){
@@ -57,6 +93,20 @@ public class itens {
                 return (itensDef)handler.itemDef.get(indexi);
             case 3:
                 return (itensMisc)handler.itemMisc.get(indexi);
+        }
+        return null;
+    }
+
+    public static String getItemTipoString(int tipo){
+        switch(tipo){
+            case 0:
+                return "consumivel";
+            case 1:
+                return "ofensivo";
+            case 2:
+                return "defensivo";
+            case 3:
+                return "misc";
         }
         return null;
     }

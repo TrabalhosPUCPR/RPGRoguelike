@@ -4,6 +4,7 @@ import adicionais.combate;
 import adicionais.extras;
 import adicionais.handler;
 import itens.inventario;
+import itens.itens;
 
 public class NPC extends inimigos{
 
@@ -25,7 +26,6 @@ public class NPC extends inimigos{
         switch(extras.rng_int(0, 4)){
             case 0:
                 vendedor();
-
                 break;
             case 1:
                 prisioneiro();
@@ -41,8 +41,92 @@ public class NPC extends inimigos{
                 break;
             case 4:
                 dog();
-                
                 break;
+        }
+    }
+
+    static void comprasItem(int[] itensId, int[] itensTipo){
+        boolean selec = true;
+        while(selec){
+            extras.print("");
+            extras.print("________________________________________________________________________________________________________________________________________________________________________");
+            extras.print("|      |            Nome            |                                                Descricao                                                |     Tipo     |    $    |");
+            extras.print("|______|____________________________|_________________________________________________________________________________________________________|______________|_________|");
+            for(int i = 0; i < itensId.length;i++){
+                extras.println(
+                 "|" + extras.verTamMax_table(i+1, 6) 
+                +"|" + extras.verTamMax_table(itens.getItem(itensId[i], itensTipo[i]).getNome(), 28)
+                +"|" + extras.verTamMax_table(itens.getItem(itensId[i], itensTipo[i]).getDesc(), 105)
+                +"|" + extras.verTamMax_table(itens.getItemTipoString(itensTipo[i]), 14)
+                +"|" + extras.verTamMax_table(String.format("%.02f",itens.getItem(itensId[i], itensTipo[i]).getDinheiro()*1.2), 9)
+                +"|");
+                extras.print("|______|____________________________|_________________________________________________________________________________________________________|______________|_________|");
+            }
+            extras.print("");
+            extras.println_bonito("Digite o numero do item que deseja comprar ou apenas aperte enter para voltar", 500, 500);
+            try{
+                String res = extras.inputS();
+                if(res.isEmpty()){
+                    selec = false;
+                }else{
+                    int id = (Integer.parseInt(res)-1);
+                    if(inventario.dinheiro > itens.getItem(itensId[id], itensTipo[id]).getDinheiro()*1.2){
+                        inventario.gastarDinheiro(itens.getItem(itensId[id], itensTipo[id]).getDinheiro()*1.2);
+                        inventario.receberItem(itensTipo[id], itensId[id]);
+                        itensId = extras.removeIndex(itensId, id);
+                        itensTipo = extras.removeIndex(itensTipo, id);
+                    }else{
+                        extras.print("");
+                        extras.println_bonito(vendedor_dininsu[extras.rng_int(0, vendedor_dininsu.length)], 500, 1500);
+                    }
+                }
+            }catch(Exception e){
+                extras.print("");
+                extras.println_bonito("Numero invalido, digite novamente", 500, 800);
+            }
+        }
+    }
+
+    static void vendasItem(){
+        boolean selec = true;
+        while(selec){
+            extras.print("");
+            extras.println_bonito("'"+vendedor_quervender[extras.rng_int(0, vendedor_quervender.length)]+ "'", 500, 500);
+            extras.print("");
+            extras.println_bonito("Arma", 200, 20);
+            extras.println_bonito("Armadura", 200, 20);
+            extras.println_bonito("Acessorio", 200, 20);
+            extras.println_bonito("Voltar", 200, 20);
+            switch(extras.inputS().toLowerCase()){
+                case "arma":
+                    if(handler.jogador.venderArma()){
+                        extras.print("");
+                        extras.println_bonito("'"+vendedor_agradecimentos[extras.rng_int(0, vendedor_agradecimentos.length)]+ "'", 500, 500);
+                        selec = false;
+                    }
+                break;
+                case "armadura":
+                    if(handler.jogador.venderArmadura()){
+                        extras.print("");
+                        extras.println_bonito("'"+vendedor_agradecimentos[extras.rng_int(0, vendedor_agradecimentos.length)]+ "'", 500, 500);
+                        selec = false;
+                    }
+                break;
+                case "acessorio":
+                    if(inventario.venderAce()){
+                        extras.print("");
+                        extras.println_bonito("'"+vendedor_agradecimentos[extras.rng_int(0, vendedor_agradecimentos.length)]+ "'", 500, 500);
+                        selec = false;
+                    }
+                break;
+                case "voltar":
+                    selec = false;
+                break;
+                default:
+                    extras.print("");
+                    extras.println_bonito("Digite uma opcao valida...", 500, 500);
+                break;
+            }
         }
     }
 
@@ -59,6 +143,7 @@ public class NPC extends inimigos{
         extras.print("");
         extras.println_bonito("Voce chega na sala e percebe um homem com um casaco de couro grande, e um chapeu de cowboy, em volta dele tem alguns itens espalhados em volta...", 1000, 1000);
         if(Pvez){
+            handler.npcs.get(1).setNome(vendedor_nome);
             extras.print("");
             extras.println_bonito("Parece suspeito", 500, 800);
             extras.print("");
@@ -74,10 +159,6 @@ public class NPC extends inimigos{
             extras.print("");
             extras.println_bonito("'PERFEITO! Meu nome e " + vendedor_nome + ", e eu sou um mercador mundialmente conhecido que tras e pega bens de todos os tipos para todas as pessoas que passam por mim!'", 3000, 1000);
             extras.print("");
-            extras.println_bonito("'Claro que se eu te contar onde eu pego os meus produtos, eu terei que te matar!'", 1400, 500);
-            extras.print("");
-            extras.println_bonito("'HIEAEHIAEHAI!' ", 400, 1000);
-            extras.print("");
             extras.println_bonito("'Mas, se voce quiser, podera levar com voce o item que quiser!' ", 1400, 800);
             extras.print("");
             extras.println_bonito("'POR UM PRECO!' ", 400, 300);
@@ -85,10 +166,6 @@ public class NPC extends inimigos{
             extras.println_bonito("'HIEAEHIAEHAI!' ", 400, 500);
             extras.print("");
             extras.println_bonito("'Entao fique a vontade para olhar em volta e comprar o que desejar!' ", 1200, 1000);
-            extras.print("");
-            extras.println_bonito("'ᴱ ˢᵉ ᵛᵒᶜᵉ ᵗᵉⁿᵗᵃʳ ᵐᵉ ʳᵒᵘᵇᵃʳ, ᵛᵒᶜᵉ ⁿᵃᵒ ˢᵃᶦʳᵃ ᵛᶦᵛᵒ' ", 1000, 500);
-            extras.print("");
-            extras.println_bonito("'ᴴᴵᴱᴬᴱᴴᴵᴬᴱᴴᴬᴵ'", 400, 1000);
             Pvez = false;
         }else{
             extras.print("");
@@ -97,7 +174,12 @@ public class NPC extends inimigos{
         extras.print("");
         extras.println_bonito("'"+vendedor_cumprimentos[extras.rng_int(0, vendedor_cumprimentos.length)]+ "'", 500, 500);
         boolean loja = true;
-        boolean selec = true;
+        int[] itensId = new int[4];
+        int[] itensTipo = new int[4];
+        for(int i = 0; i < itensId.length; i++){
+            itensTipo[i] = extras.rng_int(0, 4);
+            itensId[i] = itens.dropItem(itensTipo[i]);
+        }
         while(loja){
             extras.print("");
             extras.println_bonito("Voce tem " + String.format("%.02f",inventario.dinheiro) + " de dinheiro", 500, 500);
@@ -107,49 +189,10 @@ public class NPC extends inimigos{
             extras.println_bonito("Sair ", 200, 20);
             switch(extras.inputS().toLowerCase()){
                 case "comprar":
-                    selec = true;
+                    comprasItem(itensId, itensTipo);
                     break;
                 case "vender":
-                    selec = true;
-                    while(selec){
-                        extras.print("");
-                        extras.println_bonito("'"+vendedor_quervender[extras.rng_int(0, vendedor_quervender.length)]+ "'", 500, 500);
-                        extras.print("");
-                        extras.println_bonito("Arma", 200, 20);
-                        extras.println_bonito("Armadura", 200, 20);
-                        extras.println_bonito("Acessorio", 200, 20);
-                        extras.println_bonito("Voltar", 200, 20);
-                        switch(extras.inputS().toLowerCase()){
-                            case "arma":
-                                if(handler.jogador.venderArma()){
-                                    extras.print("");
-                                    extras.println_bonito("'"+vendedor_agradecimentos[extras.rng_int(0, vendedor_agradecimentos.length)]+ "'", 500, 500);
-                                    selec = false;
-                                }
-                            break;
-                            case "armadura":
-                                if(handler.jogador.venderArmadura()){
-                                    extras.print("");
-                                    extras.println_bonito("'"+vendedor_agradecimentos[extras.rng_int(0, vendedor_agradecimentos.length)]+ "'", 500, 500);
-                                    selec = false;
-                                }
-                            break;
-                            case "acessorio":
-                                if(inventario.venderAce()){
-                                    extras.print("");
-                                    extras.println_bonito("'"+vendedor_agradecimentos[extras.rng_int(0, vendedor_agradecimentos.length)]+ "'", 500, 500);
-                                    selec = false;
-                                }
-                            break;
-                            case "voltar":
-                                selec = false;
-                            break;
-                            default:
-                                extras.print("");
-                                extras.println_bonito("Digite uma opcao valida...", 500, 500);
-                            break;
-                        }
-                    }
+                    vendasItem();
                     break;
                 case "sair":
                     extras.print("");

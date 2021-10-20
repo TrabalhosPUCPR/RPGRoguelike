@@ -309,8 +309,9 @@ public class handler {
         handler.itemMisc.add(new itensMisc("nada", "nada", 0, 0, 0, 1, 0.0, 0)); // 0
         handler.itemMisc.add(new itensMisc("Peso de 5kg", "Aumenta sua forca, mas diminui destreza", 3, 0, -3, 0.7, 28, 1)); // 1
         handler.itemMisc.add(new itensMisc("Tijolo da supreme", "So serve como peso, mas vale bastante", 0, 0, -6, 0.8, 99.99, 1)); // 2
-        handler.itemMisc.add(new itensMisc("Amuleto da sorte", "Aumenta sua chance de desviar", 0, 0, 0, 1.5, 44.0, 1)); // 3
-        handler.itemMisc.add(new itensMisc("Carta colecionavel", "Uma carta colecionavel, aumenta sua forca", 3, 0, 0, 1, 25.0, 1)); // 4
+        handler.itemMisc.add(new itensMisc("Amuleto da sorte", "Aumenta sua chance de desviar", 0, 0, 0, 1.5, 44.0, 2)); // 3
+        handler.itemMisc.add(new itensMisc("Carta colecionavel", "Uma carta colecionavel, aumenta sua forca", 3, 0, 0, 1, 25.0, 2)); // 4
+        handler.itemMisc.add(new itensMisc("Chave", "Uma chave esquisita, nao se sabe onde pode ser usado", 0, 0, 0, 1, 25.0, 2)); // 5
     }
 
     static void iniConsu(){

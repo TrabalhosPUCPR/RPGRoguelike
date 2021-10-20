@@ -7,15 +7,14 @@ import fases.fases;
 
 public class consumiveis extends itens{
     int acaoId;
-    String acao;
     double valor;
 
     static int[] consu_drop;
 
 
-    public consumiveis(String nome, String acao, double valor, int acaoId, double dinheiro, int raridade){
+    public consumiveis(String nome, String desc, double valor, int acaoId, double dinheiro, int raridade){
         this.nome = nome;
-        this.acao = acao;
+        this.desc = desc;
         this.valor = valor;
         this.acaoId = acaoId;
         this.valor = valor;
@@ -87,7 +86,7 @@ public class consumiveis extends itens{
         for(int i = 0; i < handler.consu.size();i++){
             extras.println("|"+ extras.verTamMax_table(i, 8)
             + "|" + extras.verTamMax_table(handler.consu.get(i).getNome(), 26)
-            + "|" + extras.verTamMax_table(handler.consu.get(i).getAcao(), 44) 
+            + "|" + extras.verTamMax_table(handler.consu.get(i).getDesc(), 44) 
             + "|" + extras.verTamMax_table(handler.consu.get(i).getValor(), 11) 
             + "|" + extras.verTamMax_table(handler.consu.get(i).getIdAcao(), 12)
             + "|" + extras.verTamMax_table(handler.consu.get(i).getDinheiro(), 12)
@@ -197,10 +196,8 @@ public class consumiveis extends itens{
         }
     }
     
-    public String getAcao() {return this.acao;}
     public int getIdAcao() {return this.acaoId;}
     public double getValor() {return this.valor;}
-    public void setAcao(String acao) {this.acao = acao;}
     public void setIdAcao(int n) {this.acaoId = n;}
     public void setValorAcao(double valor) {this.valor = valor;}
 }

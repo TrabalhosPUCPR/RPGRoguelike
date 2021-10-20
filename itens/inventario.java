@@ -37,7 +37,7 @@ public class inventario {
             for(int i = 0; i < itenConsumivel.length; i++){
                 extras.println("|__________________________|____________________________________________|");
                 extras.println("|                          |                                            |");
-                extras.println("|"+ extras.verTamMax_table("["+(i+1)+"]" + handler.consu.get(itenConsumivel[i]).getNome(), 26) + "|" + extras.verTamMax_table(handler.consu.get(itenConsumivel[i]).getAcao(), 44) + "|");
+                extras.println("|"+ extras.verTamMax_table("["+(i+1)+"]" + handler.consu.get(itenConsumivel[i]).getNome(), 26) + "|" + extras.verTamMax_table(handler.consu.get(itenConsumivel[i]).getDesc(), 44) + "|");
                 extras.println("|__________________________|____________________________________________|");
             }
             return true;
@@ -155,6 +155,23 @@ public class inventario {
         }
     }
 
+    public static void receberItem(int tipo, int id){
+        switch(tipo){
+            case 0:
+                receberItem(id);
+            break;
+            case 1:
+                receberItem(handler.itemOfen.get(id), id);
+            break;
+            case 2:
+                receberItem(handler.itemDef.get(id), id);
+            break;
+            case 3:
+                receberItem(handler.itemMisc.get(id), id);
+            break;
+        }
+    }
+
     public static void receberItem(itensDef item, int id){
         extras.println("");
         extras.println_bonito("Voce recebeu " + item.getNome() + ", " + item.getDesc(), 700, 500);
@@ -255,6 +272,12 @@ public class inventario {
         extras.println("");
         extras.println_bonito("Voce ganhou $" + String.format("%.0f", n) + "!", 600, 500);
         dinheiro += n;
+    }
+
+    public static void gastarDinheiro(double n){
+        extras.println("");
+        extras.println_bonito("Voce gastou $" + String.format("%.0f", n) + "!", 600, 500);
+        dinheiro -= n;
     }
 
     public static double getDefTotal(){return handler.itemDef.get(itenDefensivo).getDefesa() + handler.itemMisc.get(itenMisc).getDefesa();}

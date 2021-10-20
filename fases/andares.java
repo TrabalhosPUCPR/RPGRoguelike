@@ -22,8 +22,7 @@ public class andares extends fases{
 
     static int selec_index(){
         int valores[] = {1,1,1,0}; // isso e para deixar um andar mais provavel de aparecer, toda vez que criar uma sala diferente tenq colocar o numero dele aqui
-        int rand = extras.rng_int(0, valores.length);
-        return valores[rand];
+        return valores[extras.rng_int(0, valores.length)];
     }
 
     public static void NPC(){

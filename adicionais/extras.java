@@ -34,8 +34,7 @@ public class extras { // essa classe serve para colocar uns codigos para fazer u
     }
 
     public static int rng_int(int min, int max){
-        max -= 1;
-        int aleatorio = new Random().nextInt(max - min + 1) + min;
+        int aleatorio = new Random().nextInt(max - min) + min;
         return aleatorio;
     }
 
