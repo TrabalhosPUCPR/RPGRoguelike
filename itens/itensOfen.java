@@ -77,7 +77,7 @@ public class itensOfen extends itens{
         extras.println("");
         listarItensOfen();
         extras.println("");
-        extras.println_bonito("Adicionar um novo Acessorio Ofensivo ou editar um ja existente?", 500, 500);
+        extras.println_bonito("Adicionar um novo Acessorio Ofensivo ou editar um ja existente? (para apagar um acessorio ofensivo, edite a raridade para 0)", 500, 500);
         switch(extras.inputS().toLowerCase()){
             case "adicionar":
                 criarItenOfen();
@@ -125,7 +125,7 @@ public class itensOfen extends itens{
             extras.println_bonito("Digite o ID do acessorio ofensivo que gostaria de editar: ", 500, 500);
             int i = extras.inputI();
             extras.println("");
-            extras.println_bonito("Qual valor da arma "+handler.itemOfen.get(i).getNome()+" voce gostaria de editar?", 500, 500);
+            extras.println_bonito("Qual valor do acessorio ofensivo "+handler.itemOfen.get(i).getNome()+" voce gostaria de editar?", 500, 500);
             extras.println_bonito("Nome\nDesc\nForca\nDestreza\nValor\nRaridade", 500, 500);
             switch(extras.inputS().toLowerCase()){
                 case "nome":

@@ -108,7 +108,7 @@ public class armas extends itens{
         extras.println("");
         listArmas();
         extras.println("");
-        extras.println_bonito("Adicionar uma nova arma ou editar uma ja existente?", 500, 500);
+        extras.println_bonito("Adicionar uma nova arma ou editar uma ja existente? (para apagar uma arma, edite a raridade para 0)", 500, 500);
         switch(extras.inputS().toLowerCase()){
             case "adicionar":
                 criarArma();

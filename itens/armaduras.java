@@ -80,7 +80,7 @@ public class armaduras extends itens{
         extras.println("");
         listArmaduras();
         extras.println("");
-        extras.println_bonito("Adicionar uma nova armadura ou editar uma ja existente?", 500, 500);
+        extras.println_bonito("Adicionar uma nova armadura ou editar uma ja existente? (para apagar uma armadura, edite a raridade para 0)", 500, 500);
         switch(extras.inputS().toLowerCase()){
             case "adicionar":
                 criarArmadura();

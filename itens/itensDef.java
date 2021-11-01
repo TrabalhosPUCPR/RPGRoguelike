@@ -77,7 +77,7 @@ public class itensDef extends itens{
         extras.println("");
         listarItensDef();
         extras.println("");
-        extras.println_bonito("Adicionar um novo Acessorio Defensivo ou editar um ja existente?", 500, 500);
+        extras.println_bonito("Adicionar um novo Acessorio Defensivo ou editar um ja existente? (para apagar um acessorio defensivo, edite a raridade para 0)", 500, 500);
         switch(extras.inputS().toLowerCase()){
             case "adicionar":
                 criarItenDef();
@@ -126,7 +126,7 @@ public class itensDef extends itens{
             extras.println_bonito("Digite o ID do acessorio defensivo que gostaria de editar: ", 500, 500);
             int i = extras.inputI();
             extras.println("");
-            extras.println_bonito("Qual valor da arma "+handler.itemDef.get(i).getNome()+" voce gostaria de editar?", 500, 500);
+            extras.println_bonito("Qual valor do acessorio defensivo "+handler.itemDef.get(i).getNome()+" voce gostaria de editar?", 500, 500);
             extras.println_bonito("Nome\nDesc\nDefesa\nDestreza\nValor\nRaridade", 500, 500);
             switch(extras.inputS().toLowerCase()){
                 case "nome":
@@ -168,7 +168,7 @@ public class itensDef extends itens{
             extras.println_bonito(handler.itemDef.get(i).getNome() + " editado com sucesso!", 500, 700);
         }catch(Exception e){
             extras.println("");
-            extras.println("Falha ao editar arma: "+e);
+            extras.println("Falha ao editar acessorio defensivo: "+e);
         }
     }
 }

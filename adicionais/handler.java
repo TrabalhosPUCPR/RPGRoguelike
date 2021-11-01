@@ -58,7 +58,7 @@ public class handler {
         // pra criar um novo ascii art e so colocar dentro de um arquivo de texto dentro do ascii/arts/ e fazer igual como ta ai, so coloca o nome em minusculo e facil
         extras.print("[ASCII]: Criando artes ASCII...");
         handler.ascii.add(new ascii("logo", new File("ascii/arts/logo.txt")));
-
+        handler.ascii.add(new ascii("slime", new File("ascii/arts/monstros/slime.txt")));
         extras.print("[ASCII]: Artes ASCII carregadas");
     }
 

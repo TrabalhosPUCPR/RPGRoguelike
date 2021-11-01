@@ -100,7 +100,7 @@ public class consumiveis extends itens{
         extras.println("");
         listarConsumiveis();
         extras.println("");
-        extras.println_bonito("Adicionar um novo consumivel ou editar um ja existente?", 500, 500);
+        extras.println_bonito("Adicionar um novo consumivel ou editar um ja existente? (para apagar um consumivel, edite a raridade para 0)", 500, 500);
         switch(extras.inputS().toLowerCase()){
             case "adicionar":
                 criarConsu();

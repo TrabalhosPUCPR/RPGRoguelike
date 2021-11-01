@@ -221,7 +221,7 @@ public class inimigos extends entidade{
         extras.println("");
         listarInimigos(tipo);
         extras.println("");
-        extras.println_bonito("Adicionar um novo inimigo ou editar um ja existente?", 500, 500);
+        extras.println_bonito("Adicionar um novo inimigo ou editar um ja existente? (para apagar um inimigo, edite os numeros das fases em que aparece para 0)", 500, 500);
         switch(extras.inputS().toLowerCase()){
             case "adicionar":
                 criarInimigo(tipo);
