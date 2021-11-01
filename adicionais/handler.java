@@ -59,6 +59,8 @@ public class handler {
         extras.print("[ASCII]: Criando artes ASCII...");
         handler.ascii.add(new ascii("logo", new File("ascii/arts/logo.txt")));
         handler.ascii.add(new ascii("slime", new File("ascii/arts/monstros/slime.txt")));
+        handler.ascii.add(new ascii("vendedor", new File("ascii/arts/monstros/vendedor.txt")));
+        handler.ascii.add(new ascii("shrek", new File("ascii/arts/monstros/shrek.txt")));
         extras.print("[ASCII]: Artes ASCII carregadas");
     }
 
