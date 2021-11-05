@@ -8,20 +8,35 @@ public class extras { // essa classe serve para colocar uns codigos para fazer u
     static Scanner input = new Scanner(System.in);
 
     public static String inputS(){
-        System.out.print("R: ");
-        String res = input.nextLine();
+        String res = "";
+        if(janela.Ativo){
+            res = janela.JinputS();
+        }else{
+            System.out.print("R: ");
+            res = input.nextLine();
+        }
         return res;
     }
 
     public static int inputI(){
-        System.out.print("R: ");
-        int res = Integer.parseInt(input.nextLine());
+        int res = 0;
+        if(janela.Ativo){
+            res =  Integer.parseInt(janela.JinputS());
+        }else{
+            System.out.print("R: ");
+            res = Integer.parseInt(input.nextLine());;
+        }
         return res;
     }
 
     public static double inputD(){
-        System.out.print("R: ");
-        double res = Double.parseDouble(input.nextLine());
+        double res = 0;
+        if(janela.Ativo){
+            res = Double.parseDouble(janela.JinputS());
+        }else{
+            System.out.print("R: ");
+            res = Double.parseDouble(input.nextLine());
+        }
         return res;
     }
 
@@ -45,6 +60,7 @@ public class extras { // essa classe serve para colocar uns codigos para fazer u
     }
 
     public static void console_clear(){
+        janela.clearJanela();
         for(int i = 0; i < 100; i++){ // eu queria que tivesse uma forma melhor de limpa o console :(
             System.out.println("");
         }
@@ -52,12 +68,15 @@ public class extras { // essa classe serve para colocar uns codigos para fazer u
 
     public static void println(Object ms){ //so pq e mais facil de digita
         String msg = ms.toString();
+        janela.printJanela(msg);
+        janela.printlnJanela("");
         System.out.print(msg);
         System.out.println("");
     }
     public static void print(Object ms){
         String msg = ms.toString();
         System.out.println(msg);
+        janela.printlnJanela(msg);
     }
     public static void println_bonito(Object ms, int tempo, int fim){
         String msg = ms.toString();
@@ -67,6 +86,7 @@ public class extras { // essa classe serve para colocar uns codigos para fazer u
         }
         tempo = tempo/n;
         for(int i = 0; i < n;i++){
+            janela.printJanela(msg.charAt(i));
             System.out.print(msg.charAt(i));
             delay(tempo);
         }

@@ -31,7 +31,7 @@ public class andares extends fases{
 
     public static void monstro(){
         extras.print("");
-        extras.println_bonito("Voce chega na porta da proxima sala, e sente perigo dentro dela, mas sem opcoes, voce entra nela para enfrentar o que tiver", 1500, 500);
+        extras.println_bonito("Voce chega na porta da proxima sala, e sente perigo dentro dela,\nmas sem opcoes, voce entra nela para enfrentar o que tiver", 1500, 500);
         combate.lutaini(0);
     }
 

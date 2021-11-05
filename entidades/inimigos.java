@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import adicionais.extras;
 import adicionais.handler;
+import adicionais.janela;
 import fases.fases;
 import itens.armaduras;
 import itens.armas;
@@ -60,6 +61,7 @@ public class inimigos extends entidade{
         if(dano > 0){
             player.dor();
         }
+        janela.setUpPlayerGUI();
         extras.print("");
         extras.println_bonito("Voce levou " + String.format("%.00f", dano) + " de dano do " + this.nome + "!", 700, 500);
     }

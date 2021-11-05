@@ -1,30 +1,34 @@
 import adicionais.configuracao;
 import adicionais.extras;
 import adicionais.handler;
+import adicionais.janela;
 import ascii.ascii;
 
 public class Main {
     public static void main(String[] args) throws Exception {
+        new janela();
         handler.carregarJogo();
-        while(true){
-            menuInicial();
-        }
+        menuInicial();
     }
 
-    static void menuInicial(){
-        extras.console_clear();
-        ascii.printAsciipeloNome("logo");
-        extras.println("");
-        extras.println_bonito("jogar", 200, 30);
-        extras.println_bonito("config", 200, 30);
-        switch(extras.inputS().toLowerCase()){
-            case "jogar":
-                handler.NovoJogo();
-            break;
-            case "config":
-                configuracao.configurar();
-            break;
+        static void menuInicial(){
+            while(true){
+                extras.console_clear();
+                ascii.printAsciipeloNome("logo");
+                extras.println("");
+                extras.println_bonito("jogar", 200, 30);
+                extras.println_bonito("config", 200, 30);
+                switch(extras.inputS().toLowerCase()){
+                    case "jogar":
+                        handler.NovoJogo();
+                    break;
+                    case "config":
+                        configuracao.configurar();
+                    break;
+                    default:
+                    break;
+                }
+            }
         }
-    }
 }
 

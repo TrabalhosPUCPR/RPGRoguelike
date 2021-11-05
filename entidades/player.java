@@ -2,6 +2,7 @@ package entidades;
 
 import adicionais.extras;
 import adicionais.handler;
+import adicionais.janela;
 import fases.fases;
 import itens.armas;
 import itens.inventario;
@@ -120,6 +121,15 @@ public class player extends entidade{
         extras.println_bonito("" + sons_d[extras.rng_int(0, sons_d.length)], 100, 300);
     }
 
+    @Override
+    public void curar(double c){
+        this.vida += c;
+        if(this.vida > this.vidamax){
+            this.vida = this.vidamax;
+        }
+        janela.setUpPlayerGUI();
+    }
+
     public void morrer(int indexm, int Tmons){
         extras.print("");
         extras.println_bonito("Voce se sente fraco demais contra " + inimigos.getInimigo(indexm, Tmons).getNome() + ", sua visao comeca a ficar escura, e voce fecha totalmente seus olhos...", 2000, 500);
@@ -174,6 +184,7 @@ public class player extends entidade{
         buff_forca = 1;
         buff_defesa = 1;
         buff_evasion = 1;
+        janela.setUpPlayerGUI();
         receberXp(xp_rec);
     }
 
@@ -277,6 +288,7 @@ public class player extends entidade{
                 }
                 break;
         }
+        janela.setUpPlayerGUI();
     }
     
     @Override
@@ -332,6 +344,7 @@ public class player extends entidade{
                 handler.jogador.setDestreza(this.destreza + extras.rng_int(1, extras.rng_int(2, 5)));
                 break;
         }
+        janela.setUpPlayerGUI();
         extras.print("");
         extras.println_bonito("Suas capacidades fisicas foram melhoradas!", 700, 200);
         extras.print("");

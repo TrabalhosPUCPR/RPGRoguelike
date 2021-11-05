@@ -48,7 +48,7 @@ public class handler {
         iniNpcs();
         iniMonstros();
         iniItens();
-        extras.println("[Jogo]: Carregado");
+        extras.print("[Jogo]: Carregado");
         extras.println(" ");
         extras.print("[Jogo]: Precione enter para comecar o jogo...");
         extras.inputS();
@@ -72,12 +72,12 @@ public class handler {
     }
 
     static void iniNpcs(){
-        extras.println("[NPC]: Criando NPCs...");
+        extras.print("[NPC]: Criando NPCs...");
         handler.npcs.add(new NPC("Vendedor ambulante","Pessoa misteriosa que comercializa itens", 0, 5, 1, 1, 1, 5)); // 0
         handler.npcs.add(new NPC(handler.jogador.getNome(),"Outro jogador, mas aparenta estar mentalmente instavel, pode acabar lhe dando uma dica ou item", handler.jogador.getArmaEquip(), handler.jogador.getVidamax(), handler.jogador.getForca(), (int)handler.jogador.getDefesa(), handler.jogador.getDestreza(), 5)); // 1
         handler.npcs.add(new NPC("Mendigo","Encostado na parede e coberto por um pano surrado um velho senhor, um pouco sus, lhe pede um pouco de dinheiro", 1, 30, 8, 6, 5, 16)); // 2
         handler.npcs.add(new NPC("D-Dog","literalmente um doguinho, com uma espada...", 8, 20, 10, 4, 7, -5)); // 3
-        extras.println("[NPC]: NPCs criados com sucesso");
+        extras.print("[NPC]: NPCs criados com sucesso");
     }
 
     static void iniMonstros(){
@@ -184,7 +184,7 @@ public class handler {
         tipo de arma que consegue usar: 0 = curto; 1 = longo; 2 = todos;
         */
         extras.print("[Player]: Criando Classes...");
-        handler.classe.add(new classes("Arqueiro", "Rapido e com alta destreza, pode usar armas de longo alcance, mas possui baixa defesa", 3, 0, 40, 5, 4, 8, 1)); // 0
+        handler.classe.add(new classes("Arqueiro", "Rapido e com alta destreza, pode usar armas de longo alcance, mas possui baixa defesa", 3, 1, 40, 5, 4, 8, 1)); // 0
         handler.classe.add(new classes("Guerreiro","Forte e defensivo, pode causar alto dano em curto alcance mas possui pessima destreza", 1, 1, 40, 6, 3, 7, 0)); // 1
         handler.classe.add(new classes("Paladino","Balanceado de todas as formas, usa arma de curto alcance e experiente em qualquer situacao", 2, 1, 40, 8, 5, 3, 0)); // 2
         handler.classe.add(new classes("Despojado","Roubado de todos os seus pertences, comeca fraco mas ganha pontos em status extremamente rapido e pode usar qualquer arma", 0, 2, 40, 5, 3, 5, 2)); // 3
@@ -414,6 +414,7 @@ public class handler {
                 res2 = 0;
             }
         }
+        janela.setUpPlayerGUI();
     }
 
 }
