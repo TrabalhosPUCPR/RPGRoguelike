@@ -4,7 +4,6 @@ import java.awt.Color;
 import javax.swing.*;
 import javax.swing.text.DefaultCaret;
 
-import ascii.ascii;
 import itens.inventario;
 
 import java.awt.FlowLayout;
