@@ -1,5 +1,6 @@
 package adicionais;
 
+import ascii.ascii;
 import entidades.entidade;
 import entidades.inimigos;
 
@@ -40,6 +41,7 @@ public class combate extends entidade{
         extras.print("");
         extras.println_bonito("Cuidado!", 300, 500);
         extras.print("");
+        ascii.printMonstroAsciipeloNome(inimigos.getInimigo(indexm, tipo).getAscii(), true);
         extras.println_bonito("Um " + inimigos.getInimigo(indexm, tipo).getNome() + " se aproxima!", 700, 500);
 
         while(handler.jogador.getVida() > 0 && inimigos.getInimigo(indexm, tipo).getVida() > 0){

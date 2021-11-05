@@ -4,6 +4,9 @@ import java.awt.Color;
 import javax.swing.*;
 import javax.swing.text.DefaultCaret;
 
+import ascii.ascii;
+import itens.inventario;
+
 import java.awt.FlowLayout;
 
 import java.awt.Dimension;
@@ -64,7 +67,7 @@ public class janela implements ActionListener{
         Jconsole.setBackground(Color.DARK_GRAY);
         Jconsole.setForeground(Color.white);
         Jconsole.setFont(fonteConsoleASCII);
-        Jconsole.setMargin(new Insets(0,25,0,15));
+        Jconsole.setMargin(new Insets(0,25,0,0));
         Jconsole.setEditable(false);
         JScrollPane scroll = new JScrollPane(Jconsole, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scroll.setPreferredSize(new Dimension(585, 670));
@@ -89,6 +92,8 @@ public class janela implements ActionListener{
         JmonsAscii.setFont(fonteConsoleASCII);
         JmonsAscii.setEditable(false);
         JmonsAscii.setPreferredSize(new Dimension(555, 580));
+        JmonsAscii.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createDashedBorder(Color.gray, 5, 5, 5, true), BorderFactory.createEmptyBorder(0, 20, 0, 0)));
+        JmonsAscii.setMargin(new Insets(170,140,25,25));
         Jplayergui.setBackground(Color.darkGray);
         Jplayergui.setForeground(Color.white);
         Jplayergui.setPreferredSize(new Dimension(554, 154));
@@ -112,7 +117,7 @@ public class janela implements ActionListener{
     } 
     public static void printlnJanela(Object m){
         String msg = m.toString();
-        Jconsole.append("\n" + msg);
+        Jconsole.append("           \n" + msg);
         Jconsole.setCaretPosition(Jconsole.getDocument().getLength());
     } 
     public static String JinputS(){
@@ -130,14 +135,25 @@ public class janela implements ActionListener{
     public static void setUpPlayerGUI(){ // chama essa mesma funcao pra atualizar essa tabela tb
         // 77 colunas 8 linhas
         Jplayergui.setText("_______________________________________________________________________________");
-        Jplayergui.append("\n|"+extras.verTamMax_table(" Nome: " + handler.jogador.getNome(), 37) + "|" + "" + extras.verTamMax_table(" Classe: " + handler.jogador.getClasse(), 39)+"|");
-        Jplayergui.append("\n|_____________________________________|_______________________________________|");
+        Jplayergui.append("\n|"+extras.verTamMax_table(" Nome: " + handler.jogador.getNome(), 18) + "|" + "" + extras.verTamMax_table(" Classe: " + handler.jogador.getClasse(), 18)+"|"+ extras.verTamMax_table(" Nivel: " + handler.jogador.getNivel(), 19)+"|"+ extras.verTamMax_table(" Dinheiro: " + inventario.dinheiro, 19)+"|");
+        Jplayergui.append("\n|__________________|__________________|___________________|___________________|");
         Jplayergui.append("\n|"+extras.verTamMax_table(" Vida: " + String.format("%.0f", handler.jogador.getVida()), 18) + "|" + extras.verTamMax_table(" Forca: " + handler.jogador.getForca(), 18) + "|"+extras.verTamMax_table(" Defesa: " + String.format("%.0f",handler.jogador.getDefesa()), 19) + "|"+extras.verTamMax_table(" Destreza: " + handler.jogador.getDestreza(), 19) + "|");
         Jplayergui.append("\n|__________________|__________________|___________________|___________________|");
         Jplayergui.append("\n|"+extras.verTamMax_table(" Arma: " + handler.arma.get(handler.jogador.getArmaEquip()).getNome(), 37) + "|" + "" + extras.verTamMax_table(" Armadura: " + handler.armor.get(handler.jogador.getArmorEquip()).getNome(), 39)+"|");
         Jplayergui.append("\n|"+"__________________" + "_"+ "__________________" + "|"+"___________________" + "_"+ "___________________" + "|");
         Jplayergui.append("\n|"+extras.verTamMax_table(" Ataque: " + handler.arma.get(handler.jogador.getArmaEquip()).getAtaque(), 18) + "|" + extras.verTamMax_table(" Peso: " + handler.arma.get(handler.jogador.getArmaEquip()).getPeso(), 18) + "|"+extras.verTamMax_table(" Defesa: " + handler.armor.get(handler.jogador.getArmorEquip()).getDefesa(), 19) + "|"+extras.verTamMax_table(" Peso: " + handler.armor.get(handler.jogador.getArmorEquip()).getPeso(), 19) +"|");
         Jplayergui.append("\n|__________________|__________________|___________________|___________________|");
+    }
+    public static void clearJmonsAscii(boolean ln){
+        if(ln){
+            JmonsAscii.setText("\n\n\n\n\n\n\n\n\n\n\n");
+        }else{
+            JmonsAscii.setText("");
+        }
+    }
+    public static void printAsciiMonstro(String ascii){
+        JmonsAscii.append(extras.verTamMax_table(ascii, 75));
+        JmonsAscii.append("\n");
     }
 
     @Override

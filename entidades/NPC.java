@@ -3,6 +3,8 @@ package entidades;
 import adicionais.combate;
 import adicionais.extras;
 import adicionais.handler;
+import adicionais.janela;
+import ascii.ascii;
 import itens.inventario;
 import itens.itens;
 
@@ -162,7 +164,7 @@ public class NPC extends inimigos{
     static void vendedor(){
         if(Pvez){
             extras.print("");
-            extras.println_bonito("Voce chega na sala e percebe um homem com um casaco de couro grande, e um chapeu de cowboy, em volta dele tem alguns itens espalhados em volta...", 1000, 1000);
+            extras.println_bonito("Voce chega na sala e percebe um homem com um casaco de couro grande, \ne um chapeu de cowboy, em volta dele tem alguns itens espalhados em volta...", 1000, 1000);
             vendedor_brabo = false;
             vendedor_morto = false;
             handler.npcs.get(1).setNome(vendedor_nome);
@@ -175,11 +177,12 @@ public class NPC extends inimigos{
             extras.print("");
             extras.println_bonito("Voce se aproxima do homem suspeito...", 800, 500);
             extras.print("");
-            extras.println_bonito("'HIEHIEHIEIHEA! Voce parece ter um interesse pelos itens que eu tenho em exposicao!'", 1400, 500);
+            ascii.printMonstroAsciipeloNome("vendedor", true);
+            extras.println_bonito("'HIEHIEHIEIHEA! Voce parece ter um interesse pelos \nitens que eu tenho em exposicao!'", 1400, 500);
             extras.print("");
             extras.println_bonito("'HIEAEHIAEHAI!' ", 400, 1000);
             extras.print("");
-            extras.println_bonito("'PERFEITO! Meu nome e " + vendedor_nome + ", e eu sou um mercador mundialmente conhecido que tras e pega bens de todos os tipos para todas as pessoas que passam por mim!'", 3000, 1000);
+            extras.println_bonito("'PERFEITO! Meu nome e " + vendedor_nome + ", e eu sou um mercador mundialmente \nconhecido que tras e pega bens de todos os tipos para \ntodas as pessoas que passam por mim!'", 3000, 1000);
             extras.print("");
             extras.println_bonito("'Mas, se voce quiser, podera levar com voce o item que quiser!' ", 1400, 800);
             extras.print("");
@@ -197,9 +200,9 @@ public class NPC extends inimigos{
         }
         if(vendedor_morto){
             extras.print("");
-            extras.println_bonito("Voce chega na sala, voce nao encontra nada, apenas uma barraca com alguns baus vazio...", 500, 500);
+            extras.println_bonito("Voce chega na sala, voce nao encontra nada, \napenas uma barraca com alguns baus vazio...", 500, 500);
             extras.print("");
-            extras.println_bonito("Talvez era para alguem estar aqui? De qualquer maneira, voce continua sua jornada...", 500, 1500);
+            extras.println_bonito("Talvez era para alguem estar aqui? \nDe qualquer maneira, voce continua sua jornada...", 500, 1500);
         }else if(vendedor_brabo){
             extras.print("");
             extras.println_bonito("Voce chega na sala, voce encontra o mercador de itens de antes", 500, 500);
@@ -254,6 +257,7 @@ public class NPC extends inimigos{
                         extras.print("");
                         extras.println_bonito("'"+vendedor_tchau[extras.rng_int(0, vendedor_tchau.length)]+ "'", 500, 500);
                         loja = false;
+                        janela.clearJmonsAscii(true);
                         break;
                     default:
                         extras.print("");

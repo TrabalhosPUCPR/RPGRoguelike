@@ -17,6 +17,7 @@ import itens.itensOfen;
 public class inimigos extends entidade{
 
     int[] Nfases;
+    String nomeAscii;
     public static int indexmonstro;
     public static int tipomonstro;
 
@@ -86,6 +87,7 @@ public class inimigos extends entidade{
     public void morrer(){
         extras.print("");
         extras.println_bonito("O " + this.nome + " foi derrotado!", 300, 700);
+        janela.clearJmonsAscii(true);
         dropar();
     }
 
@@ -269,13 +271,13 @@ public class inimigos extends entidade{
             int[] Nfases = extras.stringtoIntArray(extras.inputS());
             switch(tipo){
                 case 0:
-                    handler.monstros.add(new monstros_f(nome, desc, arma_equip, vidamax, forca, defesa, destreza, exp, Nfases));
+                    handler.monstros.add(new monstros_f(nome, desc, arma_equip, vidamax, forca, defesa, destreza, exp, Nfases, "generico"));
                 break;
                 case 1:
-                    handler.bossesrand.add(new monstros_b(nome, desc, arma_equip, vidamax, forca, defesa, destreza, exp, Nfases));
+                    handler.bossesrand.add(new monstros_b(nome, desc, arma_equip, vidamax, forca, defesa, destreza, exp, Nfases, "generico"));
                 break;
                 case 2:
-                    handler.bosses.add(new monstros_b(nome, desc, arma_equip, vidamax, forca, defesa, destreza, exp, Nfases));
+                    handler.bosses.add(new monstros_b(nome, desc, arma_equip, vidamax, forca, defesa, destreza, exp, Nfases, "generico"));
                 break;
             }
             extras.println("");
@@ -352,5 +354,6 @@ public class inimigos extends entidade{
 
     public void setNfases(int[] n){this.Nfases = n;}
     public int[] getNfases(){return this.Nfases;}
+    public String getAscii(){return this.nomeAscii;}
 
 }

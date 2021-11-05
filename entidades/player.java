@@ -132,7 +132,7 @@ public class player extends entidade{
 
     public void morrer(int indexm, int Tmons){
         extras.print("");
-        extras.println_bonito("Voce se sente fraco demais contra " + inimigos.getInimigo(indexm, Tmons).getNome() + ", sua visao comeca a ficar escura, e voce fecha totalmente seus olhos...", 2000, 500);
+        extras.println_bonito("Voce se sente fraco demais contra " + inimigos.getInimigo(indexm, Tmons).getNome() + ",\n sua visao comeca a ficar escura, e voce fecha totalmente seus olhos...", 2000, 500);
         extras.print("");
         extras.println_bonito("Voce esta morto...", 500, 200);
         extras.print("");
@@ -344,6 +344,7 @@ public class player extends entidade{
                 handler.jogador.setDestreza(this.destreza + extras.rng_int(1, extras.rng_int(2, 5)));
                 break;
         }
+        this.level += 1;
         janela.setUpPlayerGUI();
         extras.print("");
         extras.println_bonito("Suas capacidades fisicas foram melhoradas!", 700, 200);
@@ -386,6 +387,7 @@ public class player extends entidade{
     public int getArmorEquip(){return armor_equip;}
     public int gettipoArma(){return tipoArma;}
     public int getNpcsMortos(){return npcs_mortos;}
+    public int getNivel(){return level;}
 
     //setters
     public void setClasse(String c){this.classe = c;}
@@ -394,5 +396,6 @@ public class player extends entidade{
     public void addmonstros_b_derrot(int n){this.monstros_b_derrot += n;}
     public void addnpcs_mortos(int n){this.npcs_mortos += n;}
     public void setArmorEquip(int n){this.armor_equip = n;}
+    public void setNivel(int n){this.level = n;}
     
 }

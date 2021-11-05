@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import adicionais.extras;
 import adicionais.handler;
+import adicionais.janela;
 
 /*
 https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20
@@ -26,8 +27,18 @@ public class ascii {
     }
 
     void printAscii() throws FileNotFoundException{
+
         while(this.txt.hasNextLine()){
-            extras.println(txt.nextLine());
+            String linha = txt.nextLine();
+            extras.println(linha);
+        }
+        this.txt = new Scanner(this.arquivo); // tenq resetar se nao o print ali em cima nao funciona dps da primeira vez
+    }
+    void printMonstroAscii() throws FileNotFoundException{
+
+        while(this.txt.hasNextLine()){
+            String linha = txt.nextLine();
+            janela.printAsciiMonstro(linha);
         }
         this.txt = new Scanner(this.arquivo); // tenq resetar se nao o print ali em cima nao funciona dps da primeira vez
     }
@@ -37,6 +48,24 @@ public class ascii {
             if(handler.ascii.get(i).getNome().equals(n)){
                 try {
                     handler.ascii.get(i).printAscii();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+        }
+    }
+
+    public static void printMonstroAsciipeloNome(String n, boolean ln){
+        if(ln){
+            janela.clearJmonsAscii(true);
+        }else{
+            janela.clearJmonsAscii(false);
+        }
+        for(int i = 0; i < handler.ascii.size(); i++){
+            if(handler.ascii.get(i).getNome().equals(n)){
+                try {
+                    handler.ascii.get(i).printMonstroAscii();
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }

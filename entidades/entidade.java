@@ -2,6 +2,7 @@ package entidades;
 
 import adicionais.extras;
 import adicionais.handler;
+import adicionais.janela;
 import fases.fases;
 
 public class entidade {
@@ -137,6 +138,7 @@ public class entidade {
     public void morrer(){
         extras.print("");
         extras.println_bonito("O " + this.nome + " foi derrotado!", 300, 700);
+        janela.clearJmonsAscii(true);
     }
 
     //getters

@@ -1,11 +1,12 @@
 package entidades;
 
 import adicionais.extras;
+import adicionais.janela;
 import itens.inventario;
 
 public class monstros_b extends inimigos{
 
-    public monstros_b(String nome, String desc, int arma_equip, int vidamax, int forca, int defesa, int destreza, int exp, int[] Nfases){
+    public monstros_b(String nome, String desc, int arma_equip, int vidamax, int forca, int defesa, int destreza, int exp, int[] Nfases, String nomeAscii){
         this.nome = nome;
         this.desc = desc;
         this.arma_equip = arma_equip;
@@ -16,10 +17,12 @@ public class monstros_b extends inimigos{
         this.destreza = destreza;
         this.exp = exp;
         this.Nfases = Nfases;
+        this.nomeAscii = nomeAscii;
     }
 
     @Override
     public void morrer(){
+        janela.clearJmonsAscii(true);
         extras.print("");
         extras.println_bonito("Viva! O " + this.nome + " foi derrotado!", 500, 1000);
         extras.print("");

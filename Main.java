@@ -13,6 +13,7 @@ public class Main {
 
         static void menuInicial(){
             while(true){
+                ascii.printMonstroAsciipeloNome("logoepico", false);
                 extras.console_clear();
                 ascii.printAsciipeloNome("logo");
                 extras.println("");
