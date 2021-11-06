@@ -132,7 +132,7 @@ public class player extends entidade{
 
     public void morrer(int indexm, int Tmons){
         extras.print("");
-        extras.println_bonito("Voce se sente fraco demais contra " + inimigos.getInimigo(indexm, Tmons).getNome() + ",\n sua visao comeca a ficar escura, e voce fecha totalmente seus olhos...", 2000, 500);
+        extras.println_bonito("Voce se sente fraco demais contra " + inimigos.getInimigo(indexm, Tmons).getNome() + ",\nsua visao comeca a ficar escura, e voce fecha totalmente seus olhos...", 2000, 500);
         extras.print("");
         extras.println_bonito("Voce esta morto...", 500, 200);
         extras.print("");
@@ -314,37 +314,36 @@ public class player extends entidade{
     public void levelup(){
         switch(handler.jogador.getClasse().toLowerCase()){
             case "arqueiro":
-                handler.jogador.setVidamax(this.vidamax + extras.rng_int(1, 4)); 
-                handler.jogador.setForca(this.forca + extras.rng_int(1, 5)); 
-                handler.jogador.setDefesa(this.defesa + extras.rng_int(1, 3));
-                handler.jogador.setDestreza(this.destreza + extras.rng_int(1, 8));
+                handler.jogador.setVidamax(this.vidamax + extras.rng_int(1, 5)); 
+                handler.jogador.setForca(this.forca + extras.rng_int(1, 6)); 
+                handler.jogador.setDefesa(this.defesa + extras.rng_int(1, 4));
+                handler.jogador.setDestreza(this.destreza + extras.rng_int(1, 9));
             break;
             case "guerreiro":
-                handler.jogador.setVidamax(this.vidamax + extras.rng_int(1, 5)); 
-                handler.jogador.setForca(this.forca + extras.rng_int(1, 5)); 
-                handler.jogador.setDefesa(this.defesa + extras.rng_int(1, 4));
-                handler.jogador.setDestreza(this.destreza + extras.rng_int(1, 4));
-                break;
-            case "paladino":
-                handler.jogador.setVidamax(this.vidamax + extras.rng_int(1, 7)); 
-                handler.jogador.setForca(this.forca + extras.rng_int(1, 4)); 
-                handler.jogador.setDefesa(this.defesa + extras.rng_int(1, 5));
-                handler.jogador.setDestreza(this.destreza + extras.rng_int(1, 3));
-                break;
-            case "despojado":
-                handler.jogador.setVidamax(this.vidamax + extras.rng_int(1, 10)); 
-                handler.jogador.setForca(this.forca + extras.rng_int(1, 5)); 
+                handler.jogador.setVidamax(this.vidamax + extras.rng_int(1, 6)); 
+                handler.jogador.setForca(this.forca + extras.rng_int(1, 6)); 
                 handler.jogador.setDefesa(this.defesa + extras.rng_int(1, 5));
                 handler.jogador.setDestreza(this.destreza + extras.rng_int(1, 5));
                 break;
+            case "paladino":
+                handler.jogador.setVidamax(this.vidamax + extras.rng_int(1, 8)); 
+                handler.jogador.setForca(this.forca + extras.rng_int(1, 5)); 
+                handler.jogador.setDefesa(this.defesa + extras.rng_int(1, 6));
+                handler.jogador.setDestreza(this.destreza + extras.rng_int(1, 4));
+                break;
+            case "despojado":
+                handler.jogador.setVidamax(this.vidamax + extras.rng_int(1, 11)); 
+                handler.jogador.setForca(this.forca + extras.rng_int(1, 6)); 
+                handler.jogador.setDefesa(this.defesa + extras.rng_int(1, 6));
+                handler.jogador.setDestreza(this.destreza + extras.rng_int(1, 6));
+                break;
             default:
-                handler.jogador.setVidamax(this.vidamax + extras.rng_int(1, extras.rng_int(2, 10))); 
-                handler.jogador.setForca(this.forca + extras.rng_int(1, extras.rng_int(2, 5)));  // qnd vc fica na duvida oq dar de pontos pra uma classe criada dentro do jogo
-                handler.jogador.setDefesa(this.defesa + extras.rng_int(1, extras.rng_int(2, 5)));
-                handler.jogador.setDestreza(this.destreza + extras.rng_int(1, extras.rng_int(2, 5)));
+                handler.jogador.setVidamax(this.vidamax + extras.rng_int(1, extras.rng_int(2, 11))); 
+                handler.jogador.setForca(this.forca + extras.rng_int(1, extras.rng_int(2, 6)));  // qnd vc fica na duvida oq dar de pontos pra uma classe criada dentro do jogo
+                handler.jogador.setDefesa(this.defesa + extras.rng_int(1, extras.rng_int(2, 6)));
+                handler.jogador.setDestreza(this.destreza + extras.rng_int(1, extras.rng_int(2, 6)));
                 break;
         }
-        this.level += 1;
         janela.setUpPlayerGUI();
         extras.print("");
         extras.println_bonito("Suas capacidades fisicas foram melhoradas!", 700, 200);
@@ -387,7 +386,6 @@ public class player extends entidade{
     public int getArmorEquip(){return armor_equip;}
     public int gettipoArma(){return tipoArma;}
     public int getNpcsMortos(){return npcs_mortos;}
-    public int getNivel(){return level;}
 
     //setters
     public void setClasse(String c){this.classe = c;}

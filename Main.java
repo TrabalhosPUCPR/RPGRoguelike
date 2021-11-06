@@ -16,6 +16,7 @@ public class Main {
                 ascii.printMonstroAsciipeloNome("logoepico", false);
                 extras.console_clear();
                 ascii.printAsciipeloNome("logo");
+                //ascii.printMonstroAsciipeloNome("homem", true);
                 extras.println("");
                 extras.println_bonito("jogar", 200, 30);
                 extras.println_bonito("config", 200, 30);

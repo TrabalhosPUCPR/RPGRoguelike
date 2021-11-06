@@ -23,15 +23,7 @@ public class monstros_f extends inimigos{
 
     @Override
     public void dropar() {
-        switch(this.nome.toLowerCase()){
-            case "mimic":
-                dropItemQualidade();
-                inventario.ganharDinheiro(extras.rng_double(100, 150));
-                break;
-            case "mendigo":
-                dropItemGenerico();
-                inventario.ganharDinheiro(extras.rng_double(0, 5));
-                break;
+        switch(this.nome.toLowerCase()){ // mudar isso aqui caso algum monstro for fazer algo especial qnd morrer
             default:
                 dropItemGenerico();
                 inventario.ganharDinheiro(extras.rng_double(0, 30));

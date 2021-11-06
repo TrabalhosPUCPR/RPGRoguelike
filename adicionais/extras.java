@@ -48,13 +48,14 @@ public class extras { // essa classe serve para colocar uns codigos para fazer u
         }
     }
 
+    static Random random = new Random();
     public static int rng_int(int min, int max){
-        int aleatorio = new Random().nextInt(max - min) + min;
+        int aleatorio = random.nextInt(max - min) + min;
         return aleatorio;
     }
 
     public static double rng_double(double min, double max){
-        double aleatorio = new Random().nextDouble();
+        double aleatorio = random.nextDouble();
         aleatorio = min + (max - min) * aleatorio;
         return aleatorio;
     }

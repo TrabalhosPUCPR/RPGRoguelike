@@ -12,7 +12,7 @@ public class NPC extends inimigos{
 
     static boolean Pvez = true;
 
-    public NPC(String nome, String desc, int arma_equip, int vidamax, int forca, int defesa, int destreza, int exp){
+    public NPC(String nome, String desc, int arma_equip, int vidamax, int forca, int defesa, int destreza, int exp, String nomeascii){
         this.nome = nome;
         this.desc = desc;
         this.arma_equip = arma_equip;
@@ -22,6 +22,7 @@ public class NPC extends inimigos{
         this.forca = forca;
         this.destreza = destreza;
         this.exp = exp;
+        this.nomeAscii = nomeascii;
     }
 
     public static void selec_npc(){
@@ -55,6 +56,7 @@ public class NPC extends inimigos{
             extras.print("|      |            Nome            |                                                Descricao                                                |     Tipo     |    $    |");
             extras.print("|______|____________________________|_________________________________________________________________________________________________________|______________|_________|");
             for(int i = 0; i < itensId.length;i++){
+                janela.printJanela("   ");
                 extras.println(
                  "|" + extras.verTamMax_table(i+1, 6) 
                 +"|" + extras.verTamMax_table(itens.getItem(itensId[i], itensTipo[i]).getNome(), 28)
@@ -72,7 +74,7 @@ public class NPC extends inimigos{
                 if(res.isEmpty()){
                     selec = false;
                 }else if(res.startsWith("roubar")){
-                    int id = (Integer.parseInt(res)-1);
+                    int id = Character.getNumericValue(res.charAt(7));
                     extras.print("");
                     extras.println_bonito("Voce tem certeza que gostaria de roubar " + itens.getItem(itensId[id], itensTipo[id]).getNome()+ "?" , 600, 600);
                     if(extras.simNao()){

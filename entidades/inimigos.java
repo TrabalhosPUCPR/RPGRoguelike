@@ -133,7 +133,7 @@ public class inimigos extends entidade{
     public static void dropItemQualidade(){
         int id;
         try{
-            switch(extras.rng_int(0, 4)){
+            switch(extras.rng_int(0, 5)){
                 case 0: // caso for dropar um item ofensivo
                     id = itensOfen.dropItenOfenRaro();
                     inventario.receberItem(handler.itemOfen.get(id), id);

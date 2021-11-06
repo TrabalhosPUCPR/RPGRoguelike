@@ -65,6 +65,24 @@ public class handler {
         handler.ascii.add(new ascii("sapo", new File("ascii/arts/monstros/sapo.txt")));
         handler.ascii.add(new ascii("mendigo", new File("ascii/arts/monstros/mendigo.txt")));
         handler.ascii.add(new ascii("generico", new File("ascii/arts/monstros/generico.txt")));
+        handler.ascii.add(new ascii("goblin", new File("ascii/arts/monstros/goblin.txt")));
+        handler.ascii.add(new ascii("kingslime", new File("ascii/arts/monstros/kingslime.txt")));
+        handler.ascii.add(new ascii("morcego", new File("ascii/arts/monstros/morcego.txt")));
+        handler.ascii.add(new ascii("rato", new File("ascii/arts/monstros/rato.txt")));
+        handler.ascii.add(new ascii("esqueleto", new File("ascii/arts/monstros/esqueleto.txt")));
+        handler.ascii.add(new ascii("fantasma", new File("ascii/arts/monstros/fantasma.txt")));
+        handler.ascii.add(new ascii("zumbi", new File("ascii/arts/monstros/zumbi.txt")));
+        handler.ascii.add(new ascii("necromante", new File("ascii/arts/monstros/necromante.txt")));
+        handler.ascii.add(new ascii("objeto", new File("ascii/arts/monstros/objeto.txt")));
+        handler.ascii.add(new ascii("assombracao", new File("ascii/arts/monstros/assombracao.txt")));
+        handler.ascii.add(new ascii("shadow", new File("ascii/arts/monstros/shadow.txt")));
+        handler.ascii.add(new ascii("ghoul", new File("ascii/arts/monstros/ghoul.txt")));
+        handler.ascii.add(new ascii("senador", new File("ascii/arts/monstros/senador.txt")));
+        handler.ascii.add(new ascii("lula", new File("ascii/arts/monstros/lula.txt")));
+        handler.ascii.add(new ascii("mimic", new File("ascii/arts/monstros/mimic.txt")));
+        handler.ascii.add(new ascii("riche", new File("ascii/arts/monstros/riche.txt")));
+        handler.ascii.add(new ascii("homem", new File("ascii/arts/monstros/homem.txt")));
+        handler.ascii.add(new ascii("anubis", new File("ascii/arts/monstros/anubis.txt")));
         extras.print("[ASCII]: Artes ASCII carregadas");
     }
 
@@ -77,10 +95,11 @@ public class handler {
 
     static void iniNpcs(){
         extras.print("[NPC]: Criando NPCs...");
-        handler.npcs.add(new NPC("Vendedor ambulante","Pessoa misteriosa que comercializa itens", 0, 5, 1, 1, 1, 5)); // 0
-        handler.npcs.add(new NPC(handler.jogador.getNome(),"Outro jogador, mas aparenta estar mentalmente instavel, pode acabar lhe dando uma dica ou item", handler.jogador.getArmaEquip(), handler.jogador.getVidamax(), handler.jogador.getForca(), (int)handler.jogador.getDefesa(), handler.jogador.getDestreza(), 5)); // 1
-        handler.npcs.add(new NPC("Mendigo","Encostado na parede e coberto por um pano surrado um velho senhor, um pouco sus, lhe pede um pouco de dinheiro", 1, 30, 8, 6, 5, 16)); // 2
-        handler.npcs.add(new NPC("D-Dog","literalmente um doguinho, com uma espada...", 8, 20, 10, 4, 7, -5)); // 3
+        handler.npcs.add(new NPC("Vendedor ambulante","Pessoa misteriosa que comercializa itens", 0, 5, 1, 1, 1, 5, "generico")); // 0
+        handler.npcs.add(new NPC(handler.jogador.getNome(),"Outro jogador, mas aparenta estar mentalmente instavel, pode acabar lhe dando uma dica ou item", handler.jogador.getArmaEquip(), handler.jogador.getVidamax(), handler.jogador.getForca(), (int)handler.jogador.getDefesa(), handler.jogador.getDestreza(), 5, "generico")); // 1
+        handler.npcs.add(new NPC("Mendigo","Encostado na parede e coberto por um pano surrado um velho senhor, um pouco sus, lhe pede um pouco de dinheiro", 1, 30, 8, 6, 5, 16, "generico")); // 2
+        handler.npcs.add(new NPC("D-Dog","literalmente um doguinho, com uma espada...", 8, 20, 10, 4, 7, -5, "generico")); // 3
+        handler.npcs.add(new NPC("Mendigo bebado", "Ele estava bebendo e voce o interrompeu", 6, 73, 20, 16, 10, 32, "mendigo")); // 12
         extras.print("[NPC]: NPCs criados com sucesso");
     }
 
@@ -126,18 +145,18 @@ public class handler {
 
     public static void iniMonstrosB() {
         // fase 1
-        handler.bosses.add(new monstros_b("King Slime", "Rei dos Slimes! Dizem que isto e o resultado da fusao de 8 slimes!", 0, 50, 20, 10, 4, 60, new int[]{1}, "slime")); // 0
+        handler.bosses.add(new monstros_b("King Slime", "Rei dos Slimes! Dizem que isto e o resultado da fusao de 8 slimes!", 0, 50, 20, 10, 4, 60, new int[]{1}, "kingslime")); // 0
         handler.bosses.add(new monstros_b("Ogro", "Voce invadiu o pantano dele!", 8, 40, 15, 10, 2, 76, new int[]{1}, "shrek")); // 1
 
         // fase 2
-        handler.bosses.add(new monstros_b("Shadow " + handler.jogador.getNome(), "Um lado seu obscuro...", handler.jogador.getArmaEquip(), handler.jogador.getVidamax(), handler.jogador.getForca(), (int)handler.jogador.getDefesa(), handler.jogador.getDestreza(), 106, new int[]{2}, "generico")); // 2
+        handler.bosses.add(new monstros_b("Shadow " + handler.jogador.getNome(), "Um lado seu obscuro...", handler.jogador.getArmaEquip(), handler.jogador.getVidamax(), handler.jogador.getForca(), (int)handler.jogador.getDefesa(), handler.jogador.getDestreza(), 106, new int[]{2}, "shadow")); // 2
 
         //fase 3
         handler.bosses.add(new monstros_b("Aguia do deserto", "Quando ele ataca, se parece com uma bala saindo de uma arma!", 15, 90, 32, 15, 33, 159, new int[]{3}, "generico")); // 3
         handler.bosses.add(new monstros_b("Farao", "Rei-deus do deserto! Usa magias para atacar!", 15, 100, 5, 23, 20, 156, new int[]{3}, "generico")); // 4
 
         //fase 4
-        handler.bosses.add(new monstros_b("Senador Armstrong", "Extremamente patriota, fez infusao com nanomachines para fortalecer seus musculos a ponto de ser superhumano", 0, 200, 70, 30, 35, 156, new int[]{4}, "generico")); // 5
+        handler.bosses.add(new monstros_b("Senador Armstrong", "Extremamente patriota, fez infusao com nanomachines para fortalecer seus musculos a ponto de ser superhumano", 0, 200, 70, 30, 35, 156, new int[]{4}, "senador")); // 5
 
         //fase 5
         handler.bosses.add(new monstros_b("Quetzalcoatl", "A Serpente com plumas! Deusa de El Dorado!", 0, 500, 82, 53, 60, 340, new int[]{5}, "generico")); // 6
@@ -150,27 +169,34 @@ public class handler {
 
     public static void iniMonstrosBR(){
         handler.bossesrand.add(new monstros_b("Ceifador", "Ele esta atras de voce, a sua hora chegou...", 17, 600, 15*fases.fase_atual, 10*fases.fase_atual, 17*fases.fase_atual, 240, new int[]{1, 2, 3, 4, 5}, "generico")); // 0
-        handler.bossesrand.add(new monstros_b("Slime de ferro", "O rarissimo slime de ferro! Dizem que se voce derrotar ele, voce podera ficar rico!", 0, 5, 3, 99999, 40, 1000, new int[]{1, 2, 3, 4, 5}, "generico")); // 1
-        handler.bossesrand.add(new monstros_b("Nouveau Riche", "Um homem tao rico que se veste com um terno de ouro", 0, 50, 30, 16, 15, 30, new int[]{1, 2, 3, 4, 5}, "generico")); // 2
-        handler.bossesrand.add(new monstros_b("Lula", "Lula gigante com 9 tentáculos, o décimo parece ter sido arrancado", 0, 300, 30, 13, 24, 645, new int[]{1, 2, 3, 4, 5}, "generico")); // 3
-        handler.bossesrand.add(new monstros_b("Anubis", "Um deus do egito, dizem que era responsavel por guiar as almas ate o submundo", 22, 200, 25, 19, 17, 400, new int[]{3}, "generico")); // 4
-        handler.bossesrand.add(new monstros_b("Homem de preto", "Um deus do egito, dizem que era responsavel por guiar as almas ate o submundo", 21, 150, 20, 18, 20, 410, new int[]{4}, "generico")); // 5
+        handler.bossesrand.add(new monstros_b("Slime de ferro", "O rarissimo slime de ferro! Dizem que se voce derrotar ele, voce podera ficar rico!", 0, 5, 3, 99999, 40, 1000, new int[]{1, 2, 3, 4, 5}, "slime")); // 1
+        handler.bossesrand.add(new monstros_b("Nouveau Riche", "Um homem tao rico que se veste com um terno de ouro", 0, 50, 30, 16, 15, 30, new int[]{1, 2, 3, 4, 5}, "riche")); // 2
+        handler.bossesrand.add(new monstros_b("Lula", "Lula gigante com 9 tentáculos, o décimo parece ter sido arrancado", 0, 300, 30, 13, 24, 645, new int[]{1, 2, 3, 4, 5}, "lula")); // 3
+        handler.bossesrand.add(new monstros_b("Anubis", "Um deus do egito, dizem que era responsavel por guiar as almas ate o submundo", 22, 200, 25, 19, 17, 400, new int[]{3}, "anubis")); // 4
+        handler.bossesrand.add(new monstros_b("Homem de preto", "Um deus do egito, dizem que era responsavel por guiar as almas ate o submundo", 21, 150, 20, 18, 20, 410, new int[]{4}, "homem")); // 5
+        handler.bossesrand.add(new monstros_b("Mimic", "Um bau com itens?", 0, 20, 15, 10, 15, 14, new int[]{1, 2}, "mimic")); // 5
     }
 
-    public static void iniMonstrosF(){
+    public static void iniMonstrosF(){     //NOME          // DESC             //ID ARMA, VIDAMAX, FORCA, DEFESA, DESTREZA, EXP, NFASES, ASCII
         handler.monstros.add(new monstros_f("Slime azul", "Parece uma gelatina.", 0, 10, 6, 2, 3, 6, new int[]{1}, "slime")); // 0
-        handler.monstros.add(new monstros_f("Goblin guerreiro", "Goblin equipado com uma espada e escudo!", 2, 16, 7, 4, 5, 10, new int[]{1}, "generico")); // 1
-        handler.monstros.add(new monstros_f("Goblin arqueiro", "Goblin equipado com arco e flecha", 3, 16, 6, 3, 8, 10, new int[]{1}, "generico")); // 2
-        handler.monstros.add(new monstros_f("Mendigo", "Ele estava dormindo e voce o acordou.", 1, 30, 8, 6, 5, 16, new int[]{1}, "mendigo")); // 3
-        handler.monstros.add(new monstros_f("Rato", "Ele parece estar atras de algo, e voce esta no caminho.", 0, 13, 5, 4, 15, 8, new int[]{1}, "generico")); // 4
-        handler.monstros.add(new monstros_f("Mimic", "Um bau com itens?", 0, 20, 15, 10, 15, 14, new int[]{1, 2}, "generico")); // 5
+        handler.monstros.add(new monstros_f("Goblin guerreiro", "Goblin equipado com uma espada e escudo!", 2, 16, 7, 4, 5, 10, new int[]{1}, "goblin")); // 1
+        handler.monstros.add(new monstros_f("Goblin arqueiro", "Goblin equipado com arco e flecha", 3, 16, 6, 3, 8, 10, new int[]{1}, "goblin")); // 2
+        handler.monstros.add(new monstros_f("hobgoblin", "Uma versão superior  de goblin, aparenta ser maior e mais esperto", 4, 23, 8, 6, 5, 20, new int[]{1}, "goblin")); // 3
+        handler.monstros.add(new monstros_f("Rato", "Ele parece estar atras de algo, e voce esta no caminho.", 0, 13, 5, 4, 15, 8, new int[]{1}, "rato")); // 4
+        handler.monstros.add(new monstros_f("Morcego", "Um morcego que esta faminto", 0, 13, 5, 4, 17, 14, new int[]{1}, "morcego")); // 5
         handler.monstros.add(new monstros_f("Sapo", "Um sapo agressivo", 0, 10, 7, 2, 4, 8, new int[]{1}, "sapo")); // 6
-        handler.monstros.add(new monstros_f("Slime vermelho", "Parece uma gelatina.", 0, 40, 15, 6, 5, 18, new int[]{2}, "generico")); // 7
-        handler.monstros.add(new monstros_f("Esqueleto guerreiro", "Esqueleto equipado com uma espada e escudo!", 8, 55, 16, 11, 4, 20, new int[]{2}, "generico")); // 8
-        handler.monstros.add(new monstros_f("Esqueleto arqueiro", "Esqueleto equipado com arco e flecha", 13, 36, 11, 6, 13, 20, new int[]{2}, "generico")); // 9
-        handler.monstros.add(new monstros_f("Mendigo bebado", "Ele estava bebendo e voce o interrompeu", 6, 73, 20, 16, 10, 32, new int[]{2}, "mendigo")); // 10
-        handler.monstros.add(new monstros_f("Fantasma", "BOO! Ele veio para te assustar", 0, 40, 25, 10, 15, 22, new int[]{2}, "generico")); // 11
-        handler.monstros.add(new monstros_f("Zumbi", "Infectado por um virus rarissimo, ele vai atras de cerebro humano", 0, 80, 25, 5, 15, 25, new int[]{2}, "generico")); // 12
+        handler.monstros.add(new monstros_f("Ratagão", "Um rato que nao aceita ser chamado de rato de esgoto", 0, 23, 7, 4, 5, 25, new int[]{1}, "rato")); // 4
+        handler.monstros.add(new monstros_f("Morcegão", "Exatamente como o nome sugere, um morcego......só que gigante", 0, 20, 7, 5, 15, 25, new int[]{1}, "morcego")); // 5
+
+        handler.monstros.add(new monstros_f("Slime vermelho", "Parece uma gelatina.", 0, 25, 13, 6, 5, 18, new int[]{2}, "generico")); // 9
+        handler.monstros.add(new monstros_f("Esqueleto guerreiro", "Esqueleto equipado com uma espada e escudo!", 8, 35, 16, 11, 4, 20, new int[]{2}, "esqueleto")); // 10
+        handler.monstros.add(new monstros_f("Esqueleto arqueiro", "Esqueleto equipado com arco e flecha", 13, 30, 11, 6, 13, 20, new int[]{2}, "esqueleto")); // 11
+        handler.monstros.add(new monstros_f("Necromante", "Consegue se comunicar com os mortos, por meio de magia", 7, 23, 8, 10, 9, 17, new int[]{2}, "necromante")); // 12
+        handler.monstros.add(new monstros_f("Fantasma", "BOO! Ele veio para te assustar", 0, 28, 25, 10, 15, 22, new int[]{2}, "fantasma")); // 13
+        handler.monstros.add(new monstros_f("Ghoul", "Humanoide que vai roubar teu dinheiro, e seu sangue, mas ninguem sabe exatamente o que ele é", 0, 25, 14, 5, 15, 25, new int[]{2}, "ghoul")); // 14
+        handler.monstros.add(new monstros_f("Zumbi", "Infectado por um virus rarissimo, ele vai atras de cerebro humano", 0, 40, 25, 5, 15, 25, new int[]{2}, "zumbi")); // 15
+        handler.monstros.add(new monstros_f("Assombração", "Uma assombração horripilante", 0, 36, 30, 8, 8, 31, new int[]{2}, "assombracao")); // 15
+        handler.monstros.add(new monstros_f("Objeto inanimado", "Um objeto que se move, mas nao tem vida", 0, 50, 15, 14, 6, 24, new int[]{2}, "objeto")); // 16
     }
 
     static void iniClasses(){
