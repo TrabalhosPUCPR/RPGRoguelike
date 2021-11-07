@@ -33,7 +33,7 @@ public class itensMisc extends itens{
     public static void setDropRateItensMisc(){
         int[] itensMisc_drop = new int[]{}; 
         for(int i = 0; i < handler.itemMisc.size(); i++){
-            if(handler.itemMisc.get(i).getRaridade()<=fases.fase_atual+1 && handler.itemMisc.get(i).getRaridade()>fases.fase_atual-1){
+            if(handler.itemMisc.get(i).getRaridade()<=fases.fase_atual+1 && handler.itemMisc.get(i).getRaridade()>=fases.fase_atual){
                 itensMisc_drop = extras.arrayintAdd(itensMisc_drop, i);
                 if(handler.itemMisc.get(i).getRaridade()==fases.fase_atual){
                     itensMisc_drop = extras.arrayintAdd(itensMisc_drop, i);

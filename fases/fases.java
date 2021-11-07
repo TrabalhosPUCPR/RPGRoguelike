@@ -2,6 +2,7 @@ package fases;
 
 import adicionais.extras;
 import adicionais.handler;
+import adicionais.janela;
 import itens.armaduras;
 import itens.armas;
 import itens.itens;
@@ -23,7 +24,6 @@ public class fases {
     } 
 
     public void loopAndares(){
-        andar_atual =  1;
         while(andar_atual < this.qntd_andares){
             handler.resetMonstros();
             andares.proxAndar();
@@ -42,6 +42,7 @@ public class fases {
         extras.print("");
         extras.println_bonito("Voce segue para o proximo andar da " + this.nome, 500, 500);
         andar_atual++;
+        janela.setUpPlayerGUI();
     }
 
     public static void comecarFases(){
@@ -57,6 +58,12 @@ public class fases {
     }
 
     private void comecarFaseAtual(){
+        extras.println("");
+        extras.println_bonito("Voce chegou na "+ this.nome + "...", 800, 700);
+        extras.println("");
+        extras.println_bonito(this.desc, 1800, 1000);
+        extras.println("");
+        extras.println_bonito("Voce segue em frente...", 800, 1000);
         setDropsFase();
         loopAndares();
         andares.boss();
@@ -67,10 +74,13 @@ public class fases {
         extras.print("");
         extras.println_bonito("Voce chegou no final da fase " + fase_atual + ", " + this.nome + " está completa! Parabéns!", 1000, 1000);
         fase_atual++;
+        andar_atual = 1;
         extras.print("");
         extras.println_bonito("Voce recuperou sua vida toda!", 500, 1500); 
         handler.jogador.curar(handler.jogador.getVidamax());
+        janela.setUpPlayerGUI();
     }    
 
-    public String getNome(){return nome;}
+    public String getNome(){return this.nome;}
+    public String getDesc(){return this.desc;}
 }

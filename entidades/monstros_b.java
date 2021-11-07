@@ -32,7 +32,7 @@ public class monstros_b extends inimigos{
 
     @Override
     public void dropar() {
-        switch(this.nome){
+        switch(this.nome.toLowerCase()){
             case "mimic":
                 dropItemQualidade();
                 inventario.ganharDinheiro(extras.rng_double(100, 150));

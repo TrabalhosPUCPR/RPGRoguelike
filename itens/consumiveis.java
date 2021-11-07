@@ -42,17 +42,17 @@ public class consumiveis extends itens{
             case 1:
                 extras.println("");
                 extras.println_bonito("Voce aumentou sua forca em " + String.format("%.02f", handler.jogador.getForca()*this.valor) + "!", 600, 500);
-                handler.jogador.curar(handler.jogador.getForca()*this.valor);
+                handler.jogador.aumentarstat(handler.jogador.getForca()*this.valor, "forca");
                 break;
             case 2:
                 extras.println("");
                 extras.println_bonito("Voce aumentou sua destreza em " + String.format("%.02f", handler.jogador.getDestreza()*this.valor) + "!", 600, 500);
-                handler.jogador.curar(handler.jogador.getForca()*this.valor);
+                handler.jogador.aumentarstat(handler.jogador.getDestreza()*this.valor, "destreza");
                 break;
             case 3:
                 extras.println("");
                 extras.println_bonito("Voce aumentou sua defesa em " + String.format("%.02f", handler.jogador.getDefesa()*this.valor) + "!", 600, 500);
-                handler.jogador.curar(handler.jogador.getDefesa()*this.valor);
+                handler.jogador.aumentarstat(handler.jogador.getDefesa()*this.valor, "defesa");
                 break;
             case 4:
                 extras.println("");

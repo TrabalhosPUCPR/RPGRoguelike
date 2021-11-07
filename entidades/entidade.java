@@ -133,6 +133,7 @@ public class entidade {
         if(this.vida > this.vidamax){
             this.vida = this.vidamax;
         }
+        janela.setUpPlayerGUI();
     }
 
     public void morrer(){

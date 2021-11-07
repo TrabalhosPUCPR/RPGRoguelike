@@ -44,10 +44,10 @@ public class ascii {
     }
 
     public static void printAsciipeloNome(String n){
-        for(int i = 0; i < handler.ascii.size(); i++){
-            if(handler.ascii.get(i).getNome().equals(n)){
+        for(int i = 0; i < handler.asciiart.size(); i++){
+            if(handler.asciiart.get(i).getNome().equals(n)){
                 try {
-                    handler.ascii.get(i).printAscii();
+                    handler.asciiart.get(i).printAscii();
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -62,10 +62,10 @@ public class ascii {
         }else{
             janela.clearJmonsAscii(false);
         }
-        for(int i = 0; i < handler.ascii.size(); i++){
-            if(handler.ascii.get(i).getNome().equals(n)){
+        for(int i = 0; i < handler.asciiart.size(); i++){
+            if(handler.asciiart.get(i).getNome().equals(n)){
                 try {
-                    handler.ascii.get(i).printMonstroAscii();
+                    handler.asciiart.get(i).printMonstroAscii();
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }

@@ -4,6 +4,7 @@ import java.awt.Color;
 import javax.swing.*;
 import javax.swing.text.DefaultCaret;
 
+import fases.fases;
 import itens.inventario;
 
 import java.awt.FlowLayout;
@@ -17,6 +18,7 @@ import java.awt.event.ActionListener;
 public class janela implements ActionListener{
     Font fonteInput = new Font("SansSerif", Font.BOLD, 18);
     Font fonteConsoleASCII = new Font(Font.MONOSPACED, Font.PLAIN, 12);
+    Font fontePlayerGUI = new Font(Font.MONOSPACED, Font.PLAIN, 11);
     static JTextArea Jconsole = new JTextArea();
     static JTextArea JmonsAscii = new JTextArea();
     static JTextArea Jplayergui = new JTextArea();
@@ -90,12 +92,12 @@ public class janela implements ActionListener{
         JmonsAscii.setForeground(Color.white);
         JmonsAscii.setFont(fonteConsoleASCII);
         JmonsAscii.setEditable(false);
-        JmonsAscii.setPreferredSize(new Dimension(555, 580));
+        JmonsAscii.setPreferredSize(new Dimension(555, 550));
         JmonsAscii.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createDashedBorder(Color.gray, 5, 5, 5, true), BorderFactory.createEmptyBorder(0, 20, 0, 0)));
         Jplayergui.setBackground(Color.darkGray);
         Jplayergui.setForeground(Color.white);
-        Jplayergui.setPreferredSize(new Dimension(554, 154));
-        Jplayergui.setFont(fonteConsoleASCII);
+        Jplayergui.setPreferredSize(new Dimension(554, 184));
+        Jplayergui.setFont(fontePlayerGUI);
         
         Pdireito.add(JmonsAscii);
         Pdireito.add(Jplayergui);
@@ -130,9 +132,15 @@ public class janela implements ActionListener{
         return inputText;
     }
 
+    public static void clearPLayerGUI(){
+        Jplayergui.setText("");
+    }
+
     public static void setUpPlayerGUI(){ // chama essa mesma funcao pra atualizar essa tabela tb
         // 77 colunas 8 linhas
         Jplayergui.setText("_______________________________________________________________________________");
+        Jplayergui.append("\n|"+extras.verTamMax_table(" Fase: " + handler.fase.get(fases.fase_atual-1).getNome(),37) + "|" + "" + extras.verTamMax_table(" Andar: " + fases.andar_atual, 39)+"|");
+        Jplayergui.append("\n|"+"__________________" + "_"+ "__________________" + "|"+"___________________" + "_"+ "___________________" + "|");
         Jplayergui.append("\n|"+extras.verTamMax_table(" Nome: " + handler.jogador.getNome(), 18) + "|" + "" + extras.verTamMax_table(" Classe: " + handler.jogador.getClasse(), 18)+"|"+ extras.verTamMax_table(" Nivel: " + handler.jogador.getLevel(), 19)+"|"+ extras.verTamMax_table(" Dinheiro: " + String.format("%.02f",inventario.dinheiro), 19)+"|");
         Jplayergui.append("\n|__________________|__________________|___________________|___________________|");
         Jplayergui.append("\n|"+extras.verTamMax_table(" Vida: " + String.format("%.0f", handler.jogador.getVida()), 18) + "|" + extras.verTamMax_table(" Forca: " + handler.jogador.getForca(), 18) + "|"+extras.verTamMax_table(" Defesa: " + String.format("%.0f",handler.jogador.getDefesa()), 19) + "|"+extras.verTamMax_table(" Destreza: " + handler.jogador.getDestreza(), 19) + "|");
@@ -141,10 +149,11 @@ public class janela implements ActionListener{
         Jplayergui.append("\n|"+"__________________" + "_"+ "__________________" + "|"+"___________________" + "_"+ "___________________" + "|");
         Jplayergui.append("\n|"+extras.verTamMax_table(" Ataque: " + handler.arma.get(handler.jogador.getArmaEquip()).getAtaque(), 18) + "|" + extras.verTamMax_table(" Peso: " + handler.arma.get(handler.jogador.getArmaEquip()).getPeso(), 18) + "|"+extras.verTamMax_table(" Defesa: " + String.format("%.0f",handler.armor.get(handler.jogador.getArmorEquip()).getDefesa()), 19) + "|"+extras.verTamMax_table(" Peso: " + handler.armor.get(handler.jogador.getArmorEquip()).getPeso(), 19) +"|");
         Jplayergui.append("\n|__________________|__________________|___________________|___________________|");
+
     }
     public static void clearJmonsAscii(boolean ln){
         if(ln){
-            JmonsAscii.setText("\n\n\n");
+            JmonsAscii.setText("\n\n");
         }else{
             JmonsAscii.setText("");
         }

@@ -47,7 +47,7 @@ public class armas extends itens{
     public static void setDropRateArmas(){
         int[] arma_drop = new int[]{}; // eu comecei fazendo com int[] pq eu sou vagabundo, e percebi q tinha q fazer .add q o arraylist tem, mas ao inves de trocar pro arraylist eu fiz o meu prorio .add KKKKKKKKKKKKKKKKKK
         for(int i = 0; i < handler.arma.size(); i++){
-            if(handler.arma.get(i).getRaridade()<=fases.fase_atual+1 && handler.arma.get(i).getRaridade()>fases.fase_atual-1 && filtroArmaCurtoLongo(handler.arma.get(i).getTipo())){
+            if(handler.arma.get(i).getRaridade()<=(fases.fase_atual+1) && handler.arma.get(i).getRaridade()>(fases.fase_atual-1) && filtroArmaCurtoLongo(handler.arma.get(i).getTipo())){
                 arma_drop = extras.arrayintAdd(arma_drop, i);
                 if(handler.arma.get(i).getRaridade()==fases.fase_atual){
                     arma_drop = extras.arrayintAdd(arma_drop, i);

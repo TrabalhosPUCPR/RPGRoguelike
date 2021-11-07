@@ -99,29 +99,36 @@ public class inimigos extends entidade{
     public static void dropItemGenerico(){
         int id;
         try{
-            switch(extras.rng_int(0, 6)){ 
-                case 0: // caso for dropar um item ofensivo
-                    id = itensOfen.dropItenOfen();
-                    inventario.receberItem(handler.itemOfen.get(id), id);
-                    break;
-                case 1: // caso for dropar um item defensivo
-                    id = itensDef.dropItenDef();
-                    inventario.receberItem(handler.itemDef.get(id), id);
-                    break;
-                case 2: // caso for dropar um item misc
-                    id = itensMisc.dropItenMisc();
-                    inventario.receberItem(handler.itemMisc.get(id), id);
-                    break;
-                case 3: // caso for dropar uma arma
-                    handler.jogador.receberArmaArmor(armas.dropArma(), 0);
-                    break;
-                case 4: // caso for dropar uma armadura
-                    handler.jogador.receberArmaArmor(armaduras.dropArmor(), 1);
-                    break;
-                default:
-                    id = consumiveis.dropConsu();
-                    inventario.receberItem(id);
-                    break;
+            int loop = 1;
+            if(handler.jogador.getClasse().equalsIgnoreCase("despojado")){
+                loop = 2;
+            }
+            while(loop > 0){
+                switch(extras.rng_int(0, 6)){ 
+                    case 0: // caso for dropar um item ofensivo
+                        id = itensOfen.dropItenOfen();
+                        inventario.receberItem(handler.itemOfen.get(id), id);
+                        break;
+                    case 1: // caso for dropar um item defensivo
+                        id = itensDef.dropItenDef();
+                        inventario.receberItem(handler.itemDef.get(id), id);
+                        break;
+                    case 2: // caso for dropar um item misc
+                        id = itensMisc.dropItenMisc();
+                        inventario.receberItem(handler.itemMisc.get(id), id);
+                        break;
+                    case 3: // caso for dropar uma arma
+                        handler.jogador.receberArmaArmor(armas.dropArma(), 0);
+                        break;
+                    case 4: // caso for dropar uma armadura
+                        handler.jogador.receberArmaArmor(armaduras.dropArmor(), 1);
+                        break;
+                    default:
+                        id = consumiveis.dropConsu();
+                        inventario.receberItem(id);
+                        break;
+                }
+                loop--;
             }
         }catch(Exception e){
             extras.println("");
@@ -133,25 +140,32 @@ public class inimigos extends entidade{
     public static void dropItemQualidade(){
         int id;
         try{
-            switch(extras.rng_int(0, 5)){
-                case 0: // caso for dropar um item ofensivo
-                    id = itensOfen.dropItenOfenRaro();
-                    inventario.receberItem(handler.itemOfen.get(id), id);
-                    break;
-                case 1: // caso for dropar um item defensivo
-                    id = itensDef.dropItenDefRaro();
-                    inventario.receberItem(handler.itemDef.get(id), id);
-                    break;
-                case 2: // caso for dropar um item misc
-                    id = itensMisc.dropItenMiscRaro();
-                    inventario.receberItem(handler.itemMisc.get(id), id);
-                    break;
-                case 3: // caso for dropar uma arma
-                    handler.jogador.receberArmaArmor(armas.dropArmaRaro(), 0);
-                    break;
-                case 4: // caso for dropar uma armadura
-                    handler.jogador.receberArmaArmor(armaduras.dropArmorRaro(), 1);
-                    break;
+            int loop = 1;
+            if(handler.jogador.getClasse().equalsIgnoreCase("despojado")){
+                loop = 2;
+            }
+            while(loop > 0){
+                switch(extras.rng_int(0, 5)){
+                    case 0: // caso for dropar um item ofensivo
+                        id = itensOfen.dropItenOfenRaro();
+                        inventario.receberItem(handler.itemOfen.get(id), id);
+                        break;
+                    case 1: // caso for dropar um item defensivo
+                        id = itensDef.dropItenDefRaro();
+                        inventario.receberItem(handler.itemDef.get(id), id);
+                        break;
+                    case 2: // caso for dropar um item misc
+                        id = itensMisc.dropItenMiscRaro();
+                        inventario.receberItem(handler.itemMisc.get(id), id);
+                        break;
+                    case 3: // caso for dropar uma arma
+                        handler.jogador.receberArmaArmor(armas.dropArmaRaro(), 0);
+                        break;
+                    case 4: // caso for dropar uma armadura
+                        handler.jogador.receberArmaArmor(armaduras.dropArmorRaro(), 1);
+                        break;
+                }
+                loop--;
             }
         }catch(Exception e){
             extras.println("");

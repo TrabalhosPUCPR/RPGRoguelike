@@ -62,7 +62,7 @@ public class itens {
         int des = 0;
         switch(this.peso){
             case "omega leve":
-                des = 5;
+                des = 1;
                 break;
             case "super leve":
                 des = 2;
@@ -71,10 +71,10 @@ public class itens {
                 des = 0;
                 break;
             case "pesado":
-                des = -5;
+                des = -2;
                 break;
             case "super pesado":
-                des = -9;
+                des = -5;
                 break;
             default:
                 des = 0;

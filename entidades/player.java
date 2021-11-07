@@ -44,6 +44,7 @@ public class player extends entidade{
         this.defesa += handler.armor.get(this.armor_equip).getDefesa() + inventario.getDefTotal();
         this.destreza += handler.armor.get(this.armor_equip).getPesoDes() + handler.arma.get(this.arma_equip).getPesoDes() + inventario.getDesTotal();
         buff_evasion = handler.armor.get(this.armor_equip).getEvasionB()*inventario.getDodgeBonus();
+        janela.setUpPlayerGUI();
     }
 
     public void P_turno(int indexm, int Tmons){
@@ -97,6 +98,14 @@ public class player extends entidade{
                     printStats();
                     act = false;
                     break;
+                case "reiniciar":
+                    extras.println("");
+                    extras.println_bonito("Voce tem certeza que gostaria de reiniciar o jogo?", 800, 500);
+                    if(extras.simNao()){
+                        handler.NovoJogo();
+
+                    }
+                    break;
                 default:
                     extras.print("");
                     extras.println_bonito("Digite uma acao valida", 800, 500);
@@ -121,11 +130,17 @@ public class player extends entidade{
         extras.println_bonito("" + sons_d[extras.rng_int(0, sons_d.length)], 100, 300);
     }
 
-    @Override
-    public void curar(double c){
-        this.vida += c;
-        if(this.vida > this.vidamax){
-            this.vida = this.vidamax;
+    public void aumentarstat(double c, String oq){
+        switch(oq.toLowerCase()){
+            case "forca":
+                this.forca += c;
+            break;
+            case "destreza":
+                this.destreza += c;
+            break;
+            case "defesa":
+                this.defesa += c;
+            break;
         }
         janela.setUpPlayerGUI();
     }
@@ -313,42 +328,37 @@ public class player extends entidade{
 
     public void levelup(){
         switch(handler.jogador.getClasse().toLowerCase()){
-            case "arqueiro":
-                handler.jogador.setVidamax(this.vidamax + extras.rng_int(1, 5)); 
-                handler.jogador.setForca(this.forca + extras.rng_int(1, 6)); 
-                handler.jogador.setDefesa(this.defesa + extras.rng_int(1, 4));
-                handler.jogador.setDestreza(this.destreza + extras.rng_int(1, 9));
+            case "arqueiro": 
+                handler.jogador.setForca(this.forca + extras.rng_int(1, 3)); 
+                handler.jogador.setDefesa(this.defesa + extras.rng_int(0, 2));
+                handler.jogador.setDestreza(this.destreza + extras.rng_int(1, 7));
             break;
             case "guerreiro":
-                handler.jogador.setVidamax(this.vidamax + extras.rng_int(1, 6)); 
                 handler.jogador.setForca(this.forca + extras.rng_int(1, 6)); 
+                handler.jogador.setDefesa(this.defesa + extras.rng_int(0, 2));
+                handler.jogador.setDestreza(this.destreza + extras.rng_int(1, 4));
+                break;
+            case "paladino":
+                handler.jogador.setForca(this.forca + extras.rng_int(1, 4)); 
+                handler.jogador.setDefesa(this.defesa + extras.rng_int(1, 6));
+                handler.jogador.setDestreza(this.destreza + extras.rng_int(0, 2));
+                break;
+            case "despojado":
+                handler.jogador.setForca(this.forca + extras.rng_int(1, 5)); 
                 handler.jogador.setDefesa(this.defesa + extras.rng_int(1, 5));
                 handler.jogador.setDestreza(this.destreza + extras.rng_int(1, 5));
                 break;
-            case "paladino":
-                handler.jogador.setVidamax(this.vidamax + extras.rng_int(1, 8)); 
-                handler.jogador.setForca(this.forca + extras.rng_int(1, 5)); 
-                handler.jogador.setDefesa(this.defesa + extras.rng_int(1, 6));
-                handler.jogador.setDestreza(this.destreza + extras.rng_int(1, 4));
-                break;
-            case "despojado":
-                handler.jogador.setVidamax(this.vidamax + extras.rng_int(1, 11)); 
-                handler.jogador.setForca(this.forca + extras.rng_int(1, 6)); 
-                handler.jogador.setDefesa(this.defesa + extras.rng_int(1, 6));
-                handler.jogador.setDestreza(this.destreza + extras.rng_int(1, 6));
-                break;
             default:
-                handler.jogador.setVidamax(this.vidamax + extras.rng_int(1, extras.rng_int(2, 11))); 
-                handler.jogador.setForca(this.forca + extras.rng_int(1, extras.rng_int(2, 6)));  // qnd vc fica na duvida oq dar de pontos pra uma classe criada dentro do jogo
-                handler.jogador.setDefesa(this.defesa + extras.rng_int(1, extras.rng_int(2, 6)));
-                handler.jogador.setDestreza(this.destreza + extras.rng_int(1, extras.rng_int(2, 6)));
+                handler.jogador.setForca(this.forca + extras.rng_int(1, extras.rng_int(1, 5)));  // qnd vc fica na duvida oq dar de pontos pra uma classe criada dentro do jogo
+                handler.jogador.setDefesa(this.defesa + extras.rng_int(1, extras.rng_int(1, 3)));
+                handler.jogador.setDestreza(this.destreza + extras.rng_int(1, extras.rng_int(1, 4)));
                 break;
         }
         janela.setUpPlayerGUI();
         extras.print("");
         extras.println_bonito("Suas capacidades fisicas foram melhoradas!", 700, 200);
         extras.print("");
-        extras.println_bonito("Sua vida maxima, forca, defesa, e destreza estao melhores!", 700, 400);
+        extras.println_bonito("Sua forca, defesa, e destreza estao melhores!", 700, 400);
     }
 
     public static void printStats(){

@@ -26,7 +26,7 @@ public class NPC extends inimigos{
     }
 
     public static void selec_npc(){
-        switch(extras.rng_int(0, 4)){
+        switch(extras.rng_int(0, 5)){
             case 0:
                 vendedor();
                 break;
@@ -46,6 +46,129 @@ public class NPC extends inimigos{
                 dog();
                 break;
         }
+    }
+
+    static String[] vendedor_chegamais = {"Por aqui, estranho, pode vir", "Pode chegar mais estranho, sem vergonha"};
+    static String[] vendedor_cumprimentos = {"Bem vindo!", "Tenho uma seleção de coisas boas para vender, estranho.", "O que você está comprando?", "Tenho algumas coisas raras para vender, estranho."};
+    static String[] vendedor_agradecimentos = {"HEHEHEHA! Obrigado.", "Isso é tudo, estranho?"};
+    static String[] vendedor_quervender = {"O que você está vendendo?", "Aaah! Eu vou comprar isso por um preço alto.", "O que você gostaria de vender?"};
+    static String[] vendedor_dininsu = {"DINHEIRO INSUFICIENTE! Estranho."};
+    static String[] vendedor_tchau = {"Volte à qualquer hora.", "Ate mais!"};
+    static String[] vendedor_nomes = {"Drebin"};
+    static String vendedor_nome = vendedor_nomes[extras.rng_int(0, vendedor_nomes.length)];
+    static boolean vendedor_brabo = false;
+    static boolean vendedor_morto = false;
+
+    static void vendedor(){
+        if(Pvez){
+            extras.print("");
+            extras.println_bonito("Voce chega na sala e percebe um homem com um casaco de couro grande, \ne um chapeu de cowboy, em volta dele tem alguns itens espalhados em volta...", 1000, 1000);
+            vendedor_brabo = false;
+            vendedor_morto = false;
+            handler.npcs.get(0).setNome(vendedor_nome);
+            extras.print("");
+            extras.println_bonito("Parece suspeito", 500, 800);
+            extras.print("");
+            extras.println_bonito("Ele te viu", 400, 500);
+            extras.print("");
+            extras.println_bonito("'"+vendedor_chegamais[extras.rng_int(0, vendedor_chegamais.length)]+ "'", 1000, 800);
+            extras.print("");
+            extras.println_bonito("Voce se aproxima do homem suspeito...", 800, 500);
+            extras.print("");
+            ascii.printMonstroAsciipeloNome("vendedor", true);
+            extras.println_bonito("'HIEHIEHIEIHEA! Voce parece ter um interesse pelos \nitens que eu tenho em exposicao!'", 1400, 500);
+            extras.print("");
+            extras.println_bonito("'HIEAEHIAEHAI!' ", 400, 1000);
+            extras.print("");
+            extras.println_bonito("'PERFEITO! Meu nome e " + vendedor_nome + ", e eu sou um mercador mundialmente \nconhecido que tras e pega bens de todos os tipos para \ntodas as pessoas que passam por mim!'", 3000, 1000);
+            extras.print("");
+            extras.println_bonito("'Mas, se voce quiser, podera levar com voce o item que quiser!' ", 1400, 800);
+            extras.print("");
+            extras.println_bonito("'POR UM PRECO!' ", 400, 300);
+            extras.print("");
+            extras.println_bonito("'HIEAEHIAEHAI!' ", 400, 500);
+            extras.print("");
+            extras.println_bonito("'Entao fique a vontade para olhar em volta e comprar o que desejar!' ", 1200, 1000);
+            Pvez = false;
+        }else if(vendedor_brabo == false || vendedor_morto == false){
+            extras.print("");
+            extras.println_bonito("Voce chega na sala, voce encontra o mercador de itens de antes", 500, 500);
+            extras.print("");
+            extras.println_bonito("'"+vendedor_chegamais[extras.rng_int(0, vendedor_chegamais.length)]+ "'", 500, 500);
+        }
+        if(vendedor_morto){
+            extras.print("");
+            extras.println_bonito("Voce chega na sala, voce nao encontra nada, \napenas uma barraca com alguns baus vazio...", 500, 500);
+            extras.print("");
+            extras.println_bonito("Talvez era para alguem estar aqui? \nDe qualquer maneira, voce continua sua jornada...", 500, 1500);
+        }else if(vendedor_brabo){
+            extras.print("");
+            extras.println_bonito("Voce chega na sala, voce encontra o mercador de itens de antes", 500, 500);
+            extras.print("");
+            extras.println_bonito("Essa nao...", 600, 600);
+            extras.print("");
+            extras.println_bonito("Ele ainda deve lembrar do o que aconteceu...", 600, 600);
+            extras.print("");
+            extras.println_bonito("'HIEAEHIAEHAI!'\n'HIEAEHIAEHAI!'\n'HIEAEHIAEHAI!'", 500, 500);
+            extras.print("");
+            extras.println_bonito("'Voce nao devia ter feito aquilo!'", 500, 500);
+            extras.print("");
+            lutavendedor();
+        }else{
+            extras.print("");
+            extras.println_bonito("'"+vendedor_cumprimentos[extras.rng_int(0, vendedor_cumprimentos.length)]+ "'", 500, 500);
+            boolean loja = true;
+            int[] itensId = new int[4];
+            int[] itensTipo = new int[4];
+            for(int i = 0; i < itensId.length; i++){
+                itensTipo[i] = extras.rng_int(0, 4);
+                itensId[i] = itens.dropItem(itensTipo[i]);
+            }
+            while(loja){
+                extras.print("");
+                extras.println_bonito("Voce tem " + String.format("%.02f",inventario.dinheiro) + " de dinheiro", 500, 500);
+                extras.print("");
+                extras.println_bonito("Comprar ", 200, 20);
+                extras.println_bonito("Vender ", 200, 20);
+                extras.println_bonito("Sair ", 200, 20);
+                switch(extras.inputS().toLowerCase()){
+                    case "comprar":
+                        comprasItem(itensId, itensTipo);
+                        break;
+                    case "vender":
+                        vendasItem();
+                        break;
+                    case "sair":
+                        extras.print("");
+                        extras.println_bonito("'"+vendedor_tchau[extras.rng_int(0, vendedor_tchau.length)]+ "'", 500, 500);
+                        loja = false;
+                        janela.clearJmonsAscii(true);
+                        break;
+                    default:
+                        extras.print("");
+                        extras.println_bonito("Digite uma opcao valida...", 500, 500);
+                        break;
+                }
+            }
+        }
+    }
+
+    static void lutavendedor(){
+        extras.println_bonito("'HIEAEHIAEHAI! Seguranca! Acaba com ele!'", 500, 500);
+        extras.print("");
+        extras.println_bonito("'Meu amigo aqui ira te dar uma licao...'", 500, 500);
+        extras.print("");
+        extras.println_bonito("'HIEAEHIAEHAI! Agora voce tera que pagar!'", 500, 500);
+        combate.lutaini(1, 6);
+        ascii.printMonstroAsciipeloNome("vendedor", true);
+        extras.print("");
+        extras.println_bonito("'QUE!?!?!?!?'", 500, 500);
+        extras.print("");
+        extras.println_bonito("'ᵃʰ ⁿᵃᵒ'", 500, 500);
+        extras.print("");
+        extras.println_bonito("'Agora chega! Eu mesmo o farei pagar!'", 500, 500);
+        combate.lutaini(2, 0);
+        vendedor_morto = true;
     }
 
     static void comprasItem(int[] itensId, int[] itensTipo){
@@ -68,13 +191,13 @@ public class NPC extends inimigos{
             }
             extras.print("");
             extras.println_bonito("Digite o numero do item que deseja comprar ou apenas aperte enter para voltar", 500, 500);
-            extras.println_bonito("ᵈᶦᵍᶦᵗᵉ ʳᵒᵘᵇᵃʳ ᵃⁿᵗᵉˢ ᵈᵒ ⁿᵘᵐᵉʳᵒ ᵖᵃʳᵃ ʳᵒᵘᵇᵃʳ ᵒ ᶦᵗᵉᵐ", 500, 500);
             try{
                 String res = extras.inputS();
                 if(res.isEmpty()){
                     selec = false;
                 }else if(res.startsWith("roubar")){
                     int id = Character.getNumericValue(res.charAt(7));
+                    id--;
                     extras.print("");
                     extras.println_bonito("Voce tem certeza que gostaria de roubar " + itens.getItem(itensId[id], itensTipo[id]).getNome()+ "?" , 600, 600);
                     if(extras.simNao()){
@@ -84,6 +207,19 @@ public class NPC extends inimigos{
                             extras.println_bonito("Voce conseguiu roubar o " + itens.getItem(itensId[id], itensTipo[id]).getNome()+ " e conseguiu escapar do vendedor!" , 600, 600);
                             extras.print("");
                             extras.println_bonito("Ele nao deve estar feliz, tomara que nao passe por ele de novo..." , 600, 600);
+                        }else{
+                            extras.print("");
+                            extras.println_bonito("Voce conseguiu roubar o " + itens.getItem(itensId[id], itensTipo[id]).getNome()+ "!" , 600, 600);
+                            extras.print("");
+                            extras.println_bonito("Essa não, o vendedor trancou a saida..." , 600, 600);
+                            extras.print("");
+                            extras.println_bonito("'HIEAEHIAEHAI!' ", 400, 1000);
+                            extras.print("");
+                            extras.println_bonito("'O QUE VOCE ACHA QUE ESTA FAZENDO !?!?!?!?!?' ", 400, 1000);
+                            extras.print("");
+                            extras.println_bonito("'Nao pense que voce vai sair dessa vivo!' ", 400, 1000);
+                            extras.print("");
+                            extras.println_bonito("'Se prepare para morrer!' ", 400, 1000);
                         }
                     }
                 }else{
@@ -148,124 +284,6 @@ public class NPC extends inimigos{
                     extras.print("");
                     extras.println_bonito("Digite uma opcao valida...", 500, 500);
                 break;
-            }
-        }
-    }
-
-    static String[] vendedor_chegamais = {"Por aqui, estranho, pode vir", "Pode chegar mais estranho, sem vergonha"};
-    static String[] vendedor_cumprimentos = {"Bem vindo!", "Tenho uma seleção de coisas boas para vender, estranho.", "O que você está comprando?", "Tenho algumas coisas raras para vender, estranho."};
-    static String[] vendedor_agradecimentos = {"HEHEHEHA! Obrigado.", "Isso é tudo, estranho?"};
-    static String[] vendedor_quervender = {"O que você está vendendo?", "Aaah! Eu vou comprar isso por um preço alto.", "O que você gostaria de vender?"};
-    static String[] vendedor_dininsu = {"DINHEIRO INSUFICIENTE! Estranho."};
-    static String[] vendedor_tchau = {"Volte à qualquer hora.", "Ate mais!"};
-    static String[] vendedor_nomes = {"Drebin"};
-    static String vendedor_nome = vendedor_nomes[extras.rng_int(0, vendedor_nomes.length)];
-    static boolean vendedor_brabo = false;
-    static boolean vendedor_morto = false;
-
-    static void vendedor(){
-        if(Pvez){
-            extras.print("");
-            extras.println_bonito("Voce chega na sala e percebe um homem com um casaco de couro grande, \ne um chapeu de cowboy, em volta dele tem alguns itens espalhados em volta...", 1000, 1000);
-            vendedor_brabo = false;
-            vendedor_morto = false;
-            handler.npcs.get(1).setNome(vendedor_nome);
-            extras.print("");
-            extras.println_bonito("Parece suspeito", 500, 800);
-            extras.print("");
-            extras.println_bonito("Ele te viu", 400, 500);
-            extras.print("");
-            extras.println_bonito("'"+vendedor_chegamais[extras.rng_int(0, vendedor_chegamais.length)]+ "'", 1000, 800);
-            extras.print("");
-            extras.println_bonito("Voce se aproxima do homem suspeito...", 800, 500);
-            extras.print("");
-            ascii.printMonstroAsciipeloNome("vendedor", true);
-            extras.println_bonito("'HIEHIEHIEIHEA! Voce parece ter um interesse pelos \nitens que eu tenho em exposicao!'", 1400, 500);
-            extras.print("");
-            extras.println_bonito("'HIEAEHIAEHAI!' ", 400, 1000);
-            extras.print("");
-            extras.println_bonito("'PERFEITO! Meu nome e " + vendedor_nome + ", e eu sou um mercador mundialmente \nconhecido que tras e pega bens de todos os tipos para \ntodas as pessoas que passam por mim!'", 3000, 1000);
-            extras.print("");
-            extras.println_bonito("'Mas, se voce quiser, podera levar com voce o item que quiser!' ", 1400, 800);
-            extras.print("");
-            extras.println_bonito("'POR UM PRECO!' ", 400, 300);
-            extras.print("");
-            extras.println_bonito("'HIEAEHIAEHAI!' ", 400, 500);
-            extras.print("");
-            extras.println_bonito("'Entao fique a vontade para olhar em volta e comprar o que desejar!' ", 1200, 1000);
-            Pvez = false;
-        }else if(vendedor_brabo == false || vendedor_morto == false){
-            extras.print("");
-            extras.println_bonito("Voce chega na sala, voce encontra o mercador de itens de antes", 500, 500);
-            extras.print("");
-            extras.println_bonito("'"+vendedor_chegamais[extras.rng_int(0, vendedor_chegamais.length)]+ "'", 500, 500);
-        }
-        if(vendedor_morto){
-            extras.print("");
-            extras.println_bonito("Voce chega na sala, voce nao encontra nada, \napenas uma barraca com alguns baus vazio...", 500, 500);
-            extras.print("");
-            extras.println_bonito("Talvez era para alguem estar aqui? \nDe qualquer maneira, voce continua sua jornada...", 500, 1500);
-        }else if(vendedor_brabo){
-            extras.print("");
-            extras.println_bonito("Voce chega na sala, voce encontra o mercador de itens de antes", 500, 500);
-            extras.print("");
-            extras.println_bonito("Essa nao...", 600, 600);
-            extras.print("");
-            extras.println_bonito("Ele ainda deve lembrar do o que aconteceu...", 600, 600);
-            extras.print("");
-            extras.println_bonito("'HIEAEHIAEHAI!'\n'HIEAEHIAEHAI!'\n'HIEAEHIAEHAI!'", 500, 500);
-            extras.print("");
-            extras.println_bonito("'Voce nao devia ter feito aquilo!'", 500, 500);
-            extras.print("");
-            extras.println_bonito("'HIEAEHIAEHAI! Seguranca! Acaba com ele!'", 500, 500);
-            extras.print("");
-            extras.println_bonito("'Meu amigo aqui ira te dar uma licao...'", 500, 500);
-            extras.print("");
-            extras.println_bonito("'HIEAEHIAEHAI! Agora voce tera que pagar!'", 500, 500);
-            combate.lutaini(1, 6);
-            extras.print("");
-            extras.println_bonito("'QUE!?!?!?!?'", 500, 500);
-            extras.print("");
-            extras.println_bonito("'ᵃʰ ⁿᵃᵒ'", 500, 500);
-            extras.print("");
-            extras.println_bonito("'Agora chega! Eu mesmo o farei pagar!'", 500, 500);
-            combate.lutaini(2, 0);
-            vendedor_morto = true;
-        }else{
-            extras.print("");
-            extras.println_bonito("'"+vendedor_cumprimentos[extras.rng_int(0, vendedor_cumprimentos.length)]+ "'", 500, 500);
-            boolean loja = true;
-            int[] itensId = new int[4];
-            int[] itensTipo = new int[4];
-            for(int i = 0; i < itensId.length; i++){
-                itensTipo[i] = extras.rng_int(0, 4);
-                itensId[i] = itens.dropItem(itensTipo[i]);
-            }
-            while(loja){
-                extras.print("");
-                extras.println_bonito("Voce tem " + String.format("%.02f",inventario.dinheiro) + " de dinheiro", 500, 500);
-                extras.print("");
-                extras.println_bonito("Comprar ", 200, 20);
-                extras.println_bonito("Vender ", 200, 20);
-                extras.println_bonito("Sair ", 200, 20);
-                switch(extras.inputS().toLowerCase()){
-                    case "comprar":
-                        comprasItem(itensId, itensTipo);
-                        break;
-                    case "vender":
-                        vendasItem();
-                        break;
-                    case "sair":
-                        extras.print("");
-                        extras.println_bonito("'"+vendedor_tchau[extras.rng_int(0, vendedor_tchau.length)]+ "'", 500, 500);
-                        loja = false;
-                        janela.clearJmonsAscii(true);
-                        break;
-                    default:
-                        extras.print("");
-                        extras.println_bonito("Digite uma opcao valida...", 500, 500);
-                        break;
-                }
             }
         }
     }
