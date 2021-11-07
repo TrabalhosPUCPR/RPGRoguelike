@@ -104,6 +104,8 @@ public class player extends entidade{
                     if(extras.simNao()){
                         handler.NovoJogo();
 
+                    }else{
+                        act = false;
                     }
                     break;
                 default:
