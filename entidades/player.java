@@ -15,11 +15,12 @@ public class player extends entidade{
     int monstros_b_derrot = 0;
     int npcs_mortos = 0;
     int level = 1;
-    static double xp_nes = 5;
+    double xp_nes = 5;
 
     int forca_ini;
     double def_ini;
     int des_ini;
+    static boolean P_aliado = false;
 
     public player(String nome, String classe, int arma_equip, int armor_equip, int vidamax, int forca, int defesa, int destreza, int tipoArma){
         this.nome = nome;
@@ -166,7 +167,7 @@ public class player extends entidade{
         extras.print("");
         extras.println_bonito("Voce chegou no andar " + fases.andar_atual + " da fase " + fases.fase_atual, 400, 200);
         extras.print("");
-        extras.println_bonito("Precione enter para criar um novo jogo...", 400, 200);
+        extras.println_bonito("Precione enter para comecar um novo jogo...", 400, 200);
         extras.inputS();
         resetNmonstrosderrot();
         resetBuff();
@@ -223,12 +224,12 @@ public class player extends entidade{
             extras.println_bonito("Voce recebeu " + xp_rec + " de experiencia!", 700, 600);
             for(int i = 0; i < xp_rec; i++){
                 exp += 1;
-                if (xp_nes <= exp){
+                if (this.xp_nes <= exp){
                     level++;
                     extras.print("");
                     extras.println_bonito("Voce evoluiu de Nivel! Voce esta agora no nivel " + level, 700, 600);
                     exp = 0;
-                    xp_nes = xp_nes + Math.sqrt(xp_nes)*2;
+                    this.xp_nes = this.xp_nes + Math.sqrt(this.xp_nes)*2;
                     levelup();
                 }
             }
@@ -380,7 +381,7 @@ public class player extends entidade{
         extras.println("");
         extras.println("Dinheiro: " + String.format("%.02f", inventario.dinheiro));
         extras.println("");
-        extras.println("Xp necessario para subir de nivel: " + String.format("%.02f", player.xp_nes - handler.jogador.getExp()));
+        extras.println("Xp necessario para subir de nivel: " + String.format("%.02f", handler.jogador.getExpNes() - handler.jogador.getExp()));
         extras.println("");
         extras.println("Aperte enter para continuar...");
         extras.inputS();
@@ -398,6 +399,7 @@ public class player extends entidade{
     public int getArmorEquip(){return armor_equip;}
     public int gettipoArma(){return tipoArma;}
     public int getNpcsMortos(){return npcs_mortos;}
+    public double getExpNes(){return xp_nes;}
 
     //setters
     public void setClasse(String c){this.classe = c;}

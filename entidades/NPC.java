@@ -5,12 +5,11 @@ import adicionais.extras;
 import adicionais.handler;
 import adicionais.janela;
 import ascii.ascii;
+import fases.fases;
 import itens.inventario;
 import itens.itens;
 
 public class NPC extends inimigos{
-
-    static boolean Pvez = true;
 
     public NPC(String nome, String desc, int arma_equip, int vidamax, int forca, int defesa, int destreza, int exp, String nomeascii){
         this.nome = nome;
@@ -31,16 +30,17 @@ public class NPC extends inimigos{
                 vendedor();
                 break;
             case 1:
-                prisioneiro();
-                extras.print("vc passou por prisioneiro");
+                if(!P_livre){
+                    prisioneiro();
+                }else{
+                    selec_npc();
+                }
                 break;
             case 2:
-                morto();
-                extras.print("vc passou por uma pessoa quase morrendo");
+                estrangeiro();
                 break;
             case 3:
                 mendigo();
-                extras.print("vc passou por mendigo");
                 break;
             case 4:
                 dog();
@@ -48,19 +48,198 @@ public class NPC extends inimigos{
         }
     }
 
-    static String[] vendedor_chegamais = {"Por aqui, estranho, pode vir", "Pode chegar mais estranho, sem vergonha"};
-    static String[] vendedor_cumprimentos = {"Bem vindo!", "Tenho uma seleção de coisas boas para vender, estranho.", "O que você está comprando?", "Tenho algumas coisas raras para vender, estranho."};
-    static String[] vendedor_agradecimentos = {"HEHEHEHA! Obrigado.", "Isso é tudo, estranho?"};
-    static String[] vendedor_quervender = {"O que você está vendendo?", "Aaah! Eu vou comprar isso por um preço alto.", "O que você gostaria de vender?"};
-    static String[] vendedor_dininsu = {"DINHEIRO INSUFICIENTE! Estranho."};
-    static String[] vendedor_tchau = {"Volte à qualquer hora.", "Ate mais!"};
-    static String[] vendedor_nomes = {"Drebin"};
-    static String vendedor_nome = vendedor_nomes[extras.rng_int(0, vendedor_nomes.length)];
-    static boolean vendedor_brabo = false;
-    static boolean vendedor_morto = false;
+    static void mendigo(){
+        extras.print("");
+        extras.println_bonito("Voce chega na sala e percebe uma pessoa com uma roupa bem rasgada \nse aquecendo numa pequena fogueira", 1000, 1000);
+        extras.print("");
+        extras.println_bonito("Ele rapidamente se levante e corre em sua direcao!", 500, 500);
+        extras.print("");
+        ascii.printMonstroAsciipeloNome("mendigo", true);
+        extras.println_bonito("'iAe JoVeN, tEn Um ToCaDiN pA nOs Da Ai IUmAo? TaMo Na DeCaDeCiA aKi NoS aIuIdA aI??'", 500, 500);
+        if(inventario.dinheiro >= 1){
+            double dinheiropradar = 1;
+            if(inventario.dinheiro > 10){
+                dinheiropradar = 10 + inventario.dinheiro*0.2;
+                if(dinheiropradar > inventario.dinheiro){dinheiropradar = inventario.dinheiro;}
+            }else{
+                dinheiropradar = inventario.dinheiro;
+            }
+            extras.print("");
+            extras.println_bonito("Ele parece estar meio agitado, \ntalvez ele ficaria agressivo caso voce nao dar dinheiro para ele", 500, 500);
+            extras.print("");
+            extras.println_bonito("Voce pode dar $" + String.format("%.02f", dinheiropradar) + " para deixar ele satisfeito", 500, 500);
+            extras.print("");
+            extras.println_bonito("Mentir e dizer que voce esta sem nada(nao) ou dar para ele(sim)?", 500, 500);
+            if(extras.simNao()){
+                inventario.gastarDinheiro(dinheiropradar);
+                extras.print("");
+                extras.println_bonito("hEhEhEh VaLeU aI, aTe MaIs!", 500, 500);
+                extras.print("");
+                extras.println_bonito("Ele pegou o dinheiro e correu para fora", 500, 500);
+            }else{
+                luta_mendigo();
+            }
+        }else{
+            luta_mendigo();
+        }
+    }
+
+    static void luta_mendigo(){
+        extras.print("");
+        extras.println_bonito("'qQe? Se NaO tEn NaDa? HaAhAhAhAhA'", 500, 500);
+        extras.print("");
+        extras.println_bonito("'nAo MiTa VoC zO nAo QeR dA pAr MiN!'", 500, 500);
+        extras.print("");
+        extras.println_bonito("'vO tIrA dE tU a FoCa!'", 500, 500);
+        if(fases.fase_atual <=1){
+            combate.lutaini(3, 2);
+        }else{
+            combate.lutaini(3, 4);
+        }
+    }
+
+    private static String[] perguntas_aleatorio = {"�sdsgà�.��nsfddt�kut.��n��ahyer�\n\nafuica��.áuicaoxzzzaa��poiu.m?uqr�libuyt?", ".��nsfddt�\n\nkut.��n��ahyer!�sdsgà�.��nsfddt??", "dsgà�.��nsfddt�kut.�\n\n�n��ahyer!�sdsgà�.��ns??"
+    , "�kut.��n��ahyer!�sdsgà�.\n\n��nsfddt�kut.��n��ahyer!�sd??"};
+    private static boolean E_morto = false;
+
+    static void estrangeiro(){
+        extras.print("");
+        extras.println_bonito("Voce chega na sala e percebe uma pessoa \nvestida de maneira muito estranha...", 1000, 1000);
+        extras.print("");
+        extras.println_bonito("Ele te viu, e esta se aproximando", 600, 500);
+        ascii.printMonstroAsciipeloNome("vendedor", true);
+        extras.print("");
+        extras.println_bonito("�kut.��nsy��sr���ahyer�!", 600, 500);
+        extras.print("");
+        extras.println_bonito("�sdsgà�.��nsfddt�kut.��n��ahyer�...", 600, 500);
+        extras.print("");
+        extras.println_bonito("Essa nao, ele nao fala a mesma lingua que voce", 600, 500);
+        int chances = 2;
+        int loop = 3;
+        while(loop > 0){
+            E_morto = false;
+            extras.print("");
+            extras.println_bonito(perguntas_aleatorio[extras.rng_int(0, perguntas_aleatorio.length)], 600, 500);
+            extras.print("");
+            extras.println_bonito("Parece que ele perguntou alguma coisa!", 600, 500);
+            boolean res_certa = extras.rng_bool();
+            boolean res = extras.simNao();
+            if(res == res_certa){
+                extras.print("");
+                extras.println_bonito("Ele parece fazer uma cara de satisfeito!", 600, 500);
+            }else{
+                extras.print("");
+                extras.println_bonito("Ele nao parece estar feliz com essa resposta.", 600, 500);
+                chances--;
+            }
+            if(chances <= 0){
+                extras.print("");
+                extras.println_bonito("�sdsgà�.��nsfddt�kut.��n��ahyer!�sdsgà�.\n��nsfddt�kut.��n��ahyer!�sdsgà�.��nsfddt�kut.�\n�n��ahyer!�sdsgà�.��nsfddt�kut.��n��ahyer!", 800, 300);
+                extras.print("");
+                extras.println_bonito("�kut.��nsy��sr���ahyer�!sds\ngà�.��nsfddt�kut.��n��ahyer!�sdsgà�.��nsfddt�kut�kut.��nsy�\n�sr���ahyer�!sfddt�kut.��n��ahyer!", 800, 300);
+                extras.print("");
+                extras.println_bonito("�sdsgà�.��nsfddt�kut.��\nn��ahyer!�sdsgà�.��nsfddt�\nkut.��n��ahyer!�sdsgà�.��nsfddt�kut.��n\n��ahyer!�sdsgà�.��nsfddt�kut.��n��ahyer!", 800, 300);
+                extras.print("");
+                extras.println_bonito("Ele parece estar extremamente bravo, ele vai atacar!", 600, 500);
+                luta_estrangeiro();
+                break;
+            }
+            loop--;
+        }
+        if(!E_morto){
+            extras.println_bonito("�kut.��nsy��sr���ahyer�!", 600, 500);
+            extras.print("");
+            extras.println_bonito("�sdsgà�.��nsfddt�kut.��n��ahyer�...", 600, 500);
+            extras.print("");
+            extras.println_bonito("yer!�sdsgà�.��nsfddt�kut.��n!", 600, 500);
+            extras.print("");
+            extras.println_bonito("Ele parece estar satisfeito, ele te deixou um item e foi embora", 600, 500);
+            handler.npcs.get(5).dropar();
+        }
+    }
+
+    static void luta_estrangeiro(){
+        combate.lutaini(3, 5);
+        E_morto = true;
+    }
+
+    public static boolean P_livre = false;
+
+    static void prisioneiro(){
+        extras.print("");
+        extras.println_bonito("Voce chega na sala e percebe uma pessoa, \nacorrentada sentada no cato...", 1000, 1000);
+        extras.print("");
+        extras.println_bonito("Ele se vira...", 500, 500);
+        extras.print("");
+        extras.println_bonito("Seu rosto parece um pouco familiar, mas é dificil de ver...", 500, 500);
+        if(inventario.chaveNoInventario()){
+            extras.print("");
+            extras.println_bonito("Ele detectou algo em voce e levantou ansiosamente", 500, 500);
+            extras.print("");
+            extras.println_bonito("'Voce tem a chave para me libertar!'", 500, 500);
+            extras.print("");
+            extras.println_bonito("'Por favor! Me libere! Eu juro que irei te ajudar!'", 500, 500);
+            extras.print("");
+            extras.println_bonito("Voce realmente tem uma chave no seu inventario...", 500, 500);
+            extras.print("");
+            extras.println_bonito("Gostaria de libertar ele?", 500, 500);
+            if(extras.simNao()){
+                extras.print("");
+                extras.println_bonito("Voce decidiu liberar ele...", 500, 500);
+                extras.print("");
+                extras.println_bonito("'OBRIGADO!'", 500, 500);
+                extras.print("");
+                extras.println_bonito("'OBRIGADO! OBRIGADO!'", 500, 500);
+                extras.print("");
+                extras.println_bonito("'Finalmente estou livre!'", 500, 500);
+                extras.print("");
+                extras.println_bonito("'Muito obrigado amigo, eu estou em divida eterna com voce!'", 500, 500);
+                extras.print("");
+                extras.println_bonito("'ᵉᵘ ᵃᶦⁿᵈᵃ ᵗᵉⁿʰᵒ ᵠᵘᵉ ᶠᵘᵍᶦʳ ᵈᵉˢᵗᵉ ˡᵘᵍᵃʳ'", 500, 500);
+                extras.print("");
+                extras.println_bonito("'Amigo, que tal eu me juntar a voce?\n Eu tenho uma boa capacidade de lutar contra monstros deste lugar,\ntalvez nos conseguimos encontrar a saida deste lugar no caminho,\nvoce nao se arrependera! '", 2000, 1000);
+                if(extras.simNao()){
+                    extras.print("");
+                    extras.println_bonito("'Otima decisao! Agora vamos! Honra e riqueza nos espera no fim deste lugar!'", 800, 500);
+                    player.P_aliado = true;
+                }else{
+                    extras.print("");
+                    extras.println_bonito("'QUE? Voce nao quer minha ajuda?'", 500, 500);
+                    extras.print("");
+                    extras.println_bonito("'Voce e um tolo se voce pensa em continuar nesse lugar sozinho...'", 600, 500);
+                    extras.print("");
+                    extras.println_bonito("'Mas entao ta bom, nao venha correndo \natras de mim quando voce precisar de ajuda!'", 600, 500);
+                }
+            }else{
+                extras.print("");
+                extras.println_bonito("Voce decidiu que melhor nao. \nNao se sabe que tipo de pessoa ele é...", 500, 500);
+                extras.print("");
+                extras.println_bonito("Em silêncio voce sai da sala enquanto o \nprisoneiro apenas olha voce indo embora...", 500, 500);
+            }
+        }else{
+            extras.print("");
+            extras.println_bonito("Ele desvira com um rosto um depressivo", 500, 500);
+            extras.print("");
+            extras.println_bonito("Nao tem nada que voce possa fazer...", 500, 500);
+            extras.print("");
+            extras.println_bonito("Voce continua sua jornada", 500, 500);
+        }
+    }
+
+    private static String[] vendedor_chegamais = {"Por aqui, estranho, pode vir", "Pode chegar mais estranho, sem vergonha"};
+    private static String[] vendedor_cumprimentos = {"Bem vindo!", "Tenho uma seleção de coisas boas para vender, estranho.", "O que você está comprando?", "Tenho algumas coisas raras para vender, estranho."};
+    private static String[] vendedor_agradecimentos = {"HEHEHEHA! Obrigado.", "Isso é tudo, estranho?"};
+    private static String[] vendedor_quervender = {"O que você está vendendo?", "Aaah! Eu vou comprar isso por um preço alto.", "O que você gostaria de vender?"};
+    private static String[] vendedor_dininsu = {"DINHEIRO INSUFICIENTE! Estranho."};
+    private static String[] vendedor_tchau = {"Volte à qualquer hora.", "Ate mais!"};
+    private static String[] vendedor_nomes = {"Drebin"};
+    private static String vendedor_nome = vendedor_nomes[extras.rng_int(0, vendedor_nomes.length)];
+    private static boolean vendedor_brabo = false;
+    private static boolean vendedor_morto = false;
+    static boolean V_Pvez = true;
 
     static void vendedor(){
-        if(Pvez){
+        if(V_Pvez){
             extras.print("");
             extras.println_bonito("Voce chega na sala e percebe um homem com um casaco de couro grande, \ne um chapeu de cowboy, em volta dele tem alguns itens espalhados em volta...", 1000, 1000);
             vendedor_brabo = false;
@@ -89,7 +268,7 @@ public class NPC extends inimigos{
             extras.println_bonito("'HIEAEHIAEHAI!' ", 400, 500);
             extras.print("");
             extras.println_bonito("'Entao fique a vontade para olhar em volta e comprar o que desejar!' ", 1200, 1000);
-            Pvez = false;
+            V_Pvez = false;
         }else if(vendedor_brabo == false || vendedor_morto == false){
             extras.print("");
             extras.println_bonito("Voce chega na sala, voce encontra o mercador de itens de antes", 500, 500);
@@ -288,12 +467,6 @@ public class NPC extends inimigos{
         }
     }
 
-    static void prisioneiro(){}
-
-    static void morto(){}
-
-    static void mendigo(){}
-
     static void dog(){
         extras.print("");
         extras.println_bonito("Voce encontra um cachorro, o que deseja fazer?", 1300, 500);
@@ -330,48 +503,5 @@ public class NPC extends inimigos{
                 extras.println_bonito("O cachorro nao entendeu o que quis dizer, ele vai embora", 500, 500);
                 handler.jogador.receberXp(2);
         }
-    }
-
-    static void estrangeiro(){}
-
-    void falar() {
-
-        /* possiveis falas
-
-        "Over here, stranger." - "Por aqui, estranho."
-
-        "Welcome!" - "Bem vindo!"
-
-        "What are you buying?" - "O que você está comprando?"
-
-        "What are you selling?" - "O que você está vendendo?"
-
-        "HEHEHEA! Thank you." - "HEHEHEHA! Obrigado."
-
-        "Aaah! I'll buy it at a high price." - "Aaah! Eu vou comprar isso por um preço alto."
-
-        "Got some rare things on sale, stranger." - "Tenho algumas coisas raras para vender, estranho."
-
-        "Is that all, stranger?" - "Isso é tudo, estranho?"
-
-        "NOT ENOUGH CASH! Stranger." - "DINHEIRO INSUFICIENTE! Estranho."
-
-        "Got a selection of good things on sale, stranger." - "Tenho uma seleção de coisas boas para vender, estranho."
-
-        "Come back any time." - "Volte à qualquer hora."
-
-        "Ooooooooooaaaaaaaaaaaaaaaaarrrgggh..." - "(Quando você mata ele)"
-
-            }
-            
-            else if npc = 1{"�kut.��nsy��sr���ahyer�", "vcs não falam o mesmo idioma"}
-
-            else if npc = 2{"pessoa de poucas palavras"}
-
-            else if npc = 3{"De um trocado pro seu mendigo ó dungeon abundante", "por que faço esses trocadilhos sem graça? boa pergunta"}
-            
-            else if npc = 4{"au","deveras poético"}
-        */
-
     }
 }

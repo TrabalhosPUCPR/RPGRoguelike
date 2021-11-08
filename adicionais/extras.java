@@ -60,6 +60,11 @@ public class extras { // essa classe serve para colocar uns codigos para fazer u
         return aleatorio;
     }
 
+    public static boolean rng_bool(){
+        boolean aleatorio = random.nextBoolean();
+        return aleatorio;
+    }
+
     public static void console_clear(){
         janela.clearJanela();
         for(int i = 0; i < 100; i++){ // eu queria que tivesse uma forma melhor de limpa o console :(

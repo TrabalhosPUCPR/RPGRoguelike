@@ -127,7 +127,8 @@ public class handler {
         handler.npcs.add(new NPC(handler.jogador.getNome(),"Outro jogador, mas aparenta estar mentalmente instavel, pode acabar lhe dando uma dica ou item", handler.jogador.getArmaEquip(), handler.jogador.getVidamax(), handler.jogador.getForca(), (int)handler.jogador.getDefesa(), handler.jogador.getDestreza(), 5, "generico")); // 1
         handler.npcs.add(new NPC("Mendigo","Encostado na parede e coberto por um pano surrado um velho senhor, um pouco sus, lhe pede um pouco de dinheiro", 1, 30, 8, 6, 5, 16, "generico")); // 2
         handler.npcs.add(new NPC("D-Dog","literalmente um doguinho, com uma espada...", 8, 20, 10, 4, 7, -5, "generico")); // 3
-        handler.npcs.add(new NPC("Mendigo bebado", "Ele estava bebendo e voce o interrompeu", 6, 73, 20, 16, 10, 32, "mendigo")); // 12
+        handler.npcs.add(new NPC("Mendigo bebado", "Ele estava bebendo e voce o interrompeu", 6, 73, 20, 16, 10, 32, "mendigo")); // 4
+        handler.npcs.add(new NPC("Estrangeiro", "Uma pessoa vestida como se tivesse vindo de outro mundo, fala uma lingua muito estranha", 8, 53, 13, 10, 13, 52, "mendigo")); // 5
         extras.print("[NPC]: NPCs criados com sucesso");
     }
 

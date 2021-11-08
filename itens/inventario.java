@@ -18,6 +18,13 @@ public class inventario {
         dinheiro = 0.0;
     }
 
+    public static boolean chaveNoInventario(){
+        if(handler.itemMisc.get(itenMisc).getNome().toLowerCase().equals("chave")){
+            return true;
+        }
+        return false;
+    }
+
     public static boolean usarItem(int index){
         if(index > itenConsumivel.length){
             extras.println("");
