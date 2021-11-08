@@ -5,3 +5,4 @@ Jogo roguelike de texto feito no java
 
 - Monstros da fase 3(fase da cidade)
 - Final boss
+- Colocar a historia real no jogo
