@@ -69,7 +69,10 @@ public class player extends entidade{
             String res = extras.inputS().toLowerCase();
             switch(res){
                 case "atacar":
-                    P_atacar(indexm, Tmons);
+                    Player_atacar(indexm, Tmons);
+                    if(P_aliado){
+                        Aliado_atacar(indexm, Tmons);
+                    }
                     break;
                 case "defender":
                     defender();
@@ -119,9 +122,19 @@ public class player extends entidade{
         inimigos.getInimigo(indexm, Tmons).resetBuff();
     }
     //inimigos.getInimigo(indexm, tipo)
-    private void P_atacar(int indexm, int Tmons){
+    private void Player_atacar(int indexm, int Tmons){
         double dano = handler.jogador.atacar();
         armas.texto_som(arma_equip);
+        dano = inimigos.getInimigo(indexm, Tmons).levar_dano(dano, this.destreza, handler.arma.get(this.arma_equip).getPeso(), false);
+        extras.print("");
+        extras.println_bonito("O " + inimigos.getInimigo(indexm, Tmons).getNome() + " levou " + String.format("%.00f", dano) + " de dano!", 800, 500);
+    }
+
+    private void Aliado_atacar(int indexm, int Tmons){
+        extras.print("");
+        extras.println_bonito("O seu aliado vai atacar!", 500, 500);
+        double dano = (handler.npcs.get(1).atacar())/5;
+        armas.texto_som(this.arma_equip);
         dano = inimigos.getInimigo(indexm, Tmons).levar_dano(dano, this.destreza, handler.arma.get(this.arma_equip).getPeso(), false);
         extras.print("");
         extras.println_bonito("O " + inimigos.getInimigo(indexm, Tmons).getNome() + " levou " + String.format("%.00f", dano) + " de dano!", 800, 500);
@@ -171,6 +184,7 @@ public class player extends entidade{
         extras.inputS();
         resetNmonstrosderrot();
         resetBuff();
+        P_aliado = false;
         extras.console_clear();
         handler.NovoJogo();
     }
@@ -334,27 +348,27 @@ public class player extends entidade{
             case "arqueiro": 
                 handler.jogador.setForca(this.forca + extras.rng_int(1, 3)); 
                 handler.jogador.setDefesa(this.defesa + extras.rng_int(0, 2));
-                handler.jogador.setDestreza(this.destreza + extras.rng_int(1, 7));
+                handler.jogador.setDestreza(this.destreza + extras.rng_int(1, 5));
             break;
             case "guerreiro":
-                handler.jogador.setForca(this.forca + extras.rng_int(1, 6)); 
+                handler.jogador.setForca(this.forca + extras.rng_int(1, 4)); 
                 handler.jogador.setDefesa(this.defesa + extras.rng_int(0, 2));
-                handler.jogador.setDestreza(this.destreza + extras.rng_int(1, 4));
+                handler.jogador.setDestreza(this.destreza + extras.rng_int(1, 3));
                 break;
             case "paladino":
-                handler.jogador.setForca(this.forca + extras.rng_int(1, 4)); 
-                handler.jogador.setDefesa(this.defesa + extras.rng_int(1, 6));
-                handler.jogador.setDestreza(this.destreza + extras.rng_int(0, 2));
+                handler.jogador.setForca(this.forca + extras.rng_int(1, 3)); 
+                handler.jogador.setDefesa(this.defesa + extras.rng_int(1, 5));
+                handler.jogador.setDestreza(this.destreza + extras.rng_int(1, 2));
                 break;
             case "despojado":
-                handler.jogador.setForca(this.forca + extras.rng_int(1, 5)); 
+                handler.jogador.setForca(this.forca + extras.rng_int(1, 3)); 
                 handler.jogador.setDefesa(this.defesa + extras.rng_int(1, 5));
                 handler.jogador.setDestreza(this.destreza + extras.rng_int(1, 5));
                 break;
             default:
-                handler.jogador.setForca(this.forca + extras.rng_int(1, extras.rng_int(1, 5)));  // qnd vc fica na duvida oq dar de pontos pra uma classe criada dentro do jogo
-                handler.jogador.setDefesa(this.defesa + extras.rng_int(1, extras.rng_int(1, 3)));
-                handler.jogador.setDestreza(this.destreza + extras.rng_int(1, extras.rng_int(1, 4)));
+                handler.jogador.setForca(this.forca + extras.rng_int(0, extras.rng_int(1, 5)));  // qnd vc fica na duvida oq dar de pontos pra uma classe criada dentro do jogo
+                handler.jogador.setDefesa(this.defesa + extras.rng_int(0, extras.rng_int(1, 3)));
+                handler.jogador.setDestreza(this.destreza + extras.rng_int(0, extras.rng_int(1, 4)));
                 break;
         }
         janela.setUpPlayerGUI();
@@ -363,6 +377,16 @@ public class player extends entidade{
         extras.print("");
         extras.println_bonito("Sua forca, defesa, e destreza estao melhores!", 700, 400);
     }
+
+    public boolean dodge(int des_atacante){
+        double chance;
+        chance = (this.destreza+(0.5*this.destreza)*buff_evasion) - 0.7*des_atacante;
+        if (extras.rng_double(0, 100) < chance && !this.classe.toLowerCase().equals("dev")){
+            return true;
+        }else{
+            return false;
+        }
+    } 
 
     public static void printStats(){
         extras.println("_____________________________________________________________________________________________________");

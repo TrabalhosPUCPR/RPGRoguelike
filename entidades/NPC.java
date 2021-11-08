@@ -50,12 +50,12 @@ public class NPC extends inimigos{
 
     static void mendigo(){
         extras.print("");
-        extras.println_bonito("Voce chega na sala e percebe uma pessoa com uma roupa bem rasgada \nse aquecendo numa pequena fogueira", 1000, 1000);
+        extras.println_bonito("Voce chega na sala e percebe uma pessoa com uma \nroupa bem rasgada se aquecendo numa pequena fogueira", 1000, 1000);
         extras.print("");
-        extras.println_bonito("Ele rapidamente se levante e corre em sua direcao!", 500, 500);
+        extras.println_bonito("Ele rapidamente se levante e corre em sua direcao!", 500, 1000);
         extras.print("");
         ascii.printMonstroAsciipeloNome("mendigo", true);
-        extras.println_bonito("'iAe JoVeN, tEn Um ToCaDiN pA nOs Da Ai IUmAo? TaMo Na DeCaDeCiA aKi NoS aIuIdA aI??'", 500, 500);
+        extras.println_bonito("'iAe JoVeN, tEn Um ToCaDiN pA nOs Da Ai IUmAo?\n TaMo Na DeCaDeCiA aKi NoS aIuIdA aI??'", 1000, 1000);
         if(inventario.dinheiro >= 1){
             double dinheiropradar = 1;
             if(inventario.dinheiro > 10){
@@ -65,16 +65,17 @@ public class NPC extends inimigos{
                 dinheiropradar = inventario.dinheiro;
             }
             extras.print("");
-            extras.println_bonito("Ele parece estar meio agitado, \ntalvez ele ficaria agressivo caso voce nao dar dinheiro para ele", 500, 500);
+            extras.println_bonito("Ele parece estar meio agitado, \ntalvez ele ficaria agressivo caso voce nao dar dinheiro para ele", 1000, 1000);
             extras.print("");
-            extras.println_bonito("Voce pode dar $" + String.format("%.02f", dinheiropradar) + " para deixar ele satisfeito", 500, 500);
+            extras.println_bonito("Voce pode dar $" + String.format("%.02f", dinheiropradar) + " para deixar ele satisfeito", 1000, 1000);
             extras.print("");
-            extras.println_bonito("Mentir e dizer que voce esta sem nada(nao) ou dar para ele(sim)?", 500, 500);
+            extras.println_bonito("Mentir e dizer que voce esta sem nada(nao) ou dar para ele(sim)?", 1000, 1000);
             if(extras.simNao()){
                 inventario.gastarDinheiro(dinheiropradar);
                 extras.print("");
                 extras.println_bonito("hEhEhEh VaLeU aI, aTe MaIs!", 500, 500);
                 extras.print("");
+                janela.clearJmonsAscii(true);
                 extras.println_bonito("Ele pegou o dinheiro e correu para fora", 500, 500);
             }else{
                 luta_mendigo();
@@ -91,7 +92,7 @@ public class NPC extends inimigos{
         extras.println_bonito("'nAo MiTa VoC zO nAo QeR dA pAr MiN!'", 500, 500);
         extras.print("");
         extras.println_bonito("'vO tIrA dE tU a FoCa!'", 500, 500);
-        if(fases.fase_atual <=1){
+        if(fases.fase_atual <=2){
             combate.lutaini(3, 2);
         }else{
             combate.lutaini(3, 4);
@@ -107,13 +108,13 @@ public class NPC extends inimigos{
         extras.println_bonito("Voce chega na sala e percebe uma pessoa \nvestida de maneira muito estranha...", 1000, 1000);
         extras.print("");
         extras.println_bonito("Ele te viu, e esta se aproximando", 600, 500);
-        ascii.printMonstroAsciipeloNome("vendedor", true);
+        ascii.printMonstroAsciipeloNome("estrangeiro", true);
         extras.print("");
         extras.println_bonito("�kut.��nsy��sr���ahyer�!", 600, 500);
         extras.print("");
-        extras.println_bonito("�sdsgà�.��nsfddt�kut.��n��ahyer�...", 600, 500);
+        extras.println_bonito("�sdsgà�.��nsfddt�kut.��n��ahyer�...", 600, 1000);
         extras.print("");
-        extras.println_bonito("Essa nao, ele nao fala a mesma lingua que voce", 600, 500);
+        extras.println_bonito("Essa nao, ele nao fala a mesma lingua que voce", 600, 1000);
         int chances = 2;
         int loop = 3;
         while(loop > 0){
@@ -121,24 +122,24 @@ public class NPC extends inimigos{
             extras.print("");
             extras.println_bonito(perguntas_aleatorio[extras.rng_int(0, perguntas_aleatorio.length)], 600, 500);
             extras.print("");
-            extras.println_bonito("Parece que ele perguntou alguma coisa!", 600, 500);
+            extras.println_bonito("Parece que ele perguntou alguma coisa!", 600, 800);
             boolean res_certa = extras.rng_bool();
             boolean res = extras.simNao();
             if(res == res_certa){
                 extras.print("");
-                extras.println_bonito("Ele parece fazer uma cara de satisfeito!", 600, 500);
+                extras.println_bonito("Ele parece fazer uma cara de satisfeito!", 600, 800);
             }else{
                 extras.print("");
-                extras.println_bonito("Ele nao parece estar feliz com essa resposta.", 600, 500);
+                extras.println_bonito("Ele nao parece estar feliz com essa resposta.", 600, 1000);
                 chances--;
             }
             if(chances <= 0){
                 extras.print("");
-                extras.println_bonito("�sdsgà�.��nsfddt�kut.��n��ahyer!�sdsgà�.\n��nsfddt�kut.��n��ahyer!�sdsgà�.��nsfddt�kut.�\n�n��ahyer!�sdsgà�.��nsfddt�kut.��n��ahyer!", 800, 300);
+                extras.println_bonito("\n�n��ahyer!�sdsgà�.��nsfddt�kut.��n��ahyer!", 800, 300);
                 extras.print("");
-                extras.println_bonito("�kut.��nsy��sr���ahyer�!sds\ngà�.��nsfddt�kut.��n��ahyer!�sdsgà�.��nsfddt�kut�kut.��nsy�\n�sr���ahyer�!sfddt�kut.��n��ahyer!", 800, 300);
+                extras.println_bonito("n��ahyer!�sdsgà�.��nsfddt�kut�kut.��nsy�\n�sr���ahyer�!sfddt�kut.��n��ahyer!", 800, 300);
                 extras.print("");
-                extras.println_bonito("�sdsgà�.��nsfddt�kut.��\nn��ahyer!�sdsgà�.��nsfddt�\nkut.��n��ahyer!�sdsgà�.��nsfddt�kut.��n\n��ahyer!�sdsgà�.��nsfddt�kut.��n��ahyer!", 800, 300);
+                extras.println_bonito("ut.��n��ahyer!�sdsgà�.��nsfddt�kut.��n\n��ahyer!�sdsgà�.��nsfddt�kut.��n��ahyer!", 800, 300);
                 extras.print("");
                 extras.println_bonito("Ele parece estar extremamente bravo, ele vai atacar!", 600, 500);
                 luta_estrangeiro();
@@ -163,14 +164,32 @@ public class NPC extends inimigos{
         E_morto = true;
     }
 
+    @Override
+    public void morrer(){
+        extras.print("");
+        extras.println_bonito("O " + this.nome + " foi derrotado!", 300, 700);
+        janela.clearJmonsAscii(true);
+        switch(this.nome.toLowerCase()){
+            case "mendigo":
+                dropItemGenerico();
+                inventario.ganharDinheiro(extras.rng_double(0, 5));
+            break;
+            default:
+                dropItemGenerico();
+                inventario.ganharDinheiro(extras.rng_double(40, 80));
+                break;
+        }
+    }
+
     public static boolean P_livre = false;
 
     static void prisioneiro(){
         extras.print("");
-        extras.println_bonito("Voce chega na sala e percebe uma pessoa, \nacorrentada sentada no cato...", 1000, 1000);
+        extras.println_bonito("Voce chega na sala e percebe uma pessoa, \nacorrentada sentada no canto...", 1000, 1000);
         extras.print("");
         extras.println_bonito("Ele se vira...", 500, 500);
         extras.print("");
+        ascii.printMonstroAsciipeloNome("prisioneiro", true);
         extras.println_bonito("Seu rosto parece um pouco familiar, mas é dificil de ver...", 500, 500);
         if(inventario.chaveNoInventario()){
             extras.print("");
@@ -184,6 +203,7 @@ public class NPC extends inimigos{
             extras.print("");
             extras.println_bonito("Gostaria de libertar ele?", 500, 500);
             if(extras.simNao()){
+                P_livre = true;
                 extras.print("");
                 extras.println_bonito("Voce decidiu liberar ele...", 500, 500);
                 extras.print("");
@@ -220,6 +240,7 @@ public class NPC extends inimigos{
             extras.print("");
             extras.println_bonito("Ele desvira com um rosto um depressivo", 500, 500);
             extras.print("");
+            janela.clearJmonsAscii(true);
             extras.println_bonito("Nao tem nada que voce possa fazer...", 500, 500);
             extras.print("");
             extras.println_bonito("Voce continua sua jornada", 500, 500);
@@ -303,7 +324,7 @@ public class NPC extends inimigos{
                 itensTipo[i] = extras.rng_int(0, 4);
                 itensId[i] = itens.dropItem(itensTipo[i]);
             }
-            while(loja){
+            while(loja && !vendedor_morto){
                 extras.print("");
                 extras.println_bonito("Voce tem " + String.format("%.02f",inventario.dinheiro) + " de dinheiro", 500, 500);
                 extras.print("");
@@ -352,7 +373,7 @@ public class NPC extends inimigos{
 
     static void comprasItem(int[] itensId, int[] itensTipo){
         boolean selec = true;
-        while(selec){
+        while(selec && !vendedor_morto){
             extras.print("");
             extras.print("________________________________________________________________________________________________________________________________________________________________________");
             extras.print("|      |            Nome            |                                                Descricao                                                |     Tipo     |    $    |");
@@ -399,6 +420,7 @@ public class NPC extends inimigos{
                             extras.println_bonito("'Nao pense que voce vai sair dessa vivo!' ", 400, 1000);
                             extras.print("");
                             extras.println_bonito("'Se prepare para morrer!' ", 400, 1000);
+                            lutavendedor();
                         }
                     }
                 }else{
@@ -468,6 +490,7 @@ public class NPC extends inimigos{
     }
 
     static void dog(){
+        ascii.printMonstroAsciipeloNome("cachorro", true);
         extras.print("");
         extras.println_bonito("Voce encontra um cachorro, o que deseja fazer?", 1300, 500);
 
@@ -488,6 +511,7 @@ public class NPC extends inimigos{
                 extras.println_bonito("Seu desgracado!", 500, 500);
                 extras.print("");
                 extras.println_bonito("O cachorro ficou bravo, ele pegou uma espada no canto da sala!", 500, 500);
+                ascii.printMonstroAsciipeloNome("ddog", true);
                 combate.lutaini(3, 3);
                 
                 break;

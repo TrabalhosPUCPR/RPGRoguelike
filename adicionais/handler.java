@@ -111,6 +111,10 @@ public class handler {
         handler.asciiart.add(new ascii("morcegao", new File("ascii/arts/monstros/morcegao.txt")));
         handler.asciiart.add(new ascii("goblina", new File("ascii/arts/monstros/goblina.txt")));
         handler.asciiart.add(new ascii("lobo", new File("ascii/arts/monstros/lobo.txt")));
+        handler.asciiart.add(new ascii("prisioneiro", new File("ascii/arts/monstros/prisioneiro.txt")));
+        handler.asciiart.add(new ascii("estrangeiro", new File("ascii/arts/monstros/estrangeiro.txt"))); // por que esse jogo tem 2 desenhos do shrek? por que sim
+        handler.asciiart.add(new ascii("cachorro", new File("ascii/arts/monstros/cachorro.txt")));
+        handler.asciiart.add(new ascii("ddog", new File("ascii/arts/monstros/ddog.txt")));
         extras.print("[ASCII]: Artes ASCII carregadas");
     }
 
@@ -123,12 +127,12 @@ public class handler {
 
     static void iniNpcs(){
         extras.print("[NPC]: Criando NPCs...");
-        handler.npcs.add(new NPC("Vendedor ambulante","Pessoa misteriosa que comercializa itens", 0, 5, 1, 1, 1, 5, "generico")); // 0
-        handler.npcs.add(new NPC(handler.jogador.getNome(),"Outro jogador, mas aparenta estar mentalmente instavel, pode acabar lhe dando uma dica ou item", handler.jogador.getArmaEquip(), handler.jogador.getVidamax(), handler.jogador.getForca(), (int)handler.jogador.getDefesa(), handler.jogador.getDestreza(), 5, "generico")); // 1
-        handler.npcs.add(new NPC("Mendigo","Encostado na parede e coberto por um pano surrado um velho senhor, um pouco sus, lhe pede um pouco de dinheiro", 1, 30, 8, 6, 5, 16, "generico")); // 2
-        handler.npcs.add(new NPC("D-Dog","literalmente um doguinho, com uma espada...", 8, 20, 10, 4, 7, -5, "generico")); // 3
+        handler.npcs.add(new NPC("Vendedor ambulante","Pessoa misteriosa que comercializa itens", 0, 5, 1, 1, 1, 5, "vendedor")); // 0
+        handler.npcs.add(new NPC("Prisioneiro","Outro jogador, mas aparenta estar mentalmente instavel e preso por algum motivo", handler.jogador.getArmaEquip(), handler.jogador.getVidamax()*2, handler.jogador.getForca(), (int)handler.jogador.getDefesa(), handler.jogador.getDestreza(), 5, "prisioneiro")); // 1
+        handler.npcs.add(new NPC("Mendigo","Encostado na parede e coberto por um pano surrado um velho senhor, um pouco sus, lhe pede um pouco de dinheiro", 1, 30, 8, 6, 5, 16, "mendigo")); // 2
+        handler.npcs.add(new NPC("D-Dog","literalmente um doguinho, com uma espada...", 8, 20, 10, 4, 7, -5, "ddog")); // 3
         handler.npcs.add(new NPC("Mendigo bebado", "Ele estava bebendo e voce o interrompeu", 6, 73, 20, 16, 10, 32, "mendigo")); // 4
-        handler.npcs.add(new NPC("Estrangeiro", "Uma pessoa vestida como se tivesse vindo de outro mundo, fala uma lingua muito estranha", 8, 53, 13, 10, 13, 52, "mendigo")); // 5
+        handler.npcs.add(new NPC("Estrangeiro", "Uma pessoa vestida como se tivesse vindo de outro mundo, fala uma lingua muito estranha", 8, 43, 13, 10, 13, 52, "estrangeiro")); // 5
         extras.print("[NPC]: NPCs criados com sucesso");
     }
 
@@ -217,7 +221,7 @@ public class handler {
         handler.monstros.add(new monstros_f("Ratagão", "Um rato que nao aceita ser chamado de rato de esgoto", 0, 23, 15, 4, 5, 25, new int[]{1}, "ratagao")); // 4
         handler.monstros.add(new monstros_f("Morcegão", "Exatamente como o nome sugere, um morcego......só que gigante", 0, 20, 7, 5, 15, 25, new int[]{1}, "morcegao")); // 5
 
-        handler.monstros.add(new monstros_f("Slime vermelho", "Parece uma gelatina.", 0, 25, 13, 6, 5, 18, new int[]{2}, "generico")); // 9
+        handler.monstros.add(new monstros_f("Slime vermelho", "Parece uma gelatina.", 0, 25, 13, 6, 5, 18, new int[]{2}, "slime")); // 9
         handler.monstros.add(new monstros_f("Esqueleto guerreiro", "Esqueleto equipado com uma espada e escudo!", 8, 35, 16, 11, 4, 20, new int[]{2}, "esqueleto")); // 10
         handler.monstros.add(new monstros_f("Esqueleto arqueiro", "Esqueleto equipado com arco e flecha", 13, 30, 11, 6, 13, 20, new int[]{2}, "esqueleto")); // 11
         handler.monstros.add(new monstros_f("Necromante", "Consegue se comunicar com os mortos, por meio de magia", 7, 23, 8, 10, 9, 17, new int[]{2}, "necromante")); // 12
@@ -245,7 +249,7 @@ public class handler {
         extras.print("[Player]: Criando Classes...");
         handler.classe.add(new classes("Arqueiro", "Rapido e com alta destreza, pode usar armas de longo alcance, mas possui baixa defesa", 3, 1, 40, 5, 4, 8, 1)); // 0
         handler.classe.add(new classes("Guerreiro","Forte e defensivo, pode causar alto dano em curto alcance mas possui pessima destreza", 1, 1, 40, 6, 3, 7, 0)); // 1
-        handler.classe.add(new classes("Paladino","Balanceado de todas as formas, usa arma de curto alcance e experiente em qualquer situacao", 2, 2, 40, 8, 5, 3, 0)); // 2
+        handler.classe.add(new classes("Paladino","Balanceado de todas as formas, usa arma de curto alcance e experiente em qualquer situacao", 2, 2, 40, 7, 4, 4, 0)); // 2
         handler.classe.add(new classes("Despojado","Roubado de todos os seus pertences, comeca fraco mas ganha pontos em status extremamente rapido e pode usar qualquer arma", 23, 0, 40, 5, 3, 5, 2)); // 3
         handler.classe.add(new classes("Dev","dev mode", 1, 2, 999, 999, 999, 999, 2)); // 3
 
@@ -352,7 +356,7 @@ public class handler {
         handler.itemDef.add(new itensDef("Capacete de madeira", "Um capacete que cabe na cabe de qualquer um", 2, 0, 25, 1)); // 8
         handler.itemDef.add(new itensDef("Capacete de aço", "Um capacete um pouco pesado, mas defende bem", 5, -2, 40, 2)); // 9
         handler.itemDef.add(new itensDef("Colete refletivo", "Um colete usado por policiais de transito", 1, 2, 42, 2)); // 10
-        handler.itemDef.add(new itensDef("Escudo de mithril ", "Escudo feito com um minerio rarissimo", 7, 0, 112, 3)); // 11
+        handler.itemDef.add(new itensDef("Escudo de mithril", "Escudo feito com um minerio rarissimo", 7, 0, 112, 3)); // 11
         handler.itemDef.add(new itensDef("Botas de velocidade", "Botas que faz voce correr extremamente rapido", 1, 10, 124, 3)); // 12
         
 

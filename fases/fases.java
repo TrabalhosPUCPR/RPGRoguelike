@@ -46,7 +46,7 @@ public class fases {
     }
 
     public static void comecarFases(){
-        for(int i = 0; i < handler.fase.size(); i++){ // vai comecar o loop das fases
+        for(int i = 0; i < handler.fase.size() - 2; i++){ // vai comecar o loop das fases
             handler.fase.get(i).comecarFaseAtual();
         }
     }
