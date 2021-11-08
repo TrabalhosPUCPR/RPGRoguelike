@@ -121,7 +121,7 @@ public class entidade {
     public boolean dodge(int des_atacante){
         double chance;
         chance = (this.destreza+(0.5*this.destreza)*buff_evasion) - 0.7*des_atacante;
-        if (extras.rng_double(0, 100) < chance){
+        if (extras.rng_double(0, 100) < chance && !handler.jogador.getClasse().equals("dev")){
             return true;
         }else{
             return false;

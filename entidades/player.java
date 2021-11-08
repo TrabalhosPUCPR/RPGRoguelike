@@ -378,16 +378,6 @@ public class player extends entidade{
         extras.println_bonito("Sua forca, defesa, e destreza estao melhores!", 700, 400);
     }
 
-    public boolean dodge(int des_atacante){
-        double chance;
-        chance = (this.destreza+(0.5*this.destreza)*buff_evasion) - 0.7*des_atacante;
-        if (extras.rng_double(0, 100) < chance && !this.classe.toLowerCase().equals("dev")){
-            return true;
-        }else{
-            return false;
-        }
-    } 
-
     public static void printStats(){
         extras.println("_____________________________________________________________________________________________________");
         extras.println("|                |                  |           |           |           |            |              |");
