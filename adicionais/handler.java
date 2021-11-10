@@ -507,11 +507,9 @@ public class handler {
     public static void NovoJogo(){
         extras.console_clear();
         Prun++;
-        historia();
-        ascii.printMonstroAsciipeloNome("logoepico", false);
-        //ascii.printMonstroAsciipeloNome("ratagao", true);
-        NovoJogador();
         janela.clearJmonsAscii(false);
+        historia();
+        NovoJogador();
         fases.comecarFases(); 
         //aqui vai ser pra dar a introducao para o jogo
     }
@@ -603,6 +601,7 @@ public class handler {
 
     static void NovoJogador(){
         inventario.resetInventario();
+        extras.print("");
         extras.println_bonito("Digite o seu nome: ", 700, 100);
         handler.jogador.setNome(extras.inputS());
         setClasseJogador();

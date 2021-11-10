@@ -6,6 +6,8 @@ import adicionais.handler;
 import adicionais.janela;
 import ascii.ascii;
 import fases.fases;
+import itens.armaduras;
+import itens.armas;
 import itens.inventario;
 import itens.itens;
 
@@ -259,7 +261,8 @@ public class NPC extends inimigos{
     private static boolean vendedor_morto = false;
     static boolean V_Pvez = true;
 
-    static void vendedor(){
+    // NAO ESQUECE DE TIRAR DO PUBLIC 
+    public static void vendedor(){
         if(V_Pvez){
             extras.print("");
             extras.println_bonito("Voce chega na sala e percebe um homem com um casaco de couro grande, \ne um chapeu de cowboy, em volta dele tem alguns itens espalhados em volta...", 1000, 1000);
@@ -318,6 +321,20 @@ public class NPC extends inimigos{
             extras.print("");
             extras.println_bonito("'"+vendedor_cumprimentos[extras.rng_int(0, vendedor_cumprimentos.length)]+ "'", 500, 500);
             boolean loja = true;
+            int[] armaid = new int[3];
+            int[] armorid = new int[3];
+            for(int i = 0; i<armaid.length; i++){                
+                if(extras.rng_double(0, 1) > 0.05){
+                    armaid[i] = armas.dropArma();
+                }else{
+                    armaid[i] = armas.dropArmaRaro();
+                }
+                if(extras.rng_double(0, 1) > 0.05){
+                    armorid[i] = armaduras.dropArmor();
+                }else{
+                    armorid[i] = armaduras.dropArmorRaro();
+                }
+            }
             int[] itensId = new int[4];
             int[] itensTipo = new int[4];
             for(int i = 0; i < itensId.length; i++){
@@ -333,7 +350,7 @@ public class NPC extends inimigos{
                 extras.println_bonito("Sair ", 200, 20);
                 switch(extras.inputS().toLowerCase()){
                     case "comprar":
-                        comprasItem(itensId, itensTipo);
+                        comprasItem(itensId, itensTipo, armaid, armorid);
                         break;
                     case "vender":
                         vendasItem();
@@ -378,77 +395,214 @@ public class NPC extends inimigos{
         extras.println_bonito("De qualquer maneira, voce continua em frente...", 500, 800);
     }
 
-    static void comprasItem(int[] itensId, int[] itensTipo){
+    static boolean comprasAce(int[] itensId, int[] itensTipo, boolean selec){
+        extras.print("");
+        extras.print("________________________________________________________________________________________________________________________________________________________________________");
+        extras.print("|      |            Nome            |                                                Descricao                                                |     Tipo     |    $    |");
+        extras.print("|______|____________________________|_________________________________________________________________________________________________________|______________|_________|");
+        for(int i = 0; i < itensId.length;i++){
+            janela.printJanela("   ");
+            extras.println(
+             "|" + extras.verTamMax_table(i+1, 6) 
+            +"|" + extras.verTamMax_table(itens.getItem(itensId[i], itensTipo[i]).getNome(), 28)
+            +"|" + extras.verTamMax_table(itens.getItem(itensId[i], itensTipo[i]).getDesc(), 105)
+            +"|" + extras.verTamMax_table(itens.getItemTipoString(itensTipo[i]), 14)
+            +"|" + extras.verTamMax_table(String.format("%.02f",itens.getItem(itensId[i], itensTipo[i]).getDinheiro()*1.2), 9)
+            +"|");
+            extras.print("|______|____________________________|_________________________________________________________________________________________________________|______________|_________|");
+        }
+        extras.print("");
+        extras.println_bonito("Digite o numero do item que deseja comprar ou apenas aperte enter para voltar", 500, 500);
+        try{
+            String res = extras.inputS();
+            if(res.isEmpty()){
+                selec = false;
+            }else if(res.startsWith("roubar")){
+                int id = Character.getNumericValue(res.charAt(7));
+                id--;
+                extras.print("");
+                extras.println_bonito("Voce tem certeza que gostaria de roubar " + itens.getItem(itensId[id], itensTipo[id]).getNome()+ "?" , 600, 600);
+                if(extras.simNao()){
+                    inventario.receberItem(itensTipo[id], itensId[id]);
+                    if(handler.jogador.dodge(inimigos.getInimigo(0, 3).getDestreza())){
+                        extras.print("");
+                        extras.println_bonito("Voce conseguiu roubar o " + itens.getItem(itensId[id], itensTipo[id]).getNome()+ " e conseguiu escapar do vendedor!" , 600, 600);
+                        extras.print("");
+                        extras.println_bonito("Ele nao deve estar feliz, tomara que nao passe por ele de novo..." , 600, 600);
+                    }else{
+                        extras.print("");
+                        extras.println_bonito("Voce conseguiu roubar o " + itens.getItem(itensId[id], itensTipo[id]).getNome()+ "!" , 600, 600);
+                        extras.print("");
+                        extras.println_bonito("Essa não, o vendedor trancou a saida..." , 600, 600);
+                        extras.print("");
+                        extras.println_bonito("'HIEAEHIAEHAI!' ", 400, 1000);
+                        extras.print("");
+                        extras.println_bonito("'O QUE VOCE ACHA QUE ESTA FAZENDO !?!?!?!?!?' ", 400, 1000);
+                        extras.print("");
+                        extras.println_bonito("'Nao pense que voce vai sair dessa vivo!' ", 400, 1000);
+                        extras.print("");
+                        extras.println_bonito("'Se prepare para morrer!' ", 400, 1000);
+                        lutavendedor();
+                    }
+                }
+            }else{
+                int id = (Integer.parseInt(res)-1);
+                extras.print("");
+                extras.println_bonito("Voce tem certeza que gostaria de comprar " + itens.getItem(itensId[id], itensTipo[id]).getNome()+ "?" , 600, 600);
+                if(extras.simNao()){
+                    if(inventario.dinheiro > itens.getItem(itensId[id], itensTipo[id]).getDinheiro()*1.2){
+                        inventario.gastarDinheiro(itens.getItem(itensId[id], itensTipo[id]).getDinheiro()*1.2);
+                        inventario.receberItem(itensTipo[id], itensId[id]);
+                        //itensId = extras.removeIndex(itensId, id);
+                        //itensTipo = extras.removeIndex(itensTipo, id);
+                        selec = true;
+                    }else{
+                        extras.print("");
+                        extras.println_bonito(vendedor_dininsu[extras.rng_int(0, vendedor_dininsu.length)], 500, 1500);
+                    }
+                }
+            }
+        }catch(Exception e){
+            extras.print("");
+            extras.println_bonito("Numero invalido, digite novamente", 500, 800);
+        }
+        return selec;
+    }
+
+    static boolean comprasEquip(int[] armaId, int[] armorId, boolean selec){
+        extras.print("");
+        extras.print("____________________________________________________________________________");
+        extras.print("|      |            Nome            |   Atk/def   |     Tipo     |    $    |");
+        extras.print("|______|____________________________|_____________|______________|_________|");
+        for(int i = 0; i < armaId.length;i++){
+            janela.printJanela("   ");
+            extras.println(
+             "|" + extras.verTamMax_table(i+1, 6) 
+            +"|" + extras.verTamMax_table(handler.arma.get(armaId[i]).getNome(), 28)
+            +"|" + extras.verTamMax_table(handler.arma.get(armaId[i]).getAtaque(), 13)
+            +"|" + extras.verTamMax_table("Arma", 14)
+            +"|" + extras.verTamMax_table(String.format("%.02f",handler.arma.get(armaId[i]).getDinheiro()*1.2), 9)
+            +"|");
+            extras.print("|______|____________________________|_____________|______________|_________|");
+        }
+        for(int i = 0; i < armorId.length;i++){
+            janela.printJanela("   ");
+            extras.println(
+             "|" + extras.verTamMax_table(i+1+armaId.length, 6) 
+            +"|" + extras.verTamMax_table(handler.armor.get(armorId[i]).getNome(), 28)
+            +"|" + extras.verTamMax_table(handler.armor.get(armorId[i]).getDefesa(), 13)
+            +"|" + extras.verTamMax_table("Armadura", 14)
+            +"|" + extras.verTamMax_table(String.format("%.02f",handler.armor.get(armorId[i]).getDinheiro()*1.2), 9)
+            +"|");
+            extras.print("|______|____________________________|_____________|______________|_________|");
+        }
+        extras.print("");
+        extras.println_bonito("Digite o numero do item que deseja comprar ou apenas aperte enter para voltar", 500, 500);
+        try{
+            String res = extras.inputS();
+            int tipo = 0;
+            if(res.isEmpty()){
+                selec = false;
+            }else if(res.startsWith("roubar")){
+                int id = Character.getNumericValue(res.charAt(7));
+                id--;
+                int equipID = 0;
+                if(id > armaId.length-1){
+                    tipo = 1;
+                    id -= armaId.length;
+                    equipID = armorId[id];
+                }else{
+                    tipo = 0;
+                    equipID = armaId[id];
+                }
+                extras.print("");
+                extras.println_bonito("Voce tem certeza que gostaria de roubar " + itens.getEquip(equipID, tipo).getNome()+ "?" , 600, 600);
+                if(extras.simNao()){
+                    handler.jogador.receberArmaArmor(equipID, tipo);
+                    if(handler.jogador.dodge(inimigos.getInimigo(0, 3).getDestreza())){
+                        extras.print("");
+                        extras.println_bonito("Voce conseguiu roubar o " + itens.getEquip(equipID, tipo).getNome()+ " e conseguiu escapar do vendedor!" , 600, 600);
+                        extras.print("");
+                        extras.println_bonito("Ele nao deve estar feliz, tomara que nao passe por ele de novo..." , 600, 600);
+                    }else{
+                        extras.print("");
+                        extras.println_bonito("Voce conseguiu roubar o " + itens.getEquip(equipID, tipo).getNome()+ "!" , 600, 600);
+                        extras.print("");
+                        extras.println_bonito("Essa não, o vendedor trancou a saida..." , 600, 600);
+                        extras.print("");
+                        extras.println_bonito("'HIEAEHIAEHAI!' ", 400, 1000);
+                        extras.print("");
+                        extras.println_bonito("'O QUE VOCE ACHA QUE ESTA FAZENDO !?!?!?!?!?' ", 400, 1000);
+                        extras.print("");
+                        extras.println_bonito("'Nao pense que voce vai sair dessa vivo!' ", 400, 1000);
+                        extras.print("");
+                        extras.println_bonito("'Se prepare para morrer!' ", 400, 1000);
+                        lutavendedor();
+                    }
+                }
+            }else{
+                int id = (Integer.parseInt(res)-1);
+                int equipID = 0;
+                if(id > armaId.length-1){
+                    tipo = 1;
+                    id -= armaId.length;
+                    equipID = armorId[id];
+                }else{
+                    tipo = 0;
+                    equipID = armaId[id];
+                }
+                extras.print("");
+                extras.println_bonito("Voce tem certeza que gostaria de comprar " + itens.getEquip(equipID, tipo).getNome()+ "?" , 600, 600);
+                if(extras.simNao()){
+                    if(inventario.dinheiro > itens.getEquip(equipID, tipo).getDinheiro()*1.2){
+                        inventario.gastarDinheiro(itens.getEquip(equipID, tipo).getDinheiro()*1.2);
+                        handler.jogador.receberArmaArmor(equipID, tipo);
+                        //itensId = extras.removeIndex(itensId, id);
+                        //itensTipo = extras.removeIndex(itensTipo, id);
+                        selec = true;
+                    }else{
+                        extras.print("");
+                        extras.println_bonito(vendedor_dininsu[extras.rng_int(0, vendedor_dininsu.length)], 500, 1500);
+                        selec = false;
+                    }
+                }
+                selec = false;
+            }
+        }catch(Exception e){
+            extras.print("");
+            extras.println_bonito("Numero invalido, digite novamente: " + e, 500, 800);
+            selec = false;
+        }
+        return selec;
+    }
+
+    static void comprasItem(int[] itensId, int[] itensTipo, int[] armaId, int[] armorId){
         boolean selec = true;
         while(selec && !vendedor_morto){
             extras.print("");
-            extras.print("________________________________________________________________________________________________________________________________________________________________________");
-            extras.print("|      |            Nome            |                                                Descricao                                                |     Tipo     |    $    |");
-            extras.print("|______|____________________________|_________________________________________________________________________________________________________|______________|_________|");
-            for(int i = 0; i < itensId.length;i++){
-                janela.printJanela("   ");
-                extras.println(
-                 "|" + extras.verTamMax_table(i+1, 6) 
-                +"|" + extras.verTamMax_table(itens.getItem(itensId[i], itensTipo[i]).getNome(), 28)
-                +"|" + extras.verTamMax_table(itens.getItem(itensId[i], itensTipo[i]).getDesc(), 105)
-                +"|" + extras.verTamMax_table(itens.getItemTipoString(itensTipo[i]), 14)
-                +"|" + extras.verTamMax_table(String.format("%.02f",itens.getItem(itensId[i], itensTipo[i]).getDinheiro()*1.2), 9)
-                +"|");
-                extras.print("|______|____________________________|_________________________________________________________________________________________________________|______________|_________|");
-            }
+            extras.println_bonito("O que voce gostaria de comprar? (Deixe vazio para voltar)", 500, 500);
             extras.print("");
-            extras.println_bonito("Digite o numero do item que deseja comprar ou apenas aperte enter para voltar", 500, 500);
-            try{
-                String res = extras.inputS();
-                if(res.isEmpty()){
-                    selec = false;
-                }else if(res.startsWith("roubar")){
-                    int id = Character.getNumericValue(res.charAt(7));
-                    id--;
-                    extras.print("");
-                    extras.println_bonito("Voce tem certeza que gostaria de roubar " + itens.getItem(itensId[id], itensTipo[id]).getNome()+ "?" , 600, 600);
-                    if(extras.simNao()){
-                        inventario.receberItem(itensTipo[id], itensId[id]);
-                        if(handler.jogador.dodge(inimigos.getInimigo(0, 3).getDestreza())){
-                            extras.print("");
-                            extras.println_bonito("Voce conseguiu roubar o " + itens.getItem(itensId[id], itensTipo[id]).getNome()+ " e conseguiu escapar do vendedor!" , 600, 600);
-                            extras.print("");
-                            extras.println_bonito("Ele nao deve estar feliz, tomara que nao passe por ele de novo..." , 600, 600);
-                        }else{
-                            extras.print("");
-                            extras.println_bonito("Voce conseguiu roubar o " + itens.getItem(itensId[id], itensTipo[id]).getNome()+ "!" , 600, 600);
-                            extras.print("");
-                            extras.println_bonito("Essa não, o vendedor trancou a saida..." , 600, 600);
-                            extras.print("");
-                            extras.println_bonito("'HIEAEHIAEHAI!' ", 400, 1000);
-                            extras.print("");
-                            extras.println_bonito("'O QUE VOCE ACHA QUE ESTA FAZENDO !?!?!?!?!?' ", 400, 1000);
-                            extras.print("");
-                            extras.println_bonito("'Nao pense que voce vai sair dessa vivo!' ", 400, 1000);
-                            extras.print("");
-                            extras.println_bonito("'Se prepare para morrer!' ", 400, 1000);
-                            lutavendedor();
-                        }
+            extras.println_bonito("Equipamento", 200, 20);
+            extras.println_bonito("Acessorio", 200, 20);
+            switch(extras.inputS().toLowerCase()){
+                case "equipamento":
+                    if(comprasEquip(armaId, armorId, selec)){
+                        extras.print("");
+                        extras.println_bonito("'"+vendedor_agradecimentos[extras.rng_int(0, vendedor_agradecimentos.length)]+ "'", 500, 500);
+                        selec = false;
                     }
-                }else{
-                    int id = (Integer.parseInt(res)-1);
-                    extras.print("");
-                    extras.println_bonito("Voce tem certeza que gostaria de comprar " + itens.getItem(itensId[id], itensTipo[id]).getNome()+ "?" , 600, 600);
-                    if(extras.simNao()){
-                        if(inventario.dinheiro > itens.getItem(itensId[id], itensTipo[id]).getDinheiro()*1.2){
-                            inventario.gastarDinheiro(itens.getItem(itensId[id], itensTipo[id]).getDinheiro()*1.2);
-                            inventario.receberItem(itensTipo[id], itensId[id]);
-                            //itensId = extras.removeIndex(itensId, id);
-                            //itensTipo = extras.removeIndex(itensTipo, id);
-                        }else{
-                            extras.print("");
-                            extras.println_bonito(vendedor_dininsu[extras.rng_int(0, vendedor_dininsu.length)], 500, 1500);
-                        }
+                break;
+                case "acessorio":
+                    if(comprasAce(itensId, itensTipo, selec)){
+                        extras.print("");
+                        extras.println_bonito("'"+vendedor_agradecimentos[extras.rng_int(0, vendedor_agradecimentos.length)]+ "'", 500, 500);
+                        selec = false;
                     }
-                }
-            }catch(Exception e){
-                extras.print("");
-                extras.println_bonito("Numero invalido, digite novamente", 500, 800);
+                break;
+                default:
+                    extras.print("");
+                    extras.println_bonito("Digite uma opcao valida...", 500, 500);
+                break;
             }
         }
     }

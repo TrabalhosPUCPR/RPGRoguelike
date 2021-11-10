@@ -5,6 +5,7 @@ import adicionais.extras;
 import adicionais.handler;
 import adicionais.janela;
 import ascii.ascii;
+import entidades.NPC;
 import entidades.player;
 import itens.armaduras;
 import itens.armas;
@@ -69,6 +70,7 @@ public class fases {
         extras.println("");
         extras.println_bonito("Voce segue em frente...", 800, 1000);
         setDropsFase();
+        NPC.vendedor();
         loopAndares();
         andares.boss();
         fimFase();

@@ -15,7 +15,7 @@ public class inventario {
         itenDefensivo = 0;
         itenMisc = 0;
         itenConsumivel = new int[]{};
-        dinheiro = 0.0;
+        dinheiro = 999.0;
     }
 
     public static boolean chaveNoInventario(){

@@ -83,6 +83,16 @@ public class itens {
         return des;
     }
 
+    public static itens getEquip(int indexe, int tipo){
+        switch(tipo){
+            case 0:
+                return (armas)handler.arma.get(indexe);
+            case 1:
+                return (armaduras)handler.armor.get(indexe);
+        }
+        return null;
+    }
+
     public static itens getItem(int indexi, int tipo){
         switch(tipo){
             case 0:
