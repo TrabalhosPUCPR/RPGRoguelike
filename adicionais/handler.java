@@ -125,6 +125,7 @@ public class handler {
         handler.asciiart.add(new ascii("antena", new File("ascii/arts/monstros/antena.txt")));
         handler.asciiart.add(new ascii("ocriador", new File("ascii/arts/monstros/ocriador.txt")));
         handler.asciiart.add(new ascii("criador", new File("ascii/arts/monstros/criador.txt")));
+        handler.asciiart.add(new ascii("ceifador", new File("ascii/arts/monstros/ceifador.txt")));
         extras.print("[ASCII]: Artes ASCII carregadas");
     }
 
@@ -213,7 +214,7 @@ public class handler {
     }
 
     public static void iniMonstrosBR(){
-        handler.bossesrand.add(new monstros_b("Ceifador", "Ele esta atras de voce, a sua hora chegou...", 17, 600, 15*fases.fase_atual, 10*fases.fase_atual, 17*fases.fase_atual, 240, new int[]{1, 2, 3}, "generico")); // 0
+        handler.bossesrand.add(new monstros_b("Ceifador", "Ele esta atras de voce, a sua hora chegou...", 17, 600, 15*fases.fase_atual, 10*fases.fase_atual, 17*fases.fase_atual, 240, new int[]{1, 2, 3}, "ceifador")); // 0
         handler.bossesrand.add(new monstros_b("Slime de ferro", "O rarissimo slime de ferro! Dizem que se voce derrotar ele, voce podera ficar rico!", 0, 5, 3, 99999, 75, 1000, new int[]{1, 2, 3}, "slime")); // 1
         handler.bossesrand.add(new monstros_b("Nouveau Riche", "Um homem tao rico que se veste com um terno de ouro", 0, 50, 30, 16, 15, 30, new int[]{1, 2, 3}, "riche")); // 2
         handler.bossesrand.add(new monstros_b("Lula", "Lula gigante com 9 tentáculos, o décimo parece ter sido arrancado", 0, 300, 30, 13, 24, 645, new int[]{2, 3}, "lula")); // 3
