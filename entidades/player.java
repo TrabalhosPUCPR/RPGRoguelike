@@ -52,8 +52,8 @@ public class player extends entidade{
         boolean act = false;
         extras.print("");
         extras.println_bonito("É a sua vez!", 500, 300);
-        extras.print("");
         while(act == false){
+            extras.print("");
             extras.println_bonito("Voce está com " + String.format("%.00f", this.vida) + " de vida!", 800, 300);
             extras.print("");
             extras.println_bonito("Qual será sua proxima acao? ", 500, 200);
@@ -63,7 +63,6 @@ public class player extends entidade{
             extras.println_bonito("Usar Item!", 200, 0);
             extras.println_bonito("Tentar fugir!", 200, 0);
             extras.println_bonito("Stats!", 200, 0);
-
             act = true;
             String res = extras.inputS().toLowerCase();
             switch(res){
@@ -83,13 +82,14 @@ public class player extends entidade{
                     if(act){
                         extras.println("");
                         extras.println_bonito("Digite o numero do item que deseja usar, ou 'voltar' para fazer outra coisa...", 800, 500);
-                        switch(extras.inputS().toLowerCase()){
+                        res = extras.inputS().toLowerCase();
+                        switch(res){
                             case "voltar":
                                 act = false;
                                 break;
                             default: //  TENQ VERIFICAR SE E UM NUMERO
                                 try{
-                                    act = inventario.usarItem(Integer.parseInt(res));
+                                    act = inventario.usarItem(Integer.parseInt(res)-1);
                                 }catch(Exception e){
                                     extras.println("");
                                     extras.println_bonito("Digite um numero valido", 800, 500);
@@ -173,7 +173,7 @@ public class player extends entidade{
         extras.print("");
         extras.println_bonito("Bosses derrotados: " + this.monstros_b_derrot, 400, 200);
         extras.print("");
-        extras.println_bonito("Voce chegou no andar " + fases.andar_atual + " da fase " + fases.fase_atual + ", na tentativa numero" + handler.Prun, 400, 200);
+        extras.println_bonito("Voce chegou no andar " + fases.andar_atual + " da fase " + fases.fase_atual + ", na tentativa numero " + handler.Prun, 400, 200);
     }
 
     public void morrer(int indexm, int Tmons){
@@ -232,6 +232,8 @@ public class player extends entidade{
             this.buff_defesa = 1;
             extras.println("");
             extras.println_bonito("Voce parou de defender!", 500, 500);
+            this.defende = false;
+            this.buff_forca += 0.2;
         }
     }
 
@@ -358,25 +360,33 @@ public class player extends entidade{
             break;
             case "guerreiro":
                 handler.jogador.setForca(this.forca + extras.rng_int(1, 4)); 
-                handler.jogador.setDefesa(this.defesa + extras.rng_int(0, 2));
+                handler.jogador.setDefesa(this.defesa + extras.rng_int(0, 1));
                 handler.jogador.setDestreza(this.destreza + extras.rng_int(1, 3));
                 break;
             case "paladino":
                 handler.jogador.setForca(this.forca + extras.rng_int(1, 3)); 
-                handler.jogador.setDefesa(this.defesa + extras.rng_int(1, 5));
-                handler.jogador.setDestreza(this.destreza + extras.rng_int(1, 2));
+                handler.jogador.setDefesa(this.defesa + extras.rng_int(2, 5));
+                handler.jogador.setDestreza(this.destreza + extras.rng_int(0, 2));
                 break;
             case "despojado":
-                handler.jogador.setForca(this.forca + extras.rng_int(1, 3)); 
-                handler.jogador.setDefesa(this.defesa + extras.rng_int(1, 5));
-                handler.jogador.setDestreza(this.destreza + extras.rng_int(1, 5));
+                handler.jogador.setForca(this.forca + extras.rng_int(1, 4)); 
+                handler.jogador.setDefesa(this.defesa + extras.rng_int(1, 2));
+                handler.jogador.setDestreza(this.destreza + extras.rng_int(1, 2));
                 break;
             default:
-                handler.jogador.setForca(this.forca + extras.rng_int(0, extras.rng_int(1, 5)));  // qnd vc fica na duvida oq dar de pontos pra uma classe criada dentro do jogo
-                handler.jogador.setDefesa(this.defesa + extras.rng_int(0, extras.rng_int(1, 3)));
-                handler.jogador.setDestreza(this.destreza + extras.rng_int(0, extras.rng_int(1, 4)));
+                handler.jogador.setForca(this.forca + extras.rng_int(0, 3));  // qnd vc fica na duvida oq dar de pontos pra uma classe criada dentro do jogo
+                handler.jogador.setDefesa(this.defesa + extras.rng_int(0, 4));
+                handler.jogador.setDestreza(this.destreza + extras.rng_int(0, 3));
                 break;
         }
+        int vidaamais = extras.rng_int(0, 2);
+        if(handler.Prun > 1){
+            handler.jogador.setForca(this.forca + handler.Prun); 
+            handler.jogador.setDefesa(this.defesa + handler.Prun);
+            handler.jogador.setDestreza(this.destreza + handler.Prun);
+        }
+        handler.jogador.setVidamax(this.vidamax + vidaamais); 
+        handler.jogador.curar(vidaamais);
         janela.setUpPlayerGUI();
         extras.print("");
         extras.println_bonito("Suas capacidades fisicas foram melhoradas!", 700, 200);

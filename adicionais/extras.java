@@ -180,12 +180,21 @@ public class extras { // essa classe serve para colocar uns codigos para fazer u
         return Novo_array;
     }
 
-    public static int[] removeIndex(int[] array, int index){
-        int[] a = {};
-        for(int i = 0; i < array.length; i++){
-            if(i != index){a[i] = array[i];}
+    public static int[] removeIndex(int[] array, int pos){
+        try{
+            if (pos < 0 || pos >= array.length) {
+                throw new ArrayIndexOutOfBoundsException(pos);
+            }
+            int[] res = new int[array.length - 1];
+            System.arraycopy(array, 0, res, 0, pos);
+            if (pos < array.length - 1) {
+                System.arraycopy(array, pos + 1, res, pos, array.length - pos - 1);
+            }
+            return res;
+        }catch(Exception e){
+            extras.println_bonito("Erro ao remover index" + e, 0, 0);
         }
-        return a;
+        return null;
     }
 
     public static String intArraytoString(int[] array){

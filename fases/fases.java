@@ -5,7 +5,6 @@ import adicionais.extras;
 import adicionais.handler;
 import adicionais.janela;
 import ascii.ascii;
-import entidades.NPC;
 import entidades.player;
 import itens.armaduras;
 import itens.armas;
@@ -40,8 +39,8 @@ public class fases {
         extras.println_bonito("Voce terminou o andar " + andar_atual + " da " + this.nome, 1000, 1000);
         if(handler.jogador.getVida() != handler.jogador.getVidamax()){
             extras.print("");
-            extras.println_bonito("Voce recupera " + String.format("%.0f", handler.jogador.getVidamax()*0.20) + " pontos de vida por ter completado o andar...", 500, 500); 
-            handler.jogador.curar(handler.jogador.getVidamax()*0.20);// recupera 20% de vida ao chegar no final da fase
+            extras.println_bonito("Voce recupera " + String.format("%.0f", handler.jogador.getVidamax()*0.40) + " pontos de vida por ter completado o andar...", 500, 500); 
+            handler.jogador.curar(handler.jogador.getVidamax()*0.40);// recupera 20% de vida ao chegar no final da fase
         }
         extras.print("");
         extras.println_bonito("Voce segue para o proximo andar da " + this.nome, 500, 500);
@@ -50,6 +49,8 @@ public class fases {
     }
 
     public static void comecarFases(){
+        andar_atual = 1;
+        janela.setUpPlayerGUI();
         for(int i = 0; i < handler.fase.size() - 1; i++){ // vai comecar o loop das fases
             handler.fase.get(i).comecarFaseAtual();
         }
@@ -70,8 +71,8 @@ public class fases {
         extras.println("");
         extras.println_bonito("Voce segue em frente...", 800, 1000);
         setDropsFase();
-        NPC.vendedor();
         loopAndares();
+        handler.resetMonstros();
         andares.boss();
         fimFase();
     }
@@ -182,7 +183,7 @@ public class fases {
         extras.println("");
         extras.println_bonito("Leonardo Matthew Knight\nMatthaus Rautenberg Roth\nVinícius Kovalhuk Borini", 2000, 500);
         extras.println("");
-        extras.println_bonito("Obrigado por jogar!", 500, 500);
+        extras.println_bonito("Obrigado por jogar!", 500, 2000);
         extras.println("");
         extras.println_bonito("Verifique seu progresso nesta ultima tentativa:", 600, 600);
         handler.jogador.printStatsFim();

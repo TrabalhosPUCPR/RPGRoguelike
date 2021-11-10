@@ -141,7 +141,7 @@ public class handler {
         handler.npcs.add(new NPC("Mendigo","Encostado na parede e coberto por um pano surrado um velho senhor, um pouco sus, lhe pede um pouco de dinheiro", 1, 30, 8, 6, 5, 16, "mendigo")); // 2
         handler.npcs.add(new NPC("D-Dog","literalmente um doguinho, com uma espada...", 8, 20, 10, 4, 7, -5, "ddog")); // 3
         handler.npcs.add(new NPC("Mendigo bebado", "Ele estava bebendo e voce o interrompeu", 6, 73, 20, 16, 10, 32, "mendigo")); // 4
-        handler.npcs.add(new NPC("Estrangeiro", "Uma pessoa vestida como se tivesse vindo de outro mundo, fala uma lingua muito estranha", 8, 43, 13, 10, 13, 52, "estrangeiro")); // 5
+        handler.npcs.add(new NPC("Estrangeiro", "Uma pessoa vestida como se tivesse vindo de outro mundo, fala uma lingua muito estranha", 8, 43, 9, 10, 13, 52, "estrangeiro")); // 5
     }
 
     static void iniMonstros(){
@@ -179,6 +179,7 @@ public class handler {
         handler.monstros.clear();
         handler.bosses.clear();
         handler.bossesrand.clear();
+        handler.npcs.clear();
         iniMonstrosF();
         iniMonstrosB();
         iniMonstrosBR();
@@ -201,19 +202,19 @@ public class handler {
         //handler.bosses.add(new monstros_b("Farao", "Rei-deus do deserto! Usa magias para atacar!", 15, 100, 5, 23, 20, 156, new int[]{3}, "generico")); // 4
 
         //fase 4
-        handler.bosses.add(new monstros_b("Senador Armstrong", "Extremamente patriota, fez infusao com nanomachines para fortalecer seus musculos a ponto de ser superhumano", 0, 200, 70, 30, 35, 156, new int[]{3}, "senador")); // 5
+        handler.bosses.add(new monstros_b("Senador Armstrong", "Extremamente patriota, fez infusao com nanomachines para fortalecer seus musculos a ponto de ser superhumano", 0, 200, 25, 30, 35, 156, new int[]{3}, "senador")); // 5
 
         //fase 5
         //handler.bosses.add(new monstros_b("Quetzalcoatl", "A Serpente com plumas! Deusa de El Dorado!", 0, 500, 82, 53, 60, 340, new int[]{5}, "generico")); // 6
 
         //ultima fase: ceu
-        handler.bosses.add(new monstros_b("Criador", "O criador do universo, capaz de realizar o desejo de qualquer que se mostrar mais poderoso que ele!", 0, 200, 70, 30, 35, 1000, new int[]{4}, "ocriador")); // 7
-        handler.bosses.add(new monstros_b("Verdadeira forma do Criador", "O criador do universo, capaz de realizar o desejo de qualquer que se mostrar mais poderoso que ele!", 0, 200, 70, 30, 35, 1000, new int[]{4}, "criador")); // 7
+        handler.bosses.add(new monstros_b("Criador", "O criador do universo, capaz de realizar o desejo de qualquer que se mostrar mais poderoso que ele!", 0, 200, 20, 30, 35, 1000, new int[]{4}, "ocriador")); // 7
+        handler.bosses.add(new monstros_b("Verdadeira forma do Criador", "O criador do universo, capaz de realizar o desejo de qualquer que se mostrar mais poderoso que ele!", 0, 200, 30, 30, 35, 1000, new int[]{4}, "criador")); // 7
     }
 
     public static void iniMonstrosBR(){
         handler.bossesrand.add(new monstros_b("Ceifador", "Ele esta atras de voce, a sua hora chegou...", 17, 600, 15*fases.fase_atual, 10*fases.fase_atual, 17*fases.fase_atual, 240, new int[]{1, 2, 3}, "generico")); // 0
-        handler.bossesrand.add(new monstros_b("Slime de ferro", "O rarissimo slime de ferro! Dizem que se voce derrotar ele, voce podera ficar rico!", 0, 5, 3, 99999, 40, 1000, new int[]{1, 2, 3}, "slime")); // 1
+        handler.bossesrand.add(new monstros_b("Slime de ferro", "O rarissimo slime de ferro! Dizem que se voce derrotar ele, voce podera ficar rico!", 0, 5, 3, 99999, 75, 1000, new int[]{1, 2, 3}, "slime")); // 1
         handler.bossesrand.add(new monstros_b("Nouveau Riche", "Um homem tao rico que se veste com um terno de ouro", 0, 50, 30, 16, 15, 30, new int[]{1, 2, 3}, "riche")); // 2
         handler.bossesrand.add(new monstros_b("Lula", "Lula gigante com 9 tentáculos, o décimo parece ter sido arrancado", 0, 300, 30, 13, 24, 645, new int[]{2, 3}, "lula")); // 3
         handler.bossesrand.add(new monstros_b("Anubis", "Um deus do egito, dizem que era responsavel por guiar as almas ate o submundo", 22, 200, 25, 19, 17, 400, new int[]{3}, "anubis")); // 4
@@ -232,7 +233,7 @@ public class handler {
         handler.monstros.add(new monstros_f("Ratagão", "Um rato que nao aceita ser chamado de rato de esgoto", 0, 23, 15, 4, 5, 25, new int[]{1}, "ratagao")); // 4
         handler.monstros.add(new monstros_f("Morcegão", "Exatamente como o nome sugere, um morcego......só que gigante", 0, 20, 7, 5, 15, 25, new int[]{1}, "morcegao")); // 5
 
-        handler.monstros.add(new monstros_f("Slime vermelho", "Parece uma gelatina.", 0, 25, 13, 6, 5, 18, new int[]{2}, "slime")); // 9
+        handler.monstros.add(new monstros_f("Slime vermelho", "Parece uma gelatina.", 0, 25, 13, 9, 5, 18, new int[]{2}, "slime")); // 9
         handler.monstros.add(new monstros_f("Esqueleto guerreiro", "Esqueleto equipado com uma espada e escudo!", 8, 35, 16, 11, 4, 20, new int[]{2}, "esqueleto")); // 10
         handler.monstros.add(new monstros_f("Esqueleto arqueiro", "Esqueleto equipado com arco e flecha", 13, 30, 11, 6, 13, 20, new int[]{2}, "esqueleto")); // 11
         handler.monstros.add(new monstros_f("Necromante", "Consegue se comunicar com os mortos, por meio de magia", 7, 23, 8, 10, 9, 17, new int[]{2}, "necromante")); // 12
@@ -247,9 +248,8 @@ public class handler {
         handler.monstros.add(new monstros_f("Pessoa Alcolica", "Uma pessoa que cheira de bebida alcolica", 24, 45, 16, 21, 25, 37, new int[]{3}, "alcolico")); // 20
         handler.monstros.add(new monstros_f("Furtador de Carteiras", "Um ladrao que rouba a carteira no bolso de pessoas distraidas", 7, 38, 15, 15, 34, 36, new int[]{3}, "ladrao")); // 21
         handler.monstros.add(new monstros_f("Homem lagarto", "Um lagarto que saiu do seu disfarce de humano", 18, 49, 26, 15, 22, 46, new int[]{3}, "lagarto")); // 22
-        handler.monstros.add(new monstros_f("Antega 6g ambulante", "Uma antena que envia raios fatais 6g", 0, 70, 30, 15, 15, 37, new int[]{3}, "antena")); // 23
+        handler.monstros.add(new monstros_f("Antena 6g ambulante", "Uma antena que envia raios fatais 6g", 0, 70, 20, 15, 15, 37, new int[]{3}, "antena")); // 23
         handler.monstros.add(new monstros_f("Serial Jaywalker", "Um homem que ja causou milhoes de acidentes ", 7, 38, 19, 23, 25, 40, new int[]{3}, "jaywalker")); // 24
-
     }
 
     static void iniClasses(){
@@ -268,7 +268,7 @@ public class handler {
         */
         extras.print("[Player]: Criando Classes...");
         handler.classe.add(new classes("Arqueiro", "Rapido e com alta destreza, pode usar armas de longo alcance, mas possui baixa defesa", 3, 1, 40, 5, 4, 8, 1)); // 0
-        handler.classe.add(new classes("Guerreiro","Forte e defensivo, pode causar alto dano em curto alcance mas possui pessima destreza", 1, 1, 40, 6, 3, 7, 0)); // 1
+        handler.classe.add(new classes("Guerreiro","Forte e defensivo, pode causar alto dano em curto alcance mas possui pessima destreza", 2, 1, 40, 6, 3, 7, 0)); // 1
         handler.classe.add(new classes("Paladino","Balanceado de todas as formas, usa arma de curto alcance e experiente em qualquer situacao", 2, 2, 40, 7, 4, 4, 0)); // 2
         handler.classe.add(new classes("Despojado","Roubado de todos os seus pertences, comeca fraco mas ganha pontos em status extremamente rapido e pode usar qualquer arma", 23, 0, 40, 5, 3, 5, 2)); // 3
         handler.classe.add(new classes("Dev","dev mode", 1, 2, 999, 999, 999, 999, 2)); // 3
@@ -448,7 +448,7 @@ public class handler {
         handler.itemMisc.add(new itensMisc("Carta colecionavel", "Uma carta colecionavel, aumenta sua forca", 3, 0, 0, 1, 25.0, 1)); // 4
         handler.itemMisc.add(new itensMisc("Chave", "Uma chave esquisita, nao se sabe onde pode ser usado", 0, 0, 0, 1, 25.0, 2)); // 5
         handler.itemMisc.add(new itensMisc("Colar com dente de tubarao", "Um colar com um dente de tubarao", 3, 0, 1, 1, 28.0, 2)); // 6
-        handler.itemMisc.add(new itensMisc("Tatuagem falsa", "Uma tatuagem falsa que pode ser colocado no braco, pode dar sensacao de forca", 5, 0, 0, 1, 37.0, 2)); // 7
+        handler.itemMisc.add(new itensMisc("Tatuagem falsa", "Uma tatuagem falsa que pode \nser colocado no braco, pode dar sensacao de forca", 5, 0, 0, 1, 37.0, 2)); // 7
         handler.itemMisc.add(new itensMisc("Monoculo", "Faz voce enchergar melhor", 0, -2, 5, 1.5, 45.0, 2)); // 8
         handler.itemMisc.add(new itensMisc("Livro antigo", "Te da conhecimento", 3, 3, 3, 1.2, 104.0, 3)); // 9
         handler.itemMisc.add(new itensMisc("Pé de coelho", "Dizem que quem segura um desse tem muita sorte", 0, 0, 0, 3.0, 89.0, 3)); // 10
@@ -496,7 +496,7 @@ public class handler {
     static void iniFases(){
         fases.fase_atual = 1;
         // infelizmente vamo ter q cortar algumas fazer do jogo :(
-        handler.fase.add(new fases("Masmorra","Um lugar com um passado sombrio, muitas pessoas foram presas aqui \npara passar o resto das suas vidas para pagar pelos seus crimes...", extras.rng_int(5, 10))); // ordem das fases e de cima para baixo
+        handler.fase.add(new fases("Masmorra","Um lugar com um passado sombrio, muitas pessoas foram presas aqui \npara passar o resto das suas vidas para pagar pelos seus crimes...", extras.rng_int(5, 6))); // ordem das fases e de cima para baixo
         handler.fase.add(new fases("Mansao Assombrada","Uma casa abandonada seculos atras, \ndizem que todos que entram nao saem mais...", extras.rng_int(7, 11)));
         //handler.fase.add(new fases("Deserto","Um lugar aberto, onde se enxerga apenas areia ate o fim do horizonte...", 5));
         handler.fase.add(new fases("Colorado U.S","Uma cidade cheio de arranha-ceus, \nrepleto de nanomachines e memes, parece estar tendo algum tipo de guerra...", extras.rng_int(8, 11)));
@@ -610,6 +610,7 @@ public class handler {
     static void setClasseJogador(){
         int res2 = 0;
         while(res2 != 1){
+            extras.print("");
             extras.println_bonito("Digite qual classe voce gostaria de jogar: ", 1000, 500);
             classes.printClasses();
             String res = extras.inputS();

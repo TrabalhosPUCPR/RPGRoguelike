@@ -65,6 +65,7 @@ public class inimigos extends entidade{
         janela.setUpPlayerGUI();
         extras.print("");
         extras.println_bonito("Voce levou " + String.format("%.00f", dano) + " de dano do " + this.nome + "!", 700, 500);
+        handler.jogador.resetBuff();
     }
 
     @Override

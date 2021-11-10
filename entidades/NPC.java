@@ -240,12 +240,14 @@ public class NPC extends inimigos{
             }
         }else{
             extras.print("");
-            extras.println_bonito("Ele desvira com um rosto um depressivo", 500, 500);
-            extras.print("");
+            extras.println_bonito("Ele desvira com um rosto um depressivo", 800, 1500);
             janela.clearJmonsAscii(true);
-            extras.println_bonito("Nao tem nada que voce possa fazer...", 500, 500);
             extras.print("");
-            extras.println_bonito("Voce continua sua jornada", 500, 500);
+            extras.println_bonito("Talvez ele esta atras de algo?", 800, 1500);
+            extras.print("");
+            extras.println_bonito("De qualquer maneira, nao tem nada que voce possa fazer...", 800, 800);
+            extras.print("");
+            extras.println_bonito("Voce continua sua jornada", 800, 800);
         }
     }
 
@@ -255,14 +257,13 @@ public class NPC extends inimigos{
     private static String[] vendedor_quervender = {"O que você está vendendo?", "Aaah! Eu vou comprar isso por um preço alto.", "O que você gostaria de vender?"};
     private static String[] vendedor_dininsu = {"DINHEIRO INSUFICIENTE! Estranho."};
     private static String[] vendedor_tchau = {"Volte à qualquer hora.", "Ate mais!"};
-    private static String[] vendedor_nomes = {"Drebin"};
-    private static String vendedor_nome = vendedor_nomes[extras.rng_int(0, vendedor_nomes.length)];
+    private static String[] vendedor_nomes = {"Drebin","Robertinho", "Ajit Hasab", "Seymour"};
+    private static String vendedor_nome = vendedor_nomes[extras.rng_int(0, vendedor_nomes.length)]; // e definido desde do inicio
     private static boolean vendedor_brabo = false;
     private static boolean vendedor_morto = false;
-    static boolean V_Pvez = true;
+    private static boolean V_Pvez = true;
 
-    // NAO ESQUECE DE TIRAR DO PUBLIC 
-    public static void vendedor(){
+    static void vendedor(){
         if(V_Pvez){
             extras.print("");
             extras.println_bonito("Voce chega na sala e percebe um homem com um casaco de couro grande, \ne um chapeu de cowboy, em volta dele tem alguns itens espalhados em volta...", 1000, 1000);
@@ -318,6 +319,7 @@ public class NPC extends inimigos{
             extras.print("");
             lutavendedor();
         }else{
+            ascii.printMonstroAsciipeloNome("vendedor", true);
             extras.print("");
             extras.println_bonito("'"+vendedor_cumprimentos[extras.rng_int(0, vendedor_cumprimentos.length)]+ "'", 500, 500);
             boolean loja = true;
@@ -347,6 +349,7 @@ public class NPC extends inimigos{
                 extras.print("");
                 extras.println_bonito("Comprar ", 200, 20);
                 extras.println_bonito("Vender ", 200, 20);
+                extras.println_bonito("Stats", 200, 20);
                 extras.println_bonito("Sair ", 200, 20);
                 switch(extras.inputS().toLowerCase()){
                     case "comprar":
@@ -361,6 +364,9 @@ public class NPC extends inimigos{
                         loja = false;
                         janela.clearJmonsAscii(true);
                         break;
+                    case "stats":
+                        player.printStats();
+                    break;
                     default:
                         extras.print("");
                         extras.println_bonito("Digite uma opcao valida...", 500, 500);
@@ -453,13 +459,16 @@ public class NPC extends inimigos{
                     if(inventario.dinheiro > itens.getItem(itensId[id], itensTipo[id]).getDinheiro()*1.2){
                         inventario.gastarDinheiro(itens.getItem(itensId[id], itensTipo[id]).getDinheiro()*1.2);
                         inventario.receberItem(itensTipo[id], itensId[id]);
-                        //itensId = extras.removeIndex(itensId, id);
-                        //itensTipo = extras.removeIndex(itensTipo, id);
+                        itensId = extras.removeIndex(itensId, id);
+                        itensTipo = extras.removeIndex(itensTipo, id);
                         selec = true;
                     }else{
                         extras.print("");
                         extras.println_bonito(vendedor_dininsu[extras.rng_int(0, vendedor_dininsu.length)], 500, 1500);
+                        selec = false;
                     }
+                }else{
+                    selec = false;
                 }
             }
         }catch(Exception e){
@@ -557,20 +566,24 @@ public class NPC extends inimigos{
                     if(inventario.dinheiro > itens.getEquip(equipID, tipo).getDinheiro()*1.2){
                         inventario.gastarDinheiro(itens.getEquip(equipID, tipo).getDinheiro()*1.2);
                         handler.jogador.receberArmaArmor(equipID, tipo);
-                        //itensId = extras.removeIndex(itensId, id);
-                        //itensTipo = extras.removeIndex(itensTipo, id);
+                        if(id > armaId.length-1){
+                            armorId = extras.removeIndex(armorId, id);
+                        }else{
+                            armaId = extras.removeIndex(armaId, id);
+                        }
                         selec = true;
                     }else{
                         extras.print("");
                         extras.println_bonito(vendedor_dininsu[extras.rng_int(0, vendedor_dininsu.length)], 500, 1500);
                         selec = false;
                     }
+                }else{
+                    selec = false;
                 }
-                selec = false;
             }
         }catch(Exception e){
             extras.print("");
-            extras.println_bonito("Numero invalido, digite novamente: " + e, 500, 800);
+            extras.println_bonito("Numero invalido, digite novamente: ", 500, 800);
             selec = false;
         }
         return selec;
@@ -580,24 +593,37 @@ public class NPC extends inimigos{
         boolean selec = true;
         while(selec && !vendedor_morto){
             extras.print("");
-            extras.println_bonito("O que voce gostaria de comprar? (Deixe vazio para voltar)", 500, 500);
+            extras.println_bonito("O que voce gostaria de comprar? (Ou digite 'voltar')", 500, 500);
             extras.print("");
             extras.println_bonito("Equipamento", 200, 20);
             extras.println_bonito("Acessorio", 200, 20);
             switch(extras.inputS().toLowerCase()){
                 case "equipamento":
-                    if(comprasEquip(armaId, armorId, selec)){
+                    if(armaId.length>0 || armorId.length>0){
+                        if(comprasEquip(armaId, armorId, selec)){
+                            extras.print("");
+                            extras.println_bonito("'"+vendedor_agradecimentos[extras.rng_int(0, vendedor_agradecimentos.length)]+ "'", 500, 500);
+                            selec = false;
+                        }
+                    }else{
                         extras.print("");
-                        extras.println_bonito("'"+vendedor_agradecimentos[extras.rng_int(0, vendedor_agradecimentos.length)]+ "'", 500, 500);
-                        selec = false;
+                        extras.println_bonito("Voce ja comprou todos os equipamentos...", 500, 500);
                     }
                 break;
                 case "acessorio":
-                    if(comprasAce(itensId, itensTipo, selec)){
+                    if(itensId.length > 0){
+                        if(comprasAce(itensId, itensTipo, selec)){
+                            extras.print("");
+                            extras.println_bonito("'"+vendedor_agradecimentos[extras.rng_int(0, vendedor_agradecimentos.length)]+ "'", 500, 500);
+                            selec = false;
+                        }
+                    }else{
                         extras.print("");
-                        extras.println_bonito("'"+vendedor_agradecimentos[extras.rng_int(0, vendedor_agradecimentos.length)]+ "'", 500, 500);
-                        selec = false;
+                        extras.println_bonito("Voce ja comprou todos os acessorios...", 500, 500);
                     }
+                break;
+                case "voltar":
+                    selec = false;
                 break;
                 default:
                     extras.print("");
@@ -605,6 +631,7 @@ public class NPC extends inimigos{
                 break;
             }
         }
+        janela.setUpPlayerGUI();
     }
 
     static void vendasItem(){
@@ -648,6 +675,7 @@ public class NPC extends inimigos{
                 break;
             }
         }
+        janela.setUpPlayerGUI();
     }
 
     static void dog(){

@@ -57,7 +57,7 @@ public class entidade {
     }
 
     public void defender(){
-        this.buff_defesa = 2;
+        this.buff_defesa = 4;
         this.defende = true;
     }
 
@@ -66,6 +66,8 @@ public class entidade {
             this.buff_defesa = 1;
             extras.println("");
             extras.println_bonito("O " + this.nome + " parou de defender!", 500, 500);
+            this.defende = false;
+            this.buff_forca += 0.2;
         }
     }
 
@@ -118,9 +120,13 @@ public class entidade {
         }
     }
 
-    public boolean dodge(int des_atacante){
+    public boolean dodge(double des_atacante){
         double chance;
+        if(this.destreza > des_atacante + 5){
+            des_atacante = 1.2*des_atacante;
+        }
         chance = (this.destreza*buff_evasion) - des_atacante;
+        if(chance > 60){chance = 60;} // chance maxima de desviar de um ataque
         if (extras.rng_double(0, 100) < chance && !handler.jogador.getClasse().toLowerCase().equals("dev")){
             return true;
         }else{

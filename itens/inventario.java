@@ -14,8 +14,8 @@ public class inventario {
         itenOfensivo = 0;
         itenDefensivo = 0;
         itenMisc = 0;
-        itenConsumivel = new int[]{};
-        dinheiro = 999.0;
+        itenConsumivel = new int[]{4};
+        dinheiro = 0.0;
     }
 
     public static boolean chaveNoInventario(){
@@ -31,8 +31,8 @@ public class inventario {
             extras.println_bonito("Digite um numero valido...", 400, 400);
             return false;
         }
-        handler.consu.get(itenConsumivel[index-1]).usar();
-        itenConsumivel = extras.removeIndex(itenConsumivel, index-1);
+        handler.consu.get(itenConsumivel[index]).usar();
+        itenConsumivel = extras.removeIndex(itenConsumivel, index);
         return true;
     }
 
@@ -41,8 +41,8 @@ public class inventario {
             extras.println("_________________________________________________________________________");
             extras.println("|                          |                                            |");
             extras.println("|           Nome           |                    Acao                    |");
+            extras.println("|__________________________|____________________________________________|");
             for(int i = 0; i < itenConsumivel.length; i++){
-                extras.println("|__________________________|____________________________________________|");
                 extras.println("|                          |                                            |");
                 extras.println("|"+ extras.verTamMax_table("["+(i+1)+"]" + handler.consu.get(itenConsumivel[i]).getNome(), 26) + "|" + extras.verTamMax_table(handler.consu.get(itenConsumivel[i]).getDesc(), 44) + "|");
                 extras.println("|__________________________|____________________________________________|");
@@ -157,8 +157,9 @@ public class inventario {
                     break;
                 }
             }
-        }else if(jatem == false){
-            itenConsumivel = new int[] {id};
+        }
+        if(jatem == false){
+            itenConsumivel = extras.arrayintAdd(itenConsumivel, id);
         }
     }
 
