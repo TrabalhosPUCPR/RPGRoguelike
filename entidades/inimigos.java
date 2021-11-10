@@ -169,8 +169,9 @@ public class inimigos extends entidade{
             }
         }catch(Exception e){
             extras.println("");
-            extras.println_bonito("Erro: "+e, 600, 500);
-            extras.println_bonito("Talvez seja por que nao ha nenhum item para dropar", 600, 500);
+            //extras.println_bonito("Erro: "+e, 600, 500);
+            //extras.println_bonito("Talvez seja por que nao ha nenhum item para dropar", 600, 500);
+            // ele sempre vai dar esse erro aqui 
         }
     }
 

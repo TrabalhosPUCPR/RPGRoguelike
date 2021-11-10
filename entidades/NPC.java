@@ -354,12 +354,13 @@ public class NPC extends inimigos{
     }
 
     static void lutavendedor(){
+        extras.print("");
         extras.println_bonito("'HIEAEHIAEHAI! Seguranca! Acaba com ele!'", 500, 500);
         extras.print("");
         extras.println_bonito("'Meu amigo aqui ira te dar uma licao...'", 500, 500);
         extras.print("");
         extras.println_bonito("'HIEAEHIAEHAI! Agora voce tera que pagar!'", 500, 500);
-        combate.lutaini(1, 6);
+        combate.lutaini(1, 5);
         ascii.printMonstroAsciipeloNome("vendedor", true);
         extras.print("");
         extras.println_bonito("'QUE!?!?!?!?'", 500, 500);
@@ -367,8 +368,14 @@ public class NPC extends inimigos{
         extras.println_bonito("'ᵃʰ ⁿᵃᵒ'", 500, 500);
         extras.print("");
         extras.println_bonito("'Agora chega! Eu mesmo o farei pagar!'", 500, 500);
-        combate.lutaini(2, 0);
+        combate.lutaini(3, 0);
         vendedor_morto = true;
+        extras.print("");
+        extras.println_bonito("Voce matou o vendedor...", 500, 500);
+        extras.print("");
+        extras.println_bonito("Isso realmente valeu a pena?", 800, 1000);
+        extras.print("");
+        extras.println_bonito("De qualquer maneira, voce continua em frente...", 500, 800);
     }
 
     static void comprasItem(int[] itensId, int[] itensTipo){
@@ -431,8 +438,8 @@ public class NPC extends inimigos{
                         if(inventario.dinheiro > itens.getItem(itensId[id], itensTipo[id]).getDinheiro()*1.2){
                             inventario.gastarDinheiro(itens.getItem(itensId[id], itensTipo[id]).getDinheiro()*1.2);
                             inventario.receberItem(itensTipo[id], itensId[id]);
-                            itensId = extras.removeIndex(itensId, id);
-                            itensTipo = extras.removeIndex(itensTipo, id);
+                            //itensId = extras.removeIndex(itensId, id);
+                            //itensTipo = extras.removeIndex(itensTipo, id);
                         }else{
                             extras.print("");
                             extras.println_bonito(vendedor_dininsu[extras.rng_int(0, vendedor_dininsu.length)], 500, 1500);
@@ -527,5 +534,6 @@ public class NPC extends inimigos{
                 extras.println_bonito("O cachorro nao entendeu o que quis dizer, ele vai embora", 500, 500);
                 handler.jogador.receberXp(2);
         }
+        janela.clearJmonsAscii(true);
     }
 }

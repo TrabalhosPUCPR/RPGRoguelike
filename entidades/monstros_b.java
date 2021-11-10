@@ -40,10 +40,14 @@ public class monstros_b extends inimigos{
             case "slime de ferro":
                 dropItemGenerico();
                 inventario.ganharDinheiro(extras.rng_double(0, 30));
-                break;
+            break;
             case "nouveau riche":
                 dropItemGenerico();
                 inventario.ganharDinheiro(extras.rng_double(500, 1000));
+            break;
+            case "criador":
+            case "verdadeira forma do Criador":
+            break;
             default:
                 dropItemQualidade();
                 inventario.ganharDinheiro(extras.rng_double(30, 60));

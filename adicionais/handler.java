@@ -46,7 +46,9 @@ public class handler {
         iniFases();
         iniAndares();
         iniClasses();
+        extras.print("[NPC]: Criando NPCs...");
         iniNpcs();
+        extras.print("[NPC]: NPCs criados com sucesso");
         iniMonstros();
         iniItens();
         extras.print("[Jogo]: Carregado");
@@ -115,6 +117,14 @@ public class handler {
         handler.asciiart.add(new ascii("estrangeiro", new File("ascii/arts/monstros/estrangeiro.txt"))); // por que esse jogo tem 2 desenhos do shrek? por que sim
         handler.asciiart.add(new ascii("cachorro", new File("ascii/arts/monstros/cachorro.txt")));
         handler.asciiart.add(new ascii("ddog", new File("ascii/arts/monstros/ddog.txt")));
+        handler.asciiart.add(new ascii("freedom", new File("ascii/arts/monstros/freedom.txt")));
+        handler.asciiart.add(new ascii("alcolico", new File("ascii/arts/monstros/alcolico.txt")));
+        handler.asciiart.add(new ascii("lagarto", new File("ascii/arts/monstros/lagarto.txt")));
+        handler.asciiart.add(new ascii("ladrao", new File("ascii/arts/monstros/ladrao.txt")));
+        handler.asciiart.add(new ascii("jaywalker", new File("ascii/arts/monstros/jaywalker.txt")));
+        handler.asciiart.add(new ascii("antena", new File("ascii/arts/monstros/antena.txt")));
+        handler.asciiart.add(new ascii("ocriador", new File("ascii/arts/monstros/ocriador.txt")));
+        handler.asciiart.add(new ascii("criador", new File("ascii/arts/monstros/criador.txt")));
         extras.print("[ASCII]: Artes ASCII carregadas");
     }
 
@@ -126,14 +136,12 @@ public class handler {
     }
 
     static void iniNpcs(){
-        extras.print("[NPC]: Criando NPCs...");
         handler.npcs.add(new NPC("Vendedor ambulante","Pessoa misteriosa que comercializa itens", 0, 5, 1, 1, 1, 5, "vendedor")); // 0
         handler.npcs.add(new NPC("Prisioneiro","Outro jogador, mas aparenta estar mentalmente instavel e preso por algum motivo", handler.jogador.getArmaEquip(), handler.jogador.getVidamax()*2, handler.jogador.getForca(), (int)handler.jogador.getDefesa(), handler.jogador.getDestreza(), 5, "prisioneiro")); // 1
         handler.npcs.add(new NPC("Mendigo","Encostado na parede e coberto por um pano surrado um velho senhor, um pouco sus, lhe pede um pouco de dinheiro", 1, 30, 8, 6, 5, 16, "mendigo")); // 2
         handler.npcs.add(new NPC("D-Dog","literalmente um doguinho, com uma espada...", 8, 20, 10, 4, 7, -5, "ddog")); // 3
         handler.npcs.add(new NPC("Mendigo bebado", "Ele estava bebendo e voce o interrompeu", 6, 73, 20, 16, 10, 32, "mendigo")); // 4
         handler.npcs.add(new NPC("Estrangeiro", "Uma pessoa vestida como se tivesse vindo de outro mundo, fala uma lingua muito estranha", 8, 43, 13, 10, 13, 52, "estrangeiro")); // 5
-        extras.print("[NPC]: NPCs criados com sucesso");
     }
 
     static void iniMonstros(){
@@ -174,16 +182,20 @@ public class handler {
         iniMonstrosF();
         iniMonstrosB();
         iniMonstrosBR();
+        iniNpcs();
     }
 
     public static void iniMonstrosB() {
         // fase 1
         handler.bosses.add(new monstros_b("King Slime", "Rei dos Slimes! Dizem que isto e o resultado da fusao de 8 slimes!", 0, 50, 20, 10, 4, 60, new int[]{1}, "kingslime")); // 0
-        handler.bosses.add(new monstros_b("Ogro", "Voce invadiu o pantano dele!", 8, 40, 15, 10, 2, 76, new int[]{1}, "shrek")); // 1
+        handler.bosses.add(new monstros_b("Ogro", "Voce invadiu o pantano dele!", 8, 40, 15, 10, 7, 76, new int[]{1}, "shrek")); // 1
 
         // fase 2
-        handler.bosses.add(new monstros_b("Shadow " + handler.jogador.getNome(), "Um lado seu obscuro...", handler.jogador.getArmaEquip(), handler.jogador.getVidamax()*2, handler.jogador.getForca(), (int)handler.jogador.getDefesa(), handler.jogador.getDestreza(), 106, new int[]{2}, "shadow")); // 2
-
+        if(handler.jogador.getClasse().toLowerCase().equals("dev")){
+            handler.bosses.add(new monstros_b("Shadow " + handler.jogador.getNome(), "Um lado seu obscuro...", handler.jogador.getArmaEquip(), handler.jogador.getVidamax(), handler.jogador.getForca()/2, (int)handler.jogador.getDefesa()/2, handler.jogador.getDestreza()/2, 106, new int[]{2}, "shadow")); // 2
+        }else{
+            handler.bosses.add(new monstros_b("Shadow " + handler.jogador.getNome(), "Um lado seu obscuro...", handler.jogador.getArmaEquip(), handler.jogador.getVidamax()*2, handler.jogador.getForca(), (int)handler.jogador.getDefesa(), handler.jogador.getDestreza(), 106, new int[]{2}, "shadow")); // 2
+        }
         //fase 3
         //handler.bosses.add(new monstros_b("Aguia do deserto", "Quando ele ataca, se parece com uma bala saindo de uma arma!", 15, 90, 32, 15, 33, 159, new int[]{3}, "generico")); // 3
         //handler.bosses.add(new monstros_b("Farao", "Rei-deus do deserto! Usa magias para atacar!", 15, 100, 5, 23, 20, 156, new int[]{3}, "generico")); // 4
@@ -195,9 +207,8 @@ public class handler {
         //handler.bosses.add(new monstros_b("Quetzalcoatl", "A Serpente com plumas! Deusa de El Dorado!", 0, 500, 82, 53, 60, 340, new int[]{5}, "generico")); // 6
 
         //ultima fase: ceu
-        handler.bosses.add(new monstros_b("O Criador", "O criador do universo, capaz de realizar o desejo de qualquer que se mostrar mais poderoso que ele!", 0, 200, 70, 30, 35, 1000, new int[]{3}, "generico")); // 7
-        //ultima fase: inferno
-        handler.bosses.add(new monstros_b("O Destruidor", "O mais poderoso do universo! Destruidor de mundos, banido do ceu e o mais malvado de todos, nunca foi visto antes por olhos vivos...", 0, 200, 70, 30, 35, 1000, new int[]{3}, "generico")); // 8
+        handler.bosses.add(new monstros_b("Criador", "O criador do universo, capaz de realizar o desejo de qualquer que se mostrar mais poderoso que ele!", 0, 200, 70, 30, 35, 1000, new int[]{4}, "ocriador")); // 7
+        handler.bosses.add(new monstros_b("Verdadeira forma do Criador", "O criador do universo, capaz de realizar o desejo de qualquer que se mostrar mais poderoso que ele!", 0, 200, 70, 30, 35, 1000, new int[]{4}, "criador")); // 7
     }
 
     public static void iniMonstrosBR(){
@@ -226,10 +237,19 @@ public class handler {
         handler.monstros.add(new monstros_f("Esqueleto arqueiro", "Esqueleto equipado com arco e flecha", 13, 30, 11, 6, 13, 20, new int[]{2}, "esqueleto")); // 11
         handler.monstros.add(new monstros_f("Necromante", "Consegue se comunicar com os mortos, por meio de magia", 7, 23, 8, 10, 9, 17, new int[]{2}, "necromante")); // 12
         handler.monstros.add(new monstros_f("Fantasma", "BOO! Ele veio para te assustar", 0, 28, 25, 10, 15, 22, new int[]{2}, "fantasma")); // 13
-        handler.monstros.add(new monstros_f("Ghoul", "Humanoide que vai roubar teu dinheiro, e seu sangue, mas ninguem sabe exatamente o que ele é", 0, 25, 14, 5, 15, 25, new int[]{2}, "ghoul")); // 14
+        handler.monstros.add(new monstros_f("Ghoul", "Humanoide que vai roubar teu dinheiro, e seu sangue, mas ninguem sabe exatamente o que ele é", 0, 25, 14, 10, 15, 25, new int[]{2}, "ghoul")); // 14
         handler.monstros.add(new monstros_f("Zumbi", "Infectado por um virus rarissimo, ele vai atras de cerebro humano", 0, 40, 25, 5, 15, 25, new int[]{2}, "zumbi")); // 15
-        handler.monstros.add(new monstros_f("Assombração", "Uma assombração horripilante", 0, 36, 30, 8, 8, 31, new int[]{2}, "assombracao")); // 15
-        handler.monstros.add(new monstros_f("Objeto inanimado", "Um objeto que se move, mas nao tem vida", 0, 50, 15, 14, 6, 24, new int[]{2}, "objeto")); // 16
+        handler.monstros.add(new monstros_f("Assombração", "Uma assombração horripilante", 0, 36, 30, 8, 8, 31, new int[]{2}, "assombracao")); // 16
+        handler.monstros.add(new monstros_f("Objeto inanimado", "Um objeto que se move, mas nao tem vida", 0, 50, 15, 14, 6, 24, new int[]{2}, "objeto")); // 17
+
+        handler.monstros.add(new monstros_f("Mini mecha Danilo", "", 12, 65, 20, 20, 20, 54, new int[]{0}, "generico")); // 18
+        handler.monstros.add(new monstros_f("Cheeseburger Freedom Man", "Um homem extremamente patriota que se candidatou a presidencia em suporte a legalizacao da maconha", 21, 54, 24, 17, 20, 41, new int[]{3}, "freedom")); // 19
+        handler.monstros.add(new monstros_f("Pessoa Alcolica", "Uma pessoa que cheira de bebida alcolica", 24, 45, 16, 21, 25, 37, new int[]{3}, "alcolico")); // 20
+        handler.monstros.add(new monstros_f("Furtador de Carteiras", "Um ladrao que rouba a carteira no bolso de pessoas distraidas", 7, 38, 15, 15, 34, 36, new int[]{3}, "ladrao")); // 21
+        handler.monstros.add(new monstros_f("Homem lagarto", "Um lagarto que saiu do seu disfarce de humano", 18, 49, 26, 15, 22, 46, new int[]{3}, "lagarto")); // 22
+        handler.monstros.add(new monstros_f("Antega 6g ambulante", "Uma antena que envia raios fatais 6g", 0, 70, 30, 15, 15, 37, new int[]{3}, "antena")); // 23
+        handler.monstros.add(new monstros_f("Serial Jaywalker", "Um homem que ja causou milhoes de acidentes ", 7, 38, 19, 23, 25, 40, new int[]{3}, "jaywalker")); // 24
+
     }
 
     static void iniClasses(){
@@ -306,9 +326,21 @@ public class handler {
         handler.arma.add(new armas("Clava", 18, "curto", "pesado", 65, 3)); // 18
         handler.arma.add(new armas("Besta", 17, "longo", "pesado", 70, 3)); // 19
         handler.arma.add(new armas("Foice", 19, "curto", "pesado", 86, 3)); // 20
-        handler.arma.add(new armas("Pistola", 20, "longo", "leve", 150, 4)); // 21
-        handler.arma.add(new armas("Martelo enorme", 25, "curto", "super pesado", 180, 4)); // 22
-        handler.arma.add(new armas("Bastao", 3, "curto", "super leve", 20, 1)); // 22
+        handler.arma.add(new armas("Pistola", 20, "longo", "leve", 150, 3)); // 21
+        handler.arma.add(new armas("Martelo enorme", 25, "curto", "super pesado", 180, 3)); // 22
+        handler.arma.add(new armas("Bastao", 3, "curto", "super leve", 20, 1)); // 23
+        handler.arma.add(new armas("Faca de passar manteiga dupla", 4, "curto", "omega", 30, 2)); // 24
+        handler.arma.add(new armas("Grande Espada de Ferro", 17, "curto", "super pesado", 57, 2)); // 25
+        handler.arma.add(new armas("Grande Espada de Topázio", 25, "curto", "super pesado", 96, 3)); // 26
+        handler.arma.add(new armas("Revolver", 26, "longo", "pesado", 103, 3)); // 27
+        handler.arma.add(new armas("Espada dupla de ferro", 10, "curto", "omega leve", 110, 3)); // 28
+        handler.arma.add(new armas("Espingarda Antiga", 28, "longo", "super pesado", 145, 3)); // 29
+        handler.arma.add(new armas("Grande Porrete de Madeira", 36, "curto", "super pesado", 200, 4)); // 30
+        handler.arma.add(new armas("Arco de Luminite", 29, "longo", "super leve", 210, 4)); // 31
+        handler.arma.add(new armas("Grande Espada Solar", 40, "curto", "super pesado", 294, 4)); // 32
+        handler.arma.add(new armas("Faca de Nebula", 30, "curto", "super leve", 237, 4)); // 33
+        handler.arma.add(new armas("Poeira estrelar", 18, "curto", "omega leve", 267, 4)); // 34
+        handler.arma.add(new armas("Metralhadora de Vortice", 37, "longo", "super pesado", 285, 4)); // 35
     }
 
     static void iniArmor(){
@@ -329,7 +361,21 @@ public class handler {
         handler.armor.add(new armaduras("Armadura de Pedra", 5, 0.5, "super pesado", 32, 1)); // 4
         handler.armor.add(new armaduras("Armadura de Madeira", 2, 1.0, "leve", 24, 1)); // 5
         handler.armor.add(new armaduras("Armadura do Cavaleiro", 8, 1.0, "leve", 47, 2)); // 6
-        handler.armor.add(new armaduras("Armadura do Juggernaut", 15, 0, "super pesado", 80, 3)); // 7
+        handler.armor.add(new armaduras("Armadura do Juggernaut", 18, 0, "super pesado", 80, 3)); // 7
+        handler.armor.add(new armaduras("Armadura de Gladiador", 7, 1.0, "leve", 43, 2)); // 8
+        handler.armor.add(new armaduras("Armadura Acolchoada", 4, 3.0, "super leve", 56, 2)); // 9
+        handler.armor.add(new armaduras("Armadura de placa", 2, 3.0, "super leve", 56, 2)); // 10
+        handler.armor.add(new armaduras("Gibão de peles", 5, 1.5, "super leve", 48, 2)); // 11
+        handler.armor.add(new armaduras("Armadura de couro reforçado", 6, 1.1, "super leve", 40, 2)); // 12
+        handler.armor.add(new armaduras("Cota de Malha", 5, 0.9, "leve", 37, 1)); // 13
+        handler.armor.add(new armaduras("Armadura de Bronze", 3, 0.8, "pesado", 32, 1)); // 14
+        handler.armor.add(new armaduras("Armadura de Farrapos", 11, 1.0, "leve", 63, 3)); // 15
+        handler.armor.add(new armaduras("Manto de Assassino", 8, 2.0, "super leve", 87, 3)); // 16
+        handler.armor.add(new armaduras("Armadura espanhola", 13, 0.8, "pesado", 91, 3)); // 17
+        handler.armor.add(new armaduras("Armadura de Vortice", 18, 1.0, "super leve", 130, 4)); // 18
+        handler.armor.add(new armaduras("Armadura Solar", 23, 0.5, "super pesado", 142, 4)); // 19
+        handler.armor.add(new armaduras("Armadura Estrelar", 14, 1.6, "super leve", 122, 4)); // 20
+        handler.armor.add(new armaduras("Armadura de Nebula", 20, 1.0, "pesado", 133, 4)); // 21
 
     }
 
@@ -455,8 +501,7 @@ public class handler {
         //handler.fase.add(new fases("Deserto","Um lugar aberto, onde se enxerga apenas areia ate o fim do horizonte...", 5));
         handler.fase.add(new fases("Colorado U.S","Uma cidade cheio de arranha-ceus, \nrepleto de nanomachines e memes, parece estar tendo algum tipo de guerra...", extras.rng_int(8, 11)));
         //handler.fase.add(new fases("El dorado","Uma antiga cidade indigena, dizem que e \numa cidade feita de ouro, muitos aventureiros vem em busca de riquezas...", 10));
-        handler.fase.add(new fases("Ceu","O lugar onde todos que nao cometeram pecados vem \nquando morrem, tambem onde permanece o criador...", 0)); // ultima fase so tem o boss
-        handler.fase.add(new fases("Inferno","O lugar onde todos que cometeram muitos pecados \nvao quando morrem, tambem permanece a pessoa mais malvada e poderosa do planeta...", 0)); // ultima fase tb, aparece esse se o jogador matou mt npc
+        handler.fase.add(new fases("Ceu","O reino que permanece acima das nuvens...", 0)); // ultima fase so tem o boss
     }
 
     public static void NovoJogo(){

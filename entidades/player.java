@@ -20,7 +20,7 @@ public class player extends entidade{
     int forca_ini;
     double def_ini;
     int des_ini;
-    static boolean P_aliado = false;
+    public static boolean P_aliado = false;
 
     public player(String nome, String classe, int arma_equip, int armor_equip, int vidamax, int forca, int defesa, int destreza, int tipoArma){
         this.nome = nome;
@@ -63,7 +63,6 @@ public class player extends entidade{
             extras.println_bonito("Usar Item!", 200, 0);
             extras.println_bonito("Tentar fugir!", 200, 0);
             extras.println_bonito("Stats!", 200, 0);
-            extras.print("");
 
             act = true;
             String res = extras.inputS().toLowerCase();
@@ -84,13 +83,18 @@ public class player extends entidade{
                     if(act){
                         extras.println("");
                         extras.println_bonito("Digite o numero do item que deseja usar, ou 'voltar' para fazer outra coisa...", 800, 500);
-                        res = extras.inputS().toLowerCase();
-                        switch(res){
+                        switch(extras.inputS().toLowerCase()){
                             case "voltar":
                                 act = false;
                                 break;
                             default: //  TENQ VERIFICAR SE E UM NUMERO
-                                act = inventario.usarItem(Integer.parseInt(res));
+                                try{
+                                    act = inventario.usarItem(Integer.parseInt(res));
+                                }catch(Exception e){
+                                    extras.println("");
+                                    extras.println_bonito("Digite um numero valido", 800, 500);
+                                    act = false;
+                                }
                                 break;
                         }
                     }
@@ -161,6 +165,17 @@ public class player extends entidade{
         janela.setUpPlayerGUI();
     }
 
+    public void printStatsFim(){
+        printStats();
+        extras.println_bonito("Monstros Fracos derrotados: " + this.monstros_f_derrot, 400, 200);
+        extras.print("");
+        extras.println_bonito("NPCs derrotados: " + this.npcs_mortos, 400, 200);
+        extras.print("");
+        extras.println_bonito("Bosses derrotados: " + this.monstros_b_derrot, 400, 200);
+        extras.print("");
+        extras.println_bonito("Voce chegou no andar " + fases.andar_atual + " da fase " + fases.fase_atual, 400, 200);
+    }
+
     public void morrer(int indexm, int Tmons){
         extras.print("");
         extras.println_bonito("Voce se sente fraco demais contra " + inimigos.getInimigo(indexm, Tmons).getNome() + ",\nsua visao comeca a ficar escura, e voce fecha totalmente seus olhos...", 2000, 500);
@@ -171,16 +186,7 @@ public class player extends entidade{
         extras.inputS();
         extras.print("");
         extras.println_bonito("Verifique seu progresso nesta ultima tentativa:", 600, 600);
-        printStats();
-        extras.println_bonito("Monstros Fracos derrotados: " + this.monstros_f_derrot, 400, 200);
-        extras.print("");
-        extras.println_bonito("NPCs derrotados: " + this.npcs_mortos, 400, 200);
-        extras.print("");
-        extras.println_bonito("Bosses derrotados: " + this.monstros_b_derrot, 400, 200);
-        extras.print("");
-        extras.println_bonito("Voce chegou no andar " + fases.andar_atual + " da fase " + fases.fase_atual, 400, 200);
-        extras.print("");
-        extras.println_bonito("Precione enter para comecar um novo jogo...", 400, 200);
+        printStatsFim();
         extras.inputS();
         resetNmonstrosderrot();
         resetBuff();
@@ -189,7 +195,7 @@ public class player extends entidade{
         handler.NovoJogo();
     }
 
-    private void resetNmonstrosderrot(){
+    public void resetNmonstrosderrot(){
         this.monstros_b_derrot = 0;
         this.npcs_mortos = 0;
         this.monstros_f_derrot = 0;
