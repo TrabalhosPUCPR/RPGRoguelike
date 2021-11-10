@@ -173,7 +173,7 @@ public class player extends entidade{
         extras.print("");
         extras.println_bonito("Bosses derrotados: " + this.monstros_b_derrot, 400, 200);
         extras.print("");
-        extras.println_bonito("Voce chegou no andar " + fases.andar_atual + " da fase " + fases.fase_atual, 400, 200);
+        extras.println_bonito("Voce chegou no andar " + fases.andar_atual + " da fase " + fases.fase_atual + ", na tentativa numero" + handler.Prun, 400, 200);
     }
 
     public void morrer(int indexm, int Tmons){

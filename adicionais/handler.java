@@ -506,13 +506,99 @@ public class handler {
 
     public static void NovoJogo(){
         extras.console_clear();
+        Prun++;
+        historia();
         ascii.printMonstroAsciipeloNome("logoepico", false);
         //ascii.printMonstroAsciipeloNome("ratagao", true);
-        extras.println_bonito("Bem vindo ao mundo de foda nao sei o nome! ", 1000, 500);
         NovoJogador();
         janela.clearJmonsAscii(false);
         fases.comecarFases(); 
         //aqui vai ser pra dar a introducao para o jogo
+    }
+
+    public static int Prun = 0;
+    static void historia(){
+        if(Prun == 1){
+            extras.print("");
+            extras.println_bonito("....", 800, 500);
+            extras.print("");
+            extras.println_bonito("Voce acorda, e repara que voce esta preso em um lugar esquisito", 800, 500);
+            extras.print("");
+            extras.println_bonito("Voce tenta sair mas repara que esta dentro de uma cela trancada", 800, 500);
+            extras.print("");
+            extras.println_bonito("!", 300, 400);
+            extras.print("");
+            extras.println_bonito("A porta da cela abriu sozinha!", 500, 400);
+            extras.print("");
+            extras.println_bonito("O que esta acontecendo?", 1000, 500);
+            extras.print("");
+            extras.println_bonito("Voce sai da cela, e se prepara para enfrentar o que encontrar!", 1000, 500);
+        }else if(Prun == 2){
+            extras.print("");
+            extras.println_bonito("AAAAAAH", 1000, 800);
+            extras.print("");
+            extras.println_bonito("...", 800, 500);
+            extras.print("");
+            extras.println_bonito("O que aconteceu?", 800, 500);
+            extras.print("");
+            extras.println_bonito("Voce morreu?", 800, 500);
+            extras.print("");
+            extras.println_bonito("Entao como que voce voltou para o inicio?", 800, 500);
+            extras.print("");
+            extras.println_bonito("Voce esta em uma cela, e a porta novamente abriu sozinha", 800, 500);
+            extras.print("");
+            extras.println_bonito("Parece que sua unica opcao e continuar novamente...", 800, 500);
+        }else if(Prun == 3){
+            extras.print("");
+            extras.println_bonito("AAAAAAH", 500, 1200);
+            extras.print("");
+            extras.println_bonito("...", 800, 500);
+            extras.print("");
+            extras.println_bonito("Mais uma vez?", 800, 500);
+            extras.print("");
+            extras.println_bonito("...", 800, 500);
+            extras.print("");
+            extras.println_bonito("Esta tudo acontecendo novamente", 800, 500);
+            extras.print("");
+            extras.println_bonito("Voce esta em um loop infinito", 800, 500);
+            extras.print("");
+            extras.println_bonito("Voce mais uma vez, sem opcao, continua em frente", 800, 500);
+        }else if(Prun == 4){
+            extras.print("");
+            extras.println_bonito("...", 1000, 800);
+            extras.print("");
+            extras.println_bonito(".......", 800, 500);
+            extras.print("");
+            extras.println_bonito("Nao desista!", 800, 500);
+            extras.print("");
+            extras.println_bonito("Liberdade aguarda no fim deste loop!", 800, 500);
+        }else if(Prun == 5){
+            extras.print("");
+            extras.println_bonito("...", 1000, 800);
+            extras.print("");
+            extras.println_bonito("Voce comeca a ouvir vozes vindo das paredes de sua cela...", 800, 500);
+            extras.print("");
+            extras.println_bonito("Parece ser alguem pensando em voz alta", 800, 500);
+            extras.print("");
+            extras.println_bonito("Parece que ele se arrepende de ter vindo para ca?", 800, 500);
+            extras.print("");
+            extras.println_bonito("...", 800, 500);
+            extras.print("");
+            extras.println_bonito("Ele veio atras de um grande deus capaz de realizar qualquer desejo...", 800, 500);
+            extras.print("");
+            extras.println_bonito("Seria por isso que voce esta aqui tambem?", 800, 500);
+            extras.print("");
+            extras.println_bonito("De qualquer maneira, sem opcao, voce deve chegar no fim desta prisao!", 800, 500);
+        }else{
+            extras.print("");
+            extras.println_bonito("...", 1000, 800);
+            extras.print("");
+            extras.println_bonito(".......", 800, 500);
+            extras.print("");
+            extras.println_bonito("Nao desista!", 800, 500);
+            extras.print("");
+            extras.println_bonito("Liberdade aguarda no fim deste loop!", 800, 500);
+        }
     }
 
     static void NovoJogador(){
