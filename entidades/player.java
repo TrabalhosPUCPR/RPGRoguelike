@@ -1,5 +1,6 @@
 package entidades;
 
+import adicionais.combate;
 import adicionais.extras;
 import adicionais.handler;
 import adicionais.janela;
@@ -339,8 +340,7 @@ public class player extends entidade{
             if(fugir(des_atacante)){
                 extras.println("");
                 extras.println_bonito("Voce conseguiu fugir!", 400, 400);
-                handler.jogador.fimLuta(3, tipo);
-                handler.fase.get(fases.fase_atual-1).fimAndar();
+                combate.fugiu = true;
             }else{
                 extras.println("");
                 extras.println_bonito("Voce falhou na tentativa de fugir!", 400, 400);

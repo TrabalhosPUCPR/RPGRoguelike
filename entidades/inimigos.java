@@ -2,6 +2,7 @@ package entidades;
 
 import java.util.ArrayList;
 
+import adicionais.combate;
 import adicionais.extras;
 import adicionais.handler;
 import adicionais.janela;
@@ -89,7 +90,7 @@ public class inimigos extends entidade{
         extras.print("");
         extras.println_bonito("O " + this.nome + " foi derrotado!", 300, 700);
         janela.clearJmonsAscii(true);
-        dropar();
+        if(!combate.fugiu){dropar();}
     }
 
     public void dropar() {

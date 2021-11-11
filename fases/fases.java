@@ -190,6 +190,7 @@ public class fases {
         extras.println("");
         extras.println_bonito("Reiniciar o jogo do inicio?", 600, 600);
         if(extras.simNao()){
+            fase_atual = 1;
             handler.Prun = 0;
             handler.jogador.resetNmonstrosderrot();
             handler.jogador.resetBuff();
